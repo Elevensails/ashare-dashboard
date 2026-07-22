@@ -8,29 +8,45 @@
   :root{--accent:#1e40af;--bg:#f4f6fb;--card:#fff;--mut:#64748b;}
   *{box-sizing:border-box;}
   body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:#0f172a;}
-  .app{max-width:720px;margin:0 auto;padding:16px 14px 40px;}
+  .app{max-width:720px;margin:0 auto;padding:16px 14px 40px;overflow-x:hidden;}
   header{background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;border-radius:16px;padding:16px 18px;}
   .ebadge{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);
     border-radius:999px;font-size:.72rem;padding:3px 10px;margin-bottom:8px;}
   h1{font-size:1.15rem;margin:0 0 4px;font-weight:700;}
   #ts{font-size:.74rem;opacity:.85;}
   .market{margin:14px 0 6px;font-size:.95rem;font-weight:600;}
-  .module{background:var(--card);border-radius:14px;padding:14px 16px;margin:12px 0;box-shadow:0 2px 10px rgba(30,64,175,.06);}
+  .module{background:var(--card);border-radius:14px;padding:14px 16px;margin:12px 0;box-shadow:0 2px 10px rgba(30,64,175,.06);overflow:hidden;}
   .module h2{font-size:.95rem;margin:0 0 10px;color:var(--accent);border-left:4px solid var(--accent);padding-left:8px;}
-  .card{border:1px solid #eef2f7;border-radius:10px;padding:10px 12px;margin-bottom:10px;}
-  .row1{display:flex;align-items:baseline;gap:10px;}
+  .card{border:1px solid #eef2f7;border-radius:10px;padding:10px 12px;margin-bottom:10px;overflow:hidden;}
+  .row1{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
   .nm{font-weight:700;font-size:1rem;}
   .px{font-size:1.05rem;font-weight:700;}
   .up{color:#dc2626;}.dn{color:#16a34a;}
   .row2{font-size:.8rem;color:var(--mut);margin:4px 0;}
   .row3{font-size:.82rem;color:#334155;}
   .row4.op{font-size:.8rem;color:#b45309;margin-top:4px;}
-  .bar{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:.82rem;}
+  .bar{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:.82rem;min-width:0;}
   .bn{width:88px;flex:none;color:#334155;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .bt{height:12px;border-radius:6px;flex:none;}
+  .bbar{flex:1 1 auto;min-width:0;height:12px;background:#e2e8f0;border-radius:6px;overflow:hidden;}
+  .bt{display:block;height:100%;border-radius:6px;}
   .bv{width:74px;flex:none;text-align:right;font-variant-numeric:tabular-nums;}
   .empty{color:var(--mut);font-size:.85rem;}
   .footer{margin-top:22px;color:var(--mut);font-size:.72rem;text-align:center;}
+  @media(max-width:400px){.bn{width:72px;font-size:.75rem;}.bv{width:64px;font-size:.75rem;}}
+  /* 创业板深度 */
+  .cyb-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+  .cyb-sub{font-size:.78rem;color:var(--mut);}
+  .cyb-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0;}
+  .cyb-grid .m{background:#f8fafc;border-radius:8px;padding:8px 4px;text-align:center;}
+  .cyb-grid .mv{font-size:1rem;font-weight:700;}
+  .cyb-grid .mk{font-size:.7rem;color:var(--mut);margin-top:2px;}
+  .cyb-trend{font-size:.8rem;color:#334155;background:#f1f5f9;border-radius:8px;padding:6px 10px;margin:6px 0;}
+  .cyb-row{font-size:.78rem;color:#334155;margin:5px 0;line-height:1.5;}
+  .cyb-label{color:var(--mut);}
+  .cyb-comment{font-size:.8rem;color:#1e293b;background:#eff6ff;border-radius:8px;padding:8px 10px;margin:8px 0;border-left:3px solid var(--accent);}
+  .cyb-note{font-size:.7rem;color:var(--mut);margin-top:6px;}
+  .pill{display:inline-block;font-size:.72rem;padding:2px 8px;border-radius:999px;background:#f1f5f9;margin:2px 4px 2px 0;}
+  @media(max-width:480px){.cyb-grid{grid-template-columns:repeat(2,1fr);}.cyb-head{flex-direction:column;align-items:flex-start;}}
 </style>
 </head>
 <body>
@@ -38,27 +54,43 @@
   <header>
     <div class="ebadge">专家 · A股复盘·预测·盘中追踪</div>
     <h1>A股实时盯盘 · 30秒刷新</h1>
-    <div id="ts">2026-07-22 11:41:20 (北京)</div>
+    <div id="ts">2026-07-22 13:12:54 (北京)</div>
   </header>
-  <div class="market"><span style="color:#dc2626">上证 +0.50%</span> · <span style="color:#dc2626">深证 +0.61%</span> · <span style="color:#16a34a">创业 -0.13%</span></div>
+  <div class="market"><span style="color:#dc2626">上证 +0.09%</span> · <span style="color:#16a34a">深证 -0.15%</span> · <span style="color:#16a34a">创业 -1.27%</span></div>
   <div class="module">
     <h2>持仓实时</h2>
     
         <div class="card">
-          <div class="row1"><span class="nm">创业板指</span><span class="px">3681.20</span>
-            <span class="dn">-0.13%</span></div>
-          <div class="row2">持仓市值 2.80万 · 占比 28% · 盈亏 成本待提供</div>
-          <div class="row3">止损线挂起（成本待用户提供）</div>
-          <div class="row4 op">成本未提供 → 暂只跟踪指数点位，提供成本后自动算盈亏/止损线</div>
+          <div class="row1"><span class="nm">创业板ETF易方达</span><span class="px">3.66</span>
+            <span class="dn">-1.27%</span></div>
+          <div class="row2">持仓市值 1.25万 · 占比 12.52% · 盈亏 -19.50%</div>
+          <div class="row3">破位线 4.19（距 -12.50%）</div>
+          <div class="row4 op">若跌破 4.19 则减仓；回踩支撑区可低吸买回（条件式，非指令）</div>
         </div>
   </div>
   <div class="module">
     <h2>板块实时 Top（行业涨幅）</h2>
-    <div class="bar"><span class="bn">贵金属</span><span class="bt" style="width:100%;background:#dc2626"></span><span class="bv" style="color:#dc2626">+8.08%</span></div><div class="bar"><span class="bn">工业金属</span><span class="bt" style="width:69%;background:#dc2626"></span><span class="bv" style="color:#dc2626">+5.62%</span></div><div class="bar"><span class="bn">油服工程</span><span class="bt" style="width:47%;background:#dc2626"></span><span class="bv" style="color:#dc2626">+3.86%</span></div><div class="bar"><span class="bn">半导体</span><span class="bt" style="width:41%;background:#dc2626"></span><span class="bv" style="color:#dc2626">+3.34%</span></div><div class="bar"><span class="bn">计算机设备</span><span class="bt" style="width:34%;background:#dc2626"></span><span class="bv" style="color:#dc2626">+2.80%</span></div>
+    <div class="bar"><span class="bn">贵金属</span><span class="bbar"><span class="bt" style="width:100%;background:#dc2626"></span></span><span class="bv" style="color:#dc2626">+7.64%</span></div><div class="bar"><span class="bn">工业金属</span><span class="bbar"><span class="bt" style="width:73%;background:#dc2626"></span></span><span class="bv" style="color:#dc2626">+5.59%</span></div><div class="bar"><span class="bn">油服工程</span><span class="bbar"><span class="bt" style="width:54%;background:#dc2626"></span></span><span class="bv" style="color:#dc2626">+4.14%</span></div><div class="bar"><span class="bn">农化制品</span><span class="bbar"><span class="bt" style="width:33%;background:#dc2626"></span></span><span class="bv" style="color:#dc2626">+2.57%</span></div><div class="bar"><span class="bn">计算机设备</span><span class="bbar"><span class="bt" style="width:28%;background:#dc2626"></span></span><span class="bv" style="color:#dc2626">+2.14%</span></div><div class="bar"><span class="bn">炼化及贸易</span><span class="bbar"><span class="bt" style="width:26%;background:#dc2626"></span></span><span class="bv" style="color:#dc2626">+2.00%</span></div>
   </div>
   <div class="module">
     <h2>板块实时 Top（主力净流入）</h2>
-    <div class="bar"><span class="bn">半导体</span><span class="bt" style="width:100%;background:#dc2626"></span><span class="bv" style="color:#dc2626">+0.01亿</span></div><div class="bar"><span class="bn">工业金属</span><span class="bt" style="width:62%;background:#dc2626"></span><span class="bv" style="color:#dc2626">+0.01亿</span></div><div class="bar"><span class="bn">贵金属</span><span class="bt" style="width:19%;background:#dc2626"></span><span class="bv" style="color:#dc2626">+0.00亿</span></div>
+    <div class="bar"><span class="bn">半导体</span><span class="bbar"><span class="bt" style="width:100%;background:#dc2626"></span></span><span class="bv" style="color:#dc2626">+84.53亿</span></div><div class="bar"><span class="bn">工业金属</span><span class="bbar"><span class="bt" style="width:66%;background:#dc2626"></span></span><span class="bv" style="color:#dc2626">+56.10亿</span></div><div class="bar"><span class="bn">元件</span><span class="bbar"><span class="bt" style="width:21%;background:#dc2626"></span></span><span class="bv" style="color:#dc2626">+17.81亿</span></div>
+  </div>
+  <div class="module">
+    <h2>创业板深度 · 5分钟更新</h2>
+    
+    <div class="cyb-head">
+      <div><strong>创业板指</strong> 3640.41 <span style="color:#16a34a">-1.24%</span></div>
+      <div class="cyb-sub">相对强度：<span style="color:#dc2626">上证 +0.08%</span> · <span style="color:#16a34a">深证 -0.14%</span> · <span style="color:#16a34a">科创50 -0.57%</span></div>
+    </div>
+    <div class="cyb-grid"><div class="m"><div class="mv" style="color:#16a34a">3640.41</div><div class="mk">创业板指</div></div><div class="m"><div class="mv" style="color:#16a34a">-1.24%</div><div class="mk">涨跌幅</div></div><div class="m"><div class="mv" style="color:#0f172a">1.70%</div><div class="mk">振幅</div></div><div class="m"><div class="mv" style="color:#0f172a">1.18</div><div class="mk">量比</div></div><div class="m"><div class="mv" style="color:#0f172a">4509.4亿</div><div class="mk">成交额</div></div><div class="m"><div class="mv" style="color:#0f172a">61.6</div><div class="mk">PE-TTM</div></div><div class="m"><div class="mv" style="color:#0f172a">3.662</div><div class="mk">ETF现价</div></div><div class="m"><div class="mv" style="color:#16a34a">-1.27%</div><div class="mk">ETF涨跌</div></div></div>
+    <div class="cyb-trend">中短期：5日 -4.32% · 20日 -14.37% · 60日 -2.15% · 年初至今 +13.65%</div>
+    <div class="cyb-row"><span class="cyb-label">关联板块：</span><span class="pill" style="color:#dc2626">计算机设备 +2.14%</span> <span class="pill" style="color:#dc2626">半导体 +1.01%</span> <span class="pill" style="color:#dc2626">元件 +0.28%</span></div>
+    <div class="cyb-row"><span class="cyb-label">技术位：</span>支撑 3632 / 均价 3665 / 压力 3695 · 52周位置 64.4%</div>
+    <div class="cyb-row"><span class="cyb-label">资金情绪：</span>ETF换手率 9.69% · 量比 0.84 · 内盘占比 52.6% · 委比 62.50%</div>
+    <div class="cyb-comment">当前价在均价下方，日内偏弱；绿盘运行，量比1.18缩量；52周位置 64.4%。条件：若放量突破 3695 则短线转强；若跌破 3632 则延续调整。</div>
+    <div class="cyb-note">* 本模块每 5 分钟重算一次，价格每 30 秒刷新。</div>
+    
   </div>
   <div class="footer">以上分析基于公开数据，不构成投资建议。数据源：东方财富（腾讯财经授权后交叉校验）。</div>
 </div>
