@@ -8,9 +8,8 @@
   :root{
     --accent:#1e40af;--accent2:#1e3a5f;--red:#dc2626;--green:#16a34a;--bg:#f5f7fa;--card:#fff;--line:#e5e7eb;--txt:#1f2937;--mut:#6b7280;
     --pre:#fee2e2;--pre-txt:#991b1b;--noon:#fef3c7;--noon-txt:#92400e;--sect:#ede9fe;--sect-txt:#5b21b6;--close:#dbeafe;--close-txt:#1e40af;--holiday:#f3f4f6;--holiday-txt:#4b5563;
-    /* 12 板块主题色（PC 端浅色 / Mobile 端深色双版本） */
-    --t-ext:#dbeafe;--t-ext-txt:#1e40af;--t-ext-bar:#3b82f6;          /* 外盘 - 蓝 */
-    --t-fut:#dbeafe;--t-fut-txt:#1e40af;--t-fut-bar:#3b82f6;          /* 期货 - 蓝 */
+    --t-ext:#dbeafe;--t-ext-txt:#1e40af;--t-ext-bar:#3b82f6;
+    --t-fut:#dbeafe;--t-fut-txt:#1e40af;--t-fut-bar:#3b82f6;
     --t-auction:#ede9fe;--t-auction-txt:#5b21b6;--t-auction-bar:#7c3aed; /* 竞价 - 紫 */
     --t-review:#ede9fe;--t-review-txt:#5b21b6;--t-review-bar:#7c3aed;   /* 回顾 - 紫 */
     --t-news:#ede9fe;--t-news-txt:#5b21b6;--t-news-bar:#7c3aed;       /* 舆情监控 - 紫 */
@@ -23,22 +22,22 @@
     --t-summary:#fed7aa;--t-summary-txt:#9a3412;--t-summary-bar:#ea580c; /* 总结 - 橙 */
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;font-size:14px;line-height:1.6}
-  .wrap{max-width:1240px;margin:0 auto;padding:0 16px 60px}
-  header.top{background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;padding:22px 0 18px;margin-bottom:0}
-  header.top h1{margin:0 0 6px;font-size:22px;font-weight:700}
-  header.top .sub{opacity:.92;font-size:12.5px}
-  .top-stat{display:flex;gap:10px;margin-top:10px;font-size:12px;flex-wrap:wrap}
-  .top-stat div{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:3px 10px}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;font-size:15px;line-height:1.7}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 20px 70px}
+  header.top{background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;padding:26px 0 20px;margin-bottom:0}
+  header.top h1{margin:0 0 8px;font-size:24px;font-weight:700}
+  header.top .sub{opacity:.92;font-size:13px}
+  .top-stat{display:flex;gap:10px;margin-top:10px;font-size:12.5px;flex-wrap:wrap}
+  .top-stat div{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:4px 12px}
   .top-stat b{color:#fde68a;margin-right:3px}
   /* 顶部指数预览条（黑底） */
   .indices-bar{background:#1f2937;color:#fff;padding:14px 16px;display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:0}
   .idx{text-align:center;display:flex;flex-direction:column;gap:2px;padding:4px 0}
-  .idx-n{font-size:12px;opacity:.85}
-  .idx-p{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
-  .idx-v{font-size:11px;opacity:.7;font-variant-numeric:tabular-nums}
+  .idx-n{font-size:12.5px;opacity:.85}
+  .idx-p{font-size:18px;font-weight:700;font-variant-numeric:tabular-nums}
+  .idx-v{font-size:11.5px;opacity:.7;font-variant-numeric:tabular-nums}
   /* 红色徽章 */
-  .hot-badge{display:block;background:#dc2626;color:#fff;padding:10px 16px;text-align:center;font-weight:700;font-size:14px;letter-spacing:.5px}
+  .hot-badge{display:block;background:#dc2626;color:#fff;padding:12px 18px;text-align:center;font-weight:700;font-size:14px;letter-spacing:.5px}
   /* 持仓快照 */
   .holdings-bar{display:flex;flex-wrap:wrap;gap:8px;padding:14px 16px;background:#fff;border-bottom:1px solid var(--line)}
   .h-item{flex:1 1 200px;background:#f8fafc;border:1px solid var(--line);border-radius:9px;padding:8px 12px;font-size:12.5px;display:flex;flex-direction:column;gap:2px;min-width:0}
@@ -48,10 +47,10 @@
   /* 通用模块 */
   .m{background:var(--card);border:1px solid var(--line);border-radius:0;padding:16px 20px;margin:0 0 0;border-bottom:1px solid var(--line)}
   .m:last-child{border-bottom:none}
-  .m h2{margin:-16px -20px 12px;font-size:16px;font-weight:700;color:var(--accent2);padding:10px 14px;background:rgba(0,0,0,.04);border-left:4px solid var(--accent)}
+  .m h2{margin:-18px -22px 14px;font-size:17px;font-weight:700;color:var(--accent2);padding:12px 16px;background:rgba(0,0,0,.04);border-left:4px solid var(--accent)}
   .m h3.sub-h{margin:14px 0 8px;font-size:13.5px;color:#475569;font-weight:600}
-  .m .lead{color:#374151;font-size:13px;margin:0 0 12px;line-height:1.65}
-  .m .src{color:var(--mut);font-size:11.5px;margin-top:8px;font-style:italic}
+  .m .lead{color:#374151;font-size:13.5px;margin:0 0 12px;line-height:1.65}
+  .m .src{color:var(--mut);font-size:12px;margin-top:8px;font-style:italic}
   /* 12 板块主题色（PC 端：只 h2 用色块背景，正文白底） */
   .m.m-ext{border-left:5px solid var(--t-ext-bar)}
   .m.m-ext h2{background:var(--t-ext);color:var(--t-ext-txt);border-left:4px solid var(--t-ext-bar)}
@@ -87,7 +86,7 @@
   .core-interpret{background:linear-gradient(135deg,#eff6ff,#fff);border-left:3px solid var(--accent);padding:9px 12px;border-radius:6px;font-size:12.5px;margin-top:10px;color:#1e3a5f;line-height:1.7}
   .key-eval{background:linear-gradient(135deg,#fef3c7,#fff);border-left:3px solid #d97706;padding:9px 12px;border-radius:6px;font-size:12.5px;margin-top:8px;color:#78350f;line-height:1.7}
   /* 舆情列表 */
-  ul.news-list{list-style:none;margin:0;padding:0;font-size:12.5px;line-height:1.7}
+  ul.news-list{list-style:none;margin:0;padding:0;font-size:13px;line-height:1.8}
   ul.news-list li{padding:6px 0;border-bottom:1px dashed #e5e7eb;display:flex;gap:8px}
   ul.news-list li:last-child{border-bottom:none}
   ul.news-list .time{flex:0 0 auto;background:#eef2ff;color:var(--accent);border-radius:5px;padding:1px 6px;font-size:11px;font-weight:600}
@@ -101,12 +100,12 @@
   /* 5份报告卡（我方） */
   .our-reports{background:linear-gradient(135deg,#fafbff,#fff);border:1px solid #c7d7ff;border-radius:0;padding:16px 20px;margin:0;border-bottom:1px solid var(--line)}
   .our-reports h2{margin:0 0 10px;font-size:16px;font-weight:700;color:var(--accent2);border-left:4px solid var(--accent);padding-left:10px}
-  .reports{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .reports{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
   .hot-badge-full{background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;padding:14px 18px;margin:0 0 0;border-bottom:2px solid #fde68a}
-  .hot-badge-full .hb-head{font-size:14px;font-weight:700;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
-  .hot-badge-full .hb-body{font-size:13.5px;line-height:1.6;margin-bottom:8px}
+  .hot-badge-full .hb-head{font-size:15px;font-weight:700;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+  .hot-badge-full .hb-body{font-size:14px;line-height:1.6;margin-bottom:8px}
   .hot-badge-full .hb-body .bull{color:#fef08a;font-weight:800}
-  .hot-badge-full .hb-meta{font-size:11.5px;opacity:.85;border-top:1px dashed rgba(255,255,255,.3);padding-top:6px}
+  .hot-badge-full .hb-meta{font-size:12px;opacity:.85;border-top:1px dashed rgba(255,255,255,.3);padding-top:6px}
   .report{border-radius:11px;padding:14px 16px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:6px;border-left:5px solid;background:#fff;transition:.15s;min-width:0;position:relative}
   .report:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
   .report.planned{opacity:.7;cursor:not-allowed}
@@ -119,12 +118,12 @@
   .report.r-live{background:linear-gradient(135deg,#fef9c3,#fff);border-color:#ca8a04;color:#713f12;animation:pulse 2s ease-in-out infinite}
   @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(202,138,4,.2)}50%{box-shadow:0 0 0 6px rgba(202,138,4,0)}}
   .report.r-holiday{background:var(--holiday);border-color:#6b7280;color:var(--holiday-txt)}
-  .report .rt{font-size:15.5px;font-weight:700;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-  .report .rtime{font-size:12px;opacity:.85;font-weight:600}
+  .report .rt{font-size:16px;font-weight:700;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .report .rtime{font-size:12.5px;opacity:.85;font-weight:600}
   .report .rpills{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
   .report .spill{background:rgba(255,255,255,.7);color:inherit;border:1px solid rgba(0,0,0,.08);font-size:10.5px;border-radius:8px;padding:1px 6px;font-weight:600}
-  .report .rdesc{font-size:12.5px;line-height:1.55;margin-top:4px;opacity:.9}
-  .report .rgo{font-size:12.5px;font-weight:700;margin-top:6px;opacity:.9}
+  .report .rdesc{font-size:13px;line-height:1.55;margin-top:4px;opacity:.9}
+  .report .rgo{font-size:13px;font-weight:700;margin-top:6px;opacity:.9}
   .report .rbadge{font-size:9.5px;background:rgba(0,0,0,.08);color:inherit;border:1px dashed rgba(0,0,0,.2);border-radius:5px;padding:1px 5px;font-weight:600;margin-left:2px}
   .report.r-intraday .rbadge,.report.r-close .rbadge,.report.r-live .rbadge{background:rgba(30,64,175,.15);border-color:rgba(30,64,175,.3);color:#1e40af}
   /* 二级页 CTA + Skill 全家桶 */
@@ -178,11 +177,11 @@
     .report .rdesc{color:#cbd5e1!important;opacity:1}
     .report .spill{background:rgba(0,0,0,.3)!important;color:inherit!important;border-color:rgba(255,255,255,.15)!important}
     /* top-stat 字号小 */
-    .top-stat{font-size:11px}
-    .top-stat div{padding:2px 8px}
+    .top-stat{font-size:12px}
+    .top-stat div{padding:3px 9px}
     /* cta */
     .cta-row{flex-direction:column;align-items:stretch;gap:8px}
-    .cta-btn{font-size:12.5px;padding:10px 14px}
+    .cta-btn{font-size:13px;padding:12px 16px}
     /* footer 深色 */
     footer{background:#0f172a;color:#94a3b8;border-top:1px solid #1e293b}
     /* hero 字号小 */
@@ -214,11 +213,11 @@
 </div></header>
 
 <!-- 顶部指数预览条（6 指数 + 备注） -->
-<div class="indices-bar"><div class="idx"><div class="idx-n">道指</div><div class="idx-p" style="color:#16a34a">+0.15%</div><div class="idx-v" style="color:#cbd5e1">52,301.88</div></div>
-    <div class="idx"><div class="idx-n">纳指</div><div class="idx-p" style="color:#dc2626">-0.46%</div><div class="idx-v" style="color:#cbd5e1">25,718.06</div></div>
+<div class="indices-bar"><div class="idx"><div class="idx-n">道指</div><div class="idx-p" style="color:#16a34a">+0.10%</div><div class="idx-v" style="color:#cbd5e1">52,276.69</div></div>
+    <div class="idx"><div class="idx-n">纳指</div><div class="idx-p" style="color:#dc2626">-0.51%</div><div class="idx-v" style="color:#cbd5e1">25,706.28</div></div>
     <div class="idx"><div class="idx-n">恒生指数</div><div class="idx-p" style="color:#dc2626">-0.95%</div><div class="idx-v" style="color:#cbd5e1">24,892.66</div></div>
     <div class="idx"><div class="idx-n">恒生科技</div><div class="idx-p" style="color:#dc2626">-3.04%</div><div class="idx-v" style="color:#cbd5e1">4,668.23</div></div>
-    <div class="idx"><div class="idx-n">标普500</div><div class="idx-p" style="color:#dc2626">-0.16%</div><div class="idx-v" style="color:#cbd5e1">7,497.12</div></div>
+    <div class="idx"><div class="idx-n">标普500</div><div class="idx-p" style="color:#dc2626">-0.16%</div><div class="idx-v" style="color:#cbd5e1">7,497.17</div></div>
     <div class="idx"><div class="idx-n">WTI原油</div><div class="idx-p" style="color:#16a34a">+2.50%</div><div class="idx-v" style="color:#cbd5e1">84.54</div></div>
     <div class="idx"><div class="idx-n">COMEX金</div><div class="idx-p" style="color:#16a34a">+1.65%</div><div class="idx-v" style="color:#cbd5e1">4,082.20</div></div>
     <div class="idx"><div class="idx-n">上证</div><div class="idx-p" style="color:#16a34a">+0.07%</div><div class="idx-v" style="color:#cbd5e1">3,867.03</div></div>
@@ -227,9 +226,7 @@
 
 <!-- Agent 实时研究分析（红色填充 · 合并原 topcall + hot-badge，去除重复） -->
 <div class="hot-badge-full">
-  <div class="hb-head">🤖 Agent 实时研究分析中 · 数据每 5 分钟自动同步</div>
-  <div class="hb-body">今日高开概率大：<span class="bull">有色板块（商品周期+防御双轮）</span>作为主线候选，<span class="bull">银行ETF作为防御对冲</span>；创业板ETF 观察 3.90 关键突破位（浮亏较大，谨慎追高）；百合花待成本补完后激活操作信号。结构性机会优于指数，节奏胜于方向。</div>
-  <div class="hb-meta">▶ 综合研判依据：westock-data 实时外盘 5 指数 + 今日 6 大板块信号 + 5 持仓映射（创业板/有色/招行/紫光/百合花）</div>
+<div class="hb-head">🤖 Agent 实时研究分析中 · 数据每 5 分钟自动同步</div><div class="hb-body"><b>今日震荡概率大：</b>其他潜在主力板块：半导体（紫光国微 MCU 催化）、消费（国常会统一大市场）、新能源（汽车产业座谈会延续宽松）。</div><div class="hb-meta">▶ 行业板块信号：数据加载中，等待 9:21 盘前舆情自动更新 · 综合研判由 westock-data 实时拉取 · 与盘中 5 时段追踪保持同步更新频率（每 5 分钟）</div>
 </div>
 
 <!-- 我方报告（4 卡片 · 2×2 网格：盘前/盘中/盘后/实时） -->
