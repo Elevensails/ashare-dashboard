@@ -65,6 +65,19 @@
     .top-stat{font-size:11px}
   }
 </style>
+<style>
+.section-meta{display:inline-block;background:#fef3c7;color:#92400e;border:1px solid #fde68a;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:600;margin-left:10px;vertical-align:middle}
+.section-freq{display:inline-block;background:#eef2ff;color:#1e40af;border:1px solid #c7d7ff;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:600;margin-left:6px;vertical-align:middle}
+.m h2{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.pagination{display:flex;gap:6px;justify-content:center;align-items:center;margin-top:14px;padding:10px 0;border-top:1px dashed #e5e7eb}
+.pagination button{background:#fff;border:1px solid #cbd5e1;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:13px;color:#334155;transition:.15s}
+.pagination button:hover:not(:disabled){background:#1e40af;color:#fff;border-color:#1e40af}
+.pagination button.active{background:#1e40af;color:#fff;border-color:#1e40af;font-weight:700}
+.pagination button:disabled{opacity:.4;cursor:not-allowed}
+.pagination .page-info{font-size:12px;color:#6b7280;margin:0 8px}
+.page-content{display:none}
+.page-content.active{display:block}
+</style>
 </head>
 <body>
 
@@ -113,7 +126,7 @@
 
 <!-- 1 隔夜外盘 -->
 <div class="m">
-  <h2>1 隔夜外盘 · 关键 6 指数</h2>
+  <h2>1 隔夜外盘 · 关键 6 指数 <span class="section-meta">🕒 2026-07-22 23:21 已更新</span> <span class="section-freq">⏱ 每 10 分钟</span></h2>
   <p class="lead">重点关注美股/港股/原油/黄金表现对 A 股开盘影响：美股芯片股暴涨（费城半导体 +5.21%）+ 国际油价走强 + 黄金创新高 → A 股科技/有色/银行板块利好共振。</p>
   <table class="tbl">
     <thead><tr><th>指数</th><th>现价</th><th>涨跌幅</th><th>对 A 股影响</th></tr></thead>
@@ -139,12 +152,14 @@
 
 <!-- 2 本周末/今晨要闻 -->
 <div class="m">
-  <h2>2 本周末 / 今晨要闻</h2>
-  <ul class="news-list">
-    <li>
+  <h2>2 昨夜 / 今晨要闻 <span class="section-meta">🕒 2026-07-22 23:21 已更新</span> <span class="section-freq">⏱ 每 30 分钟</span></h2>
+  <div id="news-pages">
+  <div class="page-content active" data-page="1">
+    <ul class="news-list">
+      <li>
       <span class="time">2026-07-21</span>
       <span><b>央行公开市场操作净投放 2340 亿元</b>，呵护跨月流动性。央行 7/21 通过 7 天逆回购投放 2780 亿元、当日到期 440 亿元，实现净投放 2340 亿元。市场利率保持低位，DR007 维持在 1.6% 政策利率下方，跨月资金面平稳。利好：银行间流动性宽松，缓解 7 月底税期扰动。</span>
-      <a href="http://www.pbc.gov.cn/zhengwugongkai/4081330/index.html" target="_blank" style="color:#1e40af;text-decoration:underline;margin-left:6px">→ 央行官网</a>
+      <a href="http://www.pbc.gov.cn/" target="_blank" style="color:#1e40af;text-decoration:underline;margin-left:6px">→ 央行官网</a>
     </li>
     <li>
       <span class="time">2026-07-21</span>
@@ -153,22 +168,22 @@
     </li>
     <li>
       <span class="time">2026-07-21</span>
-      <span><b>国常会研究部署加快建设全国统一大市场</b>，关注消费板块。会议指出要破除地方保护和市场分割，打通制约经济循环的关键堵点；促进商品要素资源在更大范围内畅通流动。利好：消费/物流/电商/连锁零售板块，特别是全国性连锁品牌。</span>
+      <span><b>国常会研究部署加快建设全国统一大市场</b>，关注消费板块。会议指出要破除地方保护和市场分割，打通制约经济循环的关键堵点；促进商品要素资源在更大范围内畅通流动。利好：消费/物流/电商/连锁零售板块。</span>
       <a href="https://www.gov.cn/" target="_blank" style="color:#1e40af;text-decoration:underline;margin-left:6px">→ 中国政府网</a>
     </li>
     <li>
       <span class="time">2026-07-22</span>
-      <span><b>美国 6 月未季调 CPI 数据今晚 20:30 公布</b>，市场预期 3.1%（前值 3.3%），核心 CPI 预期 3.4%（前值 3.5%）。若实际值低于预期 → 9 月降息预期升温 → 美股+黄金+商品齐涨，利好 A 股高弹性科技/有色板块；若高于预期 → 风险资产承压。</span>
+      <span><b>美国 6 月未季调 CPI 数据今晚 20:30 公布</b>，市场预期 3.1%（前值 3.3%），核心 CPI 预期 3.4%。若实际值低于预期 → 9 月降息预期升温 → 美股+黄金+商品齐涨，利好 A 股高弹性科技/有色板块；若高于预期 → 风险资产承压。</span>
       <a href="https://www.bls.gov/cpi/" target="_blank" style="color:#1e40af;text-decoration:underline;margin-left:6px">→ 美劳工统计局</a>
     </li>
     <li>
       <span class="time">2026-07-22</span>
-      <span><b>美联储官员讲话：通胀回落路径符合预期</b>，9 月降息窗口打开。美联储理事沃勒在最新讲话中表示，最新通胀数据增强了信心，若 6/7/8 月 CPI 数据持续下行，9 月降息将是合适的。CME FedWatch 工具显示 9 月降息概率已升至 78%（前一周 62%）。利好：全球流动性预期改善。</span>
+      <span><b>美联储官员讲话：通胀回落路径符合预期</b>，9 月降息窗口打开。美联储理事沃勒在最新讲话中表示，最新通胀数据增强了信心，若 6/7/8 月 CPI 数据持续下行，9 月降息将是合适的。CME FedWatch 工具显示 9 月降息概率已升至 78%（前一周 62%）。</span>
       <a href="https://www.federalreserve.gov/" target="_blank" style="color:#1e40af;text-decoration:underline;margin-left:6px">→ 美联储</a>
     </li>
     <li>
       <span class="time">2026-07-22</span>
-      <span><b>有色金属期货夜盘全线上涨</b>：沪铜主力 +0.8% 报 78,940 元/吨、沪铝 +1.2% 报 20,580 元/吨、沪金 +0.5% 报 558.2 元/克、沪银 +3.5% 报 8,420 元/千克。伦敦金属交易所（LME）3 个月期铜上涨 2.08% 报 13,905.5 美元/吨，创 1 个月新高。驱动因素：美元走弱 + 9 月降息预期 + 美伊协议框架进展。</span>
+      <span><b>有色金属期货夜盘全线上涨</b>：沪铜主力 +0.8% 报 78,940 元/吨、沪铝 +1.2% 报 20,580 元/吨、沪金 +0.5% 报 558.2 元/克、沪银 +3.5% 报 8,420 元/千克。LME 3 个月期铜上涨 2.08% 报 13,905.5 美元/吨创 1 个月新高。驱动因素：美元走弱 + 9 月降息预期 + 美伊协议框架进展。</span>
       <a href="http://www.shfe.com.cn/" target="_blank" style="color:#1e40af;text-decoration:underline;margin-left:6px">→ 上期所</a>
       <a href="https://www.lme.com/" target="_blank" style="color:#1e40af;text-decoration:underline;margin-left:6px">→ LME</a>
     </li>
@@ -176,15 +191,49 @@
       <span class="time">2026-07-22</span>
       <span><b>紫光国微（sz002049）22nm 车规级 MCU 获国内头部车企定点</b>，切入新能源汽车核心供应链。本次定点为国内某头部自主品牌车企 2027 年量产车型，订单生命周期 5 年，预计带来 8-12 亿元营收增量。紫光国微车规级 MCU 累计获 6 家车企定点，2026H1 车规业务同比增长 230%。</span>
       <a href="https://www.unigroup.com.cn/" target="_blank" style="color:#1e40af;text-decoration:underline;margin-left:6px">→ 紫光集团</a>
-      <a href="http://www.szse.cn/disclosure/listed/notice/index.html?stock=002049" target="_blank" style="color:#1e40af;text-decoration:underline;margin-left:6px">→ 紫光国微公告</a>
     </li>
+  </ul>
+  </div>
+  <div class="page-content" data-page="2">
+    <ul class="news-list">
     <li>
       <span class="time">2026-07-22</span>
       <span><b>招商银行（sh600036）发布 2026 年上半年业绩快报</b>：归母净利润 753.79 亿元，同比 +1.4%；营业收入 1724.51 亿元，同比 -1.0%；不良贷款率 0.95%（与上年末持平）；拨备覆盖率 411.98%。资产质量稳健，零售业务持续转型，财富管理 AUM 突破 14 万亿。银行板块中业绩最优。</span>
       <a href="https://www.cmbchina.com/" target="_blank" style="color:#1e40af;text-decoration:underline;margin-left:6px">→ 招行官网</a>
-      <a href="http://www.sse.com.cn/disclosure/listedinfo/announcement/?stockCode=600036" target="_blank" style="color:#1e40af;text-decoration:underline;margin-left:6px">→ 招行公告</a>
     </li>
-  </ul>
+    <li>
+      <span class="time">2026-07-22</span>
+      <span><b>证监会召开专家座谈会 · 增强市场内在稳定性</b>。证监会党委班子 7/20-21 分别召开座谈会，听取 29 位上市公司/证券基金机构/专家学者的意见建议。明确"防风险、强监管、促高质量发展"总基调，对券商、基金行业逆周期布局提出要求。对 A 股：稳定市场预期，利好券商板块 + 价值蓝筹。</span>
+      <a href="http://www.csrc.gov.cn/" target="_blank" style="color:#1e40af;text-decoration:underline;margin-left:6px">→ 证监会</a>
+    </li>
+    <li>
+      <span class="time">2026-07-22</span>
+      <span><b>特朗普称胡塞武装若封锁红海将采取行动</b>。美国总统特朗普 7/21 在白宫会见到访的黎巴嫩总统奥恩时表示，如也门胡塞武装封锁红海美国将"采取行动"。胡塞武装 20 日宣布对沙特"海上禁运"。叠加伊朗"全面作战"讨论，中东地缘风险持续抬升，WTI 原油 +2.5% 创 1 周新高。</span>
+      <a href="https://www.reuters.com/world/middle-east/" target="_blank" style="color:#1e40af;text-decoration:underline;margin-left:6px">→ 路透中东</a>
+    </li>
+    <li>
+      <span class="time">2026-07-22</span>
+      <span><b>人民币对美元中间价调升 31 个基点</b>。7/22 中间价 6.7917（前值 6.7948），在岸人民币 16:30 收盘 6.7668，夜盘 6.7665。离岸人民币 6.7689。人民币对美元连续走稳，叠加美元指数 101.21 微跌，外资配置 A 股吸引力增强。</span>
+      <a href="http://www.pbc.gov.cn/" target="_blank" style="color:#1e40af;text-decoration:underline;margin-left:6px">→ 央行外汇</a>
+    </li>
+    <li>
+      <span class="time">2026-07-22</span>
+      <span><b>伦敦基本金属多数上涨</b>。LME 3 月期铜 +2.08% 报 13905.5 美元/吨创 1 个月新高；期锡 +2.32% 报 54105；期镍 +1.01% 报 17100；期锌 +0.80% 报 3548；期铝 +0.68% 报 3161.5。LME 金属普涨叠加国内夜盘沪铜沪铝同步走强，今日有色板块有望高开。</span>
+      <a href="https://www.lme.com/" target="_blank" style="color:#1e40af;text-decoration:underline;margin-left:6px">→ LME</a>
+    </li>
+    <li>
+      <span class="time">2026-07-22</span>
+      <span><b>现货白银 +4% 报 58.80 美元 / 盎司</b>。COMEX 白银期货 +3.50% 报 59.07 美元。伦敦金现货 +1.76% 报 4078.31。贵金属板块齐涨，白银涨幅领先（工业属性更强）。A 股白银股（兴业银锡/盛屯矿业）有联动机会。</span>
+      <a href="https://www.kitco.com/silver-price-today-usa.html" target="_blank" style="color:#1e40af;text-decoration:underline;margin-left:6px">→ Kitco</a>
+    </li>
+    </ul>
+  </div>
+  <div class="pagination" data-target="news-pages">
+    <button class="page-btn active" data-page="1">1</button>
+    <button class="page-btn" data-page="2">2</button>
+    <span class="page-info">第 1 / 2 页 · 共 13 条要闻</span>
+  </div>
+</div>
   <p style="background:#f0f9ff;padding:10px 12px;border-left:3px solid #1e40af;border-radius:4px;font-size:12.5px;margin-top:10px">
     📡 <b>新闻信源补充</b>（点击查看更多时事）：
     <a href="https://www.zhihu.com/billboard" target="_blank" style="color:#1e40af;text-decoration:underline;margin-right:8px">📱 知乎热榜</a>
@@ -197,7 +246,7 @@
 
 <!-- 3 今日关键事件 -->
 <div class="m">
-  <h2>3 今日关键事件 · 宏观 / 财报 / 大会</h2>
+  <h2>3 今日关键事件 · 宏观 / 财报 / 大会 <span class="section-meta">🕒 2026-07-22 23:21 已更新</span> <span class="section-freq">⏱ 每 2 小时</span></h2>
   <table class="tbl">
     <thead><tr><th>时间 (YYYY-MM-DD)</th><th>类型</th><th>事件详情</th><th>预期/前值</th><th>影响板块</th><th>信源</th></tr></thead>
     <tbody>
@@ -254,9 +303,46 @@
   <div class="src">▶ 宏观日历由 china-economic-calendar (akshare) 拉取 · 财报预告由 earnings-tracker 拉取 · 事件已扩充背景说明 + 官方信源超链接</div>
 </div>
 
-<!-- 4 异动预警 · 持仓 ETF 映射 -->
 <div class="m">
-  <h2>4 异动预警 · 持仓 ETF 映射</h2>
+  <h2>4 外盘情况分析 · 综合研判 <span class="section-meta">🕒 2026-07-22 23:21 已更新</span> <span class="section-freq">⏱ 每 30 分钟</span></h2>
+  <p class="lead">综合外盘指数、汇率、商品期货、海外财报与地缘事件，定频率研判隔夜外盘对 A 股今日开盘的影响力度与板块映射。</p>
+
+  <div class="signal-card bull">
+    <div class="sl">🟢 美股板块强度</div>
+    <div class="sr">科技股领涨 · 风险偏好回升</div>
+    <div class="smeta">费城半导体 +5.21% · 美光 +12% / 英特尔 +8% / 闪迪 +14% / SK 海力士 +13%。芯片股集体走强 → 对应 A 股半导体板块（紫光国微 sz002049 持有）今日高开概率较大。存储芯片涨价周期 + AI 算力需求双重驱动，关注 7/22 早盘半导体 ETF 表现。</div>
+  </div>
+
+  <div class="signal-card bull">
+    <div class="sl">🟢 黄金 + 商品货币</div>
+    <div class="sr">避险 + 9 月降息预期共振</div>
+    <div class="smeta">COMEX 金 +1.65% 报 4082.20（创新高）/ WTI +2.50% 报 84.54 / 沪铜主力夜盘 +0.8%。美元指数 101.21 微跌 + 美联储 9 月降息概率升至 78%（CME FedWatch）→ 利好有色板块（有色ETF sz512400 持有）作为今日主线候选。</div>
+  </div>
+
+  <div class="signal-card">
+    <div class="sl">🟡 中概股 / 港股</div>
+    <div class="sr">中概金龙 -0.68% · 港股承压</div>
+    <div class="smeta">恒生指数 -0.95% 报 24892.66 / 恒生科技 -3.04% 报 4668.23 / 纳斯达克中国金龙指数 -0.68%。港股科技拖累 A 股科技股开盘情绪，但内 A 股科技板块未必跟跌（内 A 政策面 + 半导体国产替代利好对冲）。</div>
+  </div>
+
+  <div class="signal-card bear">
+    <div class="sl">🟠 地缘 + 汇率</div>
+    <div class="sr">中东局势升温 · 美元偏弱</div>
+    <div class="smeta">美伊互相攻击升级 + 霍尔木兹海峡航运受阻 + 也门胡塞武装对沙特海上封锁 + 俄罗斯黑海码头遇袭 → WTI 7/21 夜盘暴涨 2.5%。叠加美元走弱利好大宗商品，今日有色 + 化工 + 油服板块有事件驱动机会。在岸人民币 6.7668 走稳，对 A 股外资流入中性偏正。</div>
+  </div>
+
+  <div class="signal-card">
+    <div class="sl">🟡 海外财报窗口</div>
+    <div class="sr">本周财报季高潮已过</div>
+    <div class="smeta">本周美股科技股财报基本披露完毕，市场进入真空期。下一关键节点：7/30-31 美联储 7 月议息会议 + 下周美国 6 月 PCE 通胀。短期美股以"经济软着陆"主线运行，A 股科技板块联动减弱。</div>
+  </div>
+
+  <div class="src">▶ 外盘数据由 westock-data 拉取（usDJI/IXIC/INX/hkHSI/hkHSTECH/usCL/usGC）+ websearch 拉 WTI/COMEX/CME 实时数据。综合研判每 30 分钟自动更新一次。</div>
+</div>
+
+<!-- 5 异动预警 · 持仓 ETF 映射 -->
+<div class="m">
+  <h2>5 异动预警 · 持仓 ETF 映射 <span class="section-meta">🕒 2026-07-22 23:21 已更新</span> <span class="section-freq">⏱ 每 15 分钟</span></h2>
   <div class="signal-card bull">
     <div class="sl">🔥 有色ETF博时 sz512400</div>
     <div class="sr">今日主线候选</div>
@@ -286,7 +372,7 @@
 
 <!-- 5 交易想法 -->
 <div class="m">
-  <h2>5 交易想法 · Agent 综合研判</h2>
+  <h2>6 交易想法 · Agent 综合研判 <span class="section-meta">🕒 2026-07-22 23:21 已更新</span> <span class="section-freq">⏱ 每 15 分钟</span></h2>
   <div class="signal-card bull">
     <div class="sl">🟢 长：有色ETF（sz512400）</div>
     <div class="sr">风险中 · 短线</div>
@@ -316,7 +402,7 @@
 
 <!-- 6 总结 -->
 <div class="m">
-  <h2>6 总结 · Agent 综合研判</h2>
+  <h2>7 总结 · Agent 综合研判 <span class="section-meta">🕒 2026-07-22 23:21 已更新</span> <span class="section-freq">⏱ 每 5 分钟</span></h2>
   <div class="summary">
     <p>整体定性：<b>今日高开概率大</b>。结构胜于指数——外围利好叠加国内政策面持续释放稳预期信号（民营经济+新能源汽车+统一大市场），结构性机会丰富。</p>
     <p>主线候选：<b>有色板块</b>（沪铜/沪铝/沪金夜盘三重重共振 + 9 月降息预期 + 美元走弱）。如有色ETF盘前竞价 +1.5% 以上，可作为今日主线跟踪。</p>
@@ -332,5 +418,17 @@
   以上分析基于公开数据，不构成投资建议
 </footer>
 
+<script>
+document.querySelectorAll('.pagination').forEach(function(p){
+  var target = p.getAttribute('data-target');
+  var pages = document.querySelectorAll('#'+target+' .page-content');
+  var btns = p.querySelectorAll('.page-btn');
+  function go(pg){
+    pages.forEach(function(el){ el.classList.toggle('active', el.getAttribute('data-page')===pg); });
+    btns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-page')===pg); });
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ go(b.getAttribute('data-page')); }); });
+});
+</script>
 </body>
 </html>
