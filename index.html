@@ -24,7 +24,7 @@
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;font-size:14px;line-height:1.6}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 16px 60px}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 16px 60px}
   header.top{background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;padding:22px 0 18px;margin-bottom:0}
   header.top h1{margin:0 0 6px;font-size:22px;font-weight:700}
   header.top .sub{opacity:.92;font-size:12.5px}
@@ -48,35 +48,35 @@
   /* 通用模块 */
   .m{background:var(--card);border:1px solid var(--line);border-radius:0;padding:16px 20px;margin:0 0 0;border-bottom:1px solid var(--line)}
   .m:last-child{border-bottom:none}
-  .m h2{margin:0 0 10px;font-size:16px;font-weight:700;color:var(--accent2);border-left:4px solid var(--accent);padding-left:10px}
+  .m h2{margin:-16px -20px 12px;font-size:16px;font-weight:700;color:var(--accent2);padding:10px 14px;background:rgba(0,0,0,.04);border-left:4px solid var(--accent)}
   .m h3.sub-h{margin:14px 0 8px;font-size:13.5px;color:#475569;font-weight:600}
   .m .lead{color:#374151;font-size:13px;margin:0 0 12px;line-height:1.65}
   .m .src{color:var(--mut);font-size:11.5px;margin-top:8px;font-style:italic}
-  /* 12 板块主题色（PC 端浅色 + mobile 端深色由 @media 覆盖） */
-  .m.m-ext{background:var(--t-ext);border-left:5px solid var(--t-ext-bar)}
-  .m.m-ext h2{color:var(--t-ext-txt);border-left:4px solid var(--t-ext-bar)}
-  .m.m-fut{background:var(--t-fut);border-left:5px solid var(--t-fut-bar)}
-  .m.m-fut h2{color:var(--t-fut-txt);border-left:4px solid var(--t-fut-bar)}
-  .m.m-auction{background:var(--t-auction);border-left:5px solid var(--t-auction-bar)}
-  .m.m-auction h2{color:var(--t-auction-txt);border-left:4px solid var(--t-auction-bar)}
-  .m.m-review{background:var(--t-review);border-left:5px solid var(--t-review-bar)}
-  .m.m-review h2{color:var(--t-review-txt);border-left:4px solid var(--t-review-bar)}
-  .m.m-news{background:var(--t-news);border-left:5px solid var(--t-news-bar)}
-  .m.m-news h2{color:var(--t-news-txt);border-left:4px solid var(--t-news-bar)}
-  .m.m-research{background:var(--t-research);border-left:5px solid var(--t-research-bar)}
-  .m.m-research h2{color:var(--t-research-txt);border-left:4px solid var(--t-research-bar)}
-  .m.m-calendar{background:var(--t-calendar);border-left:5px solid var(--t-calendar-bar)}
-  .m.m-calendar h2{color:var(--t-calendar-txt);border-left:4px solid var(--t-calendar-bar)}
-  .m.m-north{background:var(--t-north);border-left:5px solid var(--t-north-bar)}
-  .m.m-north h2{color:var(--t-north-txt);border-left:4px solid var(--t-north-bar)}
-  .m.m-matrix{background:var(--t-matrix);border-left:5px solid var(--t-matrix-bar)}
-  .m.m-matrix h2{color:var(--t-matrix-txt);border-left:4px solid var(--t-matrix-bar)}
-  .m.m-strategy{background:var(--t-strategy);border-left:5px solid var(--t-strategy-bar)}
-  .m.m-strategy h2{color:var(--t-strategy-txt);border-left:4px solid var(--t-strategy-bar)}
-  .m.m-risk{background:var(--t-risk);border-left:5px solid var(--t-risk-bar)}
-  .m.m-risk h2{color:var(--t-risk-txt);border-left:4px solid var(--t-risk-bar)}
-  .m.m-summary{background:var(--t-summary);border-left:5px solid var(--t-summary-bar)}
-  .m.m-summary h2{color:var(--t-summary-txt);border-left:4px solid var(--t-summary-bar)}
+  /* 12 板块主题色（PC 端：只 h2 用色块背景，正文白底） */
+  .m.m-ext{border-left:5px solid var(--t-ext-bar)}
+  .m.m-ext h2{background:var(--t-ext);color:var(--t-ext-txt);border-left:4px solid var(--t-ext-bar)}
+  .m.m-fut{border-left:5px solid var(--t-fut-bar)}
+  .m.m-fut h2{background:var(--t-fut);color:var(--t-fut-txt);border-left:4px solid var(--t-fut-bar)}
+  .m.m-auction{border-left:5px solid var(--t-auction-bar)}
+  .m.m-auction h2{background:var(--t-auction);color:var(--t-auction-txt);border-left:4px solid var(--t-auction-bar)}
+  .m.m-review{border-left:5px solid var(--t-review-bar)}
+  .m.m-review h2{background:var(--t-review);color:var(--t-review-txt);border-left:4px solid var(--t-review-bar)}
+  .m.m-news{border-left:5px solid var(--t-news-bar)}
+  .m.m-news h2{background:var(--t-news);color:var(--t-news-txt);border-left:4px solid var(--t-news-bar)}
+  .m.m-research{border-left:5px solid var(--t-research-bar)}
+  .m.m-research h2{background:var(--t-research);color:var(--t-research-txt);border-left:4px solid var(--t-research-bar)}
+  .m.m-calendar{border-left:5px solid var(--t-calendar-bar)}
+  .m.m-calendar h2{background:var(--t-calendar);color:var(--t-calendar-txt);border-left:4px solid var(--t-calendar-bar)}
+  .m.m-north{border-left:5px solid var(--t-north-bar)}
+  .m.m-north h2{background:var(--t-north);color:var(--t-north-txt);border-left:4px solid var(--t-north-bar)}
+  .m.m-matrix{border-left:5px solid var(--t-matrix-bar)}
+  .m.m-matrix h2{background:var(--t-matrix);color:var(--t-matrix-txt);border-left:4px solid var(--t-matrix-bar)}
+  .m.m-strategy{border-left:5px solid var(--t-strategy-bar)}
+  .m.m-strategy h2{background:var(--t-strategy);color:var(--t-strategy-txt);border-left:4px solid var(--t-strategy-bar)}
+  .m.m-risk{border-left:5px solid var(--t-risk-bar)}
+  .m.m-risk h2{background:var(--t-risk);color:var(--t-risk-txt);border-left:4px solid var(--t-risk-bar)}
+  .m.m-summary{border-left:5px solid var(--t-summary-bar)}
+  .m.m-summary h2{background:var(--t-summary);color:var(--t-summary-txt);border-left:4px solid var(--t-summary-bar)}
   /* 表格 */
   table.tbl{width:100%%;border-collapse:collapse;font-size:12.5px;margin-bottom:8px}
   table.tbl th{background:#f1f5f9;color:#1f2937;font-weight:700;padding:8px 10px;text-align:left;border-bottom:2px solid #cbd5e1}
