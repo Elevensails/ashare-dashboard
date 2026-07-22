@@ -8,6 +8,19 @@
   :root{
     --accent:#1e40af;--accent2:#1e3a5f;--red:#dc2626;--green:#16a34a;--bg:#f5f7fa;--card:#fff;--line:#e5e7eb;--txt:#1f2937;--mut:#6b7280;
     --pre:#fee2e2;--pre-txt:#991b1b;--noon:#fef3c7;--noon-txt:#92400e;--sect:#ede9fe;--sect-txt:#5b21b6;--close:#dbeafe;--close-txt:#1e40af;--holiday:#f3f4f6;--holiday-txt:#4b5563;
+    /* 12 板块主题色（PC 端浅色 / Mobile 端深色双版本） */
+    --t-ext:#dbeafe;--t-ext-txt:#1e40af;--t-ext-bar:#3b82f6;          /* 外盘 - 蓝 */
+    --t-fut:#dbeafe;--t-fut-txt:#1e40af;--t-fut-bar:#3b82f6;          /* 期货 - 蓝 */
+    --t-auction:#ede9fe;--t-auction-txt:#5b21b6;--t-auction-bar:#7c3aed; /* 竞价 - 紫 */
+    --t-review:#ede9fe;--t-review-txt:#5b21b6;--t-review-bar:#7c3aed;   /* 回顾 - 紫 */
+    --t-news:#ede9fe;--t-news-txt:#5b21b6;--t-news-bar:#7c3aed;       /* 舆情监控 - 紫 */
+    --t-research:#fef3c7;--t-research-txt:#92400e;--t-research-bar:#d97706; /* 综合研判 - 黄 */
+    --t-calendar:#dbeafe;--t-calendar-txt:#1e40af;--t-calendar-bar:#3b82f6; /* 宏观日历 - 蓝 */
+    --t-north:#dcfce7;--t-north-txt:#166534;--t-north-bar:#16a34a;     /* 北向 - 绿 */
+    --t-matrix:#dcfce7;--t-matrix-txt:#166534;--t-matrix-bar:#16a34a;   /* 板块矩阵 - 绿 */
+    --t-strategy:#fef3c7;--t-strategy-txt:#92400e;--t-strategy-bar:#d97706; /* 持仓策略 - 黄 */
+    --t-risk:#fee2e2;--t-risk-txt:#991b1b;--t-risk-bar:#dc2626;       /* 风险 - 红 */
+    --t-summary:#fed7aa;--t-summary-txt:#9a3412;--t-summary-bar:#ea580c; /* 总结 - 橙 */
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;font-size:14px;line-height:1.6}
@@ -39,6 +52,31 @@
   .m h3.sub-h{margin:14px 0 8px;font-size:13.5px;color:#475569;font-weight:600}
   .m .lead{color:#374151;font-size:13px;margin:0 0 12px;line-height:1.65}
   .m .src{color:var(--mut);font-size:11.5px;margin-top:8px;font-style:italic}
+  /* 12 板块主题色（PC 端浅色 + mobile 端深色由 @media 覆盖） */
+  .m.m-ext{background:var(--t-ext);border-left:5px solid var(--t-ext-bar)}
+  .m.m-ext h2{color:var(--t-ext-txt);border-left:4px solid var(--t-ext-bar)}
+  .m.m-fut{background:var(--t-fut);border-left:5px solid var(--t-fut-bar)}
+  .m.m-fut h2{color:var(--t-fut-txt);border-left:4px solid var(--t-fut-bar)}
+  .m.m-auction{background:var(--t-auction);border-left:5px solid var(--t-auction-bar)}
+  .m.m-auction h2{color:var(--t-auction-txt);border-left:4px solid var(--t-auction-bar)}
+  .m.m-review{background:var(--t-review);border-left:5px solid var(--t-review-bar)}
+  .m.m-review h2{color:var(--t-review-txt);border-left:4px solid var(--t-review-bar)}
+  .m.m-news{background:var(--t-news);border-left:5px solid var(--t-news-bar)}
+  .m.m-news h2{color:var(--t-news-txt);border-left:4px solid var(--t-news-bar)}
+  .m.m-research{background:var(--t-research);border-left:5px solid var(--t-research-bar)}
+  .m.m-research h2{color:var(--t-research-txt);border-left:4px solid var(--t-research-bar)}
+  .m.m-calendar{background:var(--t-calendar);border-left:5px solid var(--t-calendar-bar)}
+  .m.m-calendar h2{color:var(--t-calendar-txt);border-left:4px solid var(--t-calendar-bar)}
+  .m.m-north{background:var(--t-north);border-left:5px solid var(--t-north-bar)}
+  .m.m-north h2{color:var(--t-north-txt);border-left:4px solid var(--t-north-bar)}
+  .m.m-matrix{background:var(--t-matrix);border-left:5px solid var(--t-matrix-bar)}
+  .m.m-matrix h2{color:var(--t-matrix-txt);border-left:4px solid var(--t-matrix-bar)}
+  .m.m-strategy{background:var(--t-strategy);border-left:5px solid var(--t-strategy-bar)}
+  .m.m-strategy h2{color:var(--t-strategy-txt);border-left:4px solid var(--t-strategy-bar)}
+  .m.m-risk{background:var(--t-risk);border-left:5px solid var(--t-risk-bar)}
+  .m.m-risk h2{color:var(--t-risk-txt);border-left:4px solid var(--t-risk-bar)}
+  .m.m-summary{background:var(--t-summary);border-left:5px solid var(--t-summary-bar)}
+  .m.m-summary h2{color:var(--t-summary-txt);border-left:4px solid var(--t-summary-bar)}
   /* 表格 */
   table.tbl{width:100%%;border-collapse:collapse;font-size:12.5px;margin-bottom:8px}
   table.tbl th{background:#f1f5f9;color:#1f2937;font-weight:700;padding:8px 10px;text-align:left;border-bottom:2px solid #cbd5e1}
@@ -91,12 +129,69 @@
   .cta-btn:hover{background:rgba(255,255,255,.28);transform:translateY(-2px)}
   footer{font-size:12px;color:var(--mut);border-top:1px solid var(--line);padding:14px 16px;margin-top:0;text-align:center;line-height:1.7;background:#fff}
   @media(max-width:760px){
-    .indices-bar{grid-template-columns:repeat(3,1fr)}
-    .reports{grid-template-columns:1fr}
-    .holdings-bar{flex-direction:column}
-    .h-item{flex:1 1 auto}
+    /* Mobile 端：按对方项目排版（深色+彩色块+高密度单列） */
+    body{background:#0f172a;color:#e2e8f0}
+    .wrap{padding:0 10px 40px}
+    .indices-bar{grid-template-columns:repeat(3,1fr);padding:10px 12px}
+    .idx-p{font-size:14px}
+    .holdings-bar{flex-direction:column;background:#1e293b;padding:12px;gap:6px}
+    .h-item{flex:1 1 auto;background:#0f172a;border:1px solid #334155;color:#e2e8f0;padding:8px 10px}
+    .h-item .hnm{color:#f1f5f9;font-size:12.5px}
+    .h-item .hmeta{color:#94a3b8;font-size:11px}
+    .h-item.warn{background:#422006;border-color:#d97706;color:#fde68a}
+    .h-item.warn .hnm{color:#fef3c7}
+    .h-item.warn .hmeta{color:#fbbf24}
+    /* 12 板块 mobile 端深色+彩色块（对方排版） */
+    .m{background:#1e293b!important;border-color:#334155!important;color:#e2e8f0!important;border-bottom-color:#0f172a!important;border-left-width:5px}
+    .m h2{color:#f1f5f9!important;border-left-width:4px;font-size:15px;padding:8px 12px;margin:-16px -20px 10px;background:rgba(0,0,0,.25)}
+    .m h3.sub-h{color:#cbd5e1!important;font-size:13px}
+    .m .lead{color:#cbd5e1!important;font-size:12.5px}
+    .m .src{color:#94a3b8!important;font-size:11px}
+    /* 12 主题 mobile 端深色（每板块彩色左边） */
+    .m.m-ext,.m.m-fut,.m.m-calendar{background:#1e3a5f!important;border-left-color:#60a5fa!important}
+    .m.m-ext h2,.m.m-fut h2,.m.m-calendar h2{background:rgba(96,165,250,.18);color:#bfdbfe!important}
+    .m.m-auction,.m.m-review,.m.m-news{background:#3730a3!important;border-left-color:#a78bfa!important}
+    .m.m-auction h2,.m.m-review h2,.m.m-news h2{background:rgba(167,139,250,.18);color:#ddd6fe!important}
+    .m.m-research,.m.m-strategy{background:#78350f!important;border-left-color:#fbbf24!important}
+    .m.m-research h2,.m.m-strategy h2{background:rgba(251,191,36,.18);color:#fde68a!important}
+    .m.m-north,.m.m-matrix{background:#14532d!important;border-left-color:#4ade80!important}
+    .m.m-north h2,.m.m-matrix h2{background:rgba(74,222,128,.18);color:#bbf7d0!important}
+    .m.m-risk{background:#7f1d1d!important;border-left-color:#fca5a5!important}
+    .m.m-risk h2{background:rgba(252,165,165,.18);color:#fecaca!important}
+    .m.m-summary{background:#7c2d12!important;border-left-color:#fb923c!important}
+    .m.m-summary h2{background:rgba(251,146,60,.18);color:#fed7aa!important}
+    /* 表格 mobile 端深色 */
+    table.tbl th{background:#0f172a;color:#f1f5f9;border-bottom-color:#334155;font-size:11.5px;padding:6px 8px}
+    table.tbl td{color:#e2e8f0;border-bottom-color:#334155;font-size:11.5px;padding:5px 8px}
+    table.tbl tr:hover td{background:#334155}
+    table.tbl td.empty{color:#94a3b8;padding:14px}
+    /* 我方报告卡 mobile 端 */
+    .reports{grid-template-columns:1fr;gap:8px}
+    .report{background:#1e293b!important;color:#e2e8f0!important;border-left-width:5px}
+    .report .rt{color:#f1f5f9!important}
+    .report .rtime{color:#94a3b8!important}
+    .report .rdesc{color:#cbd5e1!important;opacity:1}
+    .report .spill{background:rgba(0,0,0,.3)!important;color:inherit!important;border-color:rgba(255,255,255,.15)!important}
+    /* top-stat 字号小 */
     .top-stat{font-size:11px}
-    .cta-row{flex-direction:column;align-items:stretch}
+    .top-stat div{padding:2px 8px}
+    /* cta */
+    .cta-row{flex-direction:column;align-items:stretch;gap:8px}
+    .cta-btn{font-size:12.5px;padding:10px 14px}
+    /* footer 深色 */
+    footer{background:#0f172a;color:#94a3b8;border-top:1px solid #1e293b}
+    /* hero 字号小 */
+    header.top h1{font-size:18px}
+    header.top .sub{font-size:11.5px}
+    header.top{padding:16px 0 14px}
+    /* 顶部 Call（mobile 端紧凑） */
+    .topcall{padding:14px 16px}
+    .topcall .tct{font-size:12px}
+    .topcall .tcb{font-size:14px;line-height:1.5}
+    /* 新s list */
+    ul.news-list{font-size:12.5px}
+    /* signal card mobile 端 */
+    .signal-card{font-size:12.5px;padding:10px 12px}
   }
 </style>
 </head>
@@ -131,7 +226,7 @@
     <div class="h-item warn"><div class="hnm">💼 百合花</div><div class="hmeta">sh603823 · 成本待补</div></div></div>
 
 <!-- 1 外盘表现 -->
-<div class="m">
+<div class="m m-ext">
   <h2>外盘表现</h2>
   
     <table class="tbl">
@@ -147,7 +242,7 @@
 </div>
 
 <!-- 2 商品期货和港股期货 -->
-<div class="m">
+<div class="m m-fut">
   <h2>商品期货和港股期货</h2>
   
     <table class="tbl">
@@ -166,7 +261,7 @@
 </div>
 
 <!-- 3 竞价异动·持仓ETF盘前集合 -->
-<div class="m">
+<div class="m m-auction">
   <h2>竞价异动 · 持仓ETF盘前集合</h2>
   
     <table class="tbl">
@@ -177,7 +272,7 @@
 </div>
 
 <!-- 4 昨日回顾 · A股复盘 -->
-<div class="m">
+<div class="m m-review">
   <h2>昨日回顾 · A股复盘</h2>
   
     <p class="lead" style="color:#374151">定性：缩量后的放量反包，风格由红利切向科技；情绪正常偏暖，但估值百分位偏高（中证全指 PE_TTM 10年 85.56%），属修复而非反转确认。</p>
@@ -193,7 +288,7 @@
 </div>
 
 <!-- 5 舆情监控·周末+今晨要闻 -->
-<div class="m">
+<div class="m m-news">
   <h2>舆情监控 · 周末+今晨要闻</h2>
   
     <ul class="news-list">
@@ -208,7 +303,7 @@
 </div>
 
 <!-- 6 舆情综合研判 -->
-<div class="m">
+<div class="m m-research">
   <h2>舆情综合研判</h2>
   
     <p>美伊协议框架短期缓解地缘溢价，全球风险偏好回升，A股周一高开概率较大。</p>
@@ -218,7 +313,7 @@
 </div>
 
 <!-- 7 宏观日历·本周 -->
-<div class="m">
+<div class="m m-calendar">
   <h2>宏观日历 · 本周</h2>
   
     <table class="tbl">
@@ -229,7 +324,7 @@
 </div>
 
 <!-- 8 北向资金&期指持仓（参考） -->
-<div class="m">
+<div class="m m-north">
   <h2>北向资金 &amp; 期指持仓（参考）</h2>
   
     <table class="tbl">
@@ -244,7 +339,7 @@
 </div>
 
 <!-- 9 板块机会矩阵·持仓映射 -->
-<div class="m">
+<div class="m m-matrix">
   <h2>板块机会矩阵 · 持仓映射</h2>
   
     <table class="tbl">
@@ -256,7 +351,7 @@
 </div>
 
 <!-- 10 持仓策略·今日操作建议 -->
-<div class="m">
+<div class="m m-strategy">
   <h2>持仓策略 · 今日操作建议</h2>
   
     <table class="tbl">
@@ -266,7 +361,7 @@
 </div>
 
 <!-- 11 风险提示·分级预警 -->
-<div class="m">
+<div class="m m-risk">
   <h2>风险提示 · 分级预警</h2>
   
     <div class="risk-high"><b>高 P0：</b>创业板ETF集中度1.5×高位回调+网格成本5%以下，上周五已收阳线十字星，上方压力线 -0.5%向限上，趋势承压有变盘可能。</div>
@@ -277,7 +372,7 @@
 </div>
 
 <!-- 12 总结 -->
-<div class="m">
+<div class="m m-summary">
   <h2>总结</h2>
   
     <div class="summary">
@@ -315,7 +410,7 @@
       <div class="rgo">规划中 →</div>
     </a>
 
-    <a class="report r-intraday" href="intraday_1430_20260722.html">
+    <a class="report r-intraday" href="intraday_1455_20260722.html">
       <div class="rt">🔵 盘中 5 时段实时追踪 <span class="rbadge">已上线</span></div>
       <div class="rtime">09:45 / 10:30 / 13:30 / 14:30 / 14:55 · 07-22 盘中</div>
       <div class="rpills"><span class="spill">westock-data 主力</span><span class="spill">腾讯财经 备援</span><span class="spill">板块/资金/技术</span></div>
