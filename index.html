@@ -36,6 +36,7 @@
   .idx-n{font-size:12.5px;opacity:.85}
   .idx-p{font-size:18px;font-weight:700;font-variant-numeric:tabular-nums}
   .idx-v{font-size:11.5px;opacity:.7;font-variant-numeric:tabular-nums}
+  .idx-ts{font-size:9.5px;opacity:.5;margin-top:2px;letter-spacing:.3px}
   /* 红色徽章 */
   .hot-badge{display:block;background:#dc2626;color:#fff;padding:12px 18px;text-align:center;font-weight:700;font-size:14px;letter-spacing:.5px}
   /* 持仓快照 */
@@ -213,20 +214,20 @@
 </div></header>
 
 <!-- 顶部指数预览条（6 指数 + 备注） -->
-<div class="indices-bar"><div class="idx"><div class="idx-n">道指</div><div class="idx-p" style="color:#16a34a">+0.23%</div><div class="idx-v" style="color:#cbd5e1">52,342.86</div></div>
-    <div class="idx"><div class="idx-n">纳指</div><div class="idx-p" style="color:#dc2626">-0.10%</div><div class="idx-v" style="color:#cbd5e1">25,810.14</div></div>
-    <div class="idx"><div class="idx-n">恒生指数</div><div class="idx-p" style="color:#dc2626">-0.95%</div><div class="idx-v" style="color:#cbd5e1">24,892.66</div></div>
-    <div class="idx"><div class="idx-n">恒生科技</div><div class="idx-p" style="color:#dc2626">-3.04%</div><div class="idx-v" style="color:#cbd5e1">4,668.23</div></div>
-    <div class="idx"><div class="idx-n">标普500</div><div class="idx-p" style="color:#16a34a">+0.08%</div><div class="idx-v" style="color:#cbd5e1">7,515.26</div></div>
-    <div class="idx"><div class="idx-n">WTI原油</div><div class="idx-p" style="color:#16a34a">+2.50%</div><div class="idx-v" style="color:#cbd5e1">84.54</div></div>
-    <div class="idx"><div class="idx-n">COMEX金</div><div class="idx-p" style="color:#16a34a">+1.65%</div><div class="idx-v" style="color:#cbd5e1">4,082.20</div></div>
-    <div class="idx"><div class="idx-n">上证</div><div class="idx-p" style="color:#16a34a">+0.07%</div><div class="idx-v" style="color:#cbd5e1">3,867.03</div></div>
-    <div class="idx"><div class="idx-n">深证</div><div class="idx-p" style="color:#dc2626">-1.42%</div><div class="idx-v" style="color:#cbd5e1">14,061.44</div></div>
-    <div class="idx"><div class="idx-n">创业板</div><div class="idx-p" style="color:#dc2626">-3.23%</div><div class="idx-v" style="color:#cbd5e1">3,566.73</div></div></div>
+<div class="indices-bar"><div class="idx"><div class="idx-n">道指 🟢</div><div class="idx-p" style="color:#16a34a">+0.24%</div><div class="idx-v" style="color:#cbd5e1">52,350.42</div><div class="idx-ts">🕒 23:44</div></div>
+    <div class="idx"><div class="idx-n">纳指 🟢</div><div class="idx-p" style="color:#dc2626">-0.13%</div><div class="idx-v" style="color:#cbd5e1">25,803.96</div><div class="idx-ts">🕒 23:44</div></div>
+    <div class="idx"><div class="idx-n">恒生指数 🔴</div><div class="idx-p" style="color:#dc2626">-0.95%</div><div class="idx-v" style="color:#cbd5e1">24,892.66</div><div class="idx-ts">🕒 23:44</div></div>
+    <div class="idx"><div class="idx-n">恒生科技 🔴</div><div class="idx-p" style="color:#dc2626">-3.04%</div><div class="idx-v" style="color:#cbd5e1">4,668.23</div><div class="idx-ts">🕒 23:44</div></div>
+    <div class="idx"><div class="idx-n">标普500 </div><div class="idx-p" style="color:#16a34a">+0.08%</div><div class="idx-v" style="color:#cbd5e1">7,514.98</div><div class="idx-ts">🕒 23:44</div></div>
+    <div class="idx"><div class="idx-n">WTI原油 </div><div class="idx-p" style="color:#16a34a">+2.50%</div><div class="idx-v" style="color:#cbd5e1">84.54</div><div class="idx-ts">🕒 23:44</div></div>
+    <div class="idx"><div class="idx-n">COMEX金 </div><div class="idx-p" style="color:#16a34a">+1.65%</div><div class="idx-v" style="color:#cbd5e1">4,082.20</div><div class="idx-ts">🕒 23:44</div></div>
+    <div class="idx"><div class="idx-n">上证 🔴 已收盘</div><div class="idx-p" style="color:#16a34a">+0.07%</div><div class="idx-v" style="color:#cbd5e1">3,867.03</div><div class="idx-ts">🕒 23:44</div></div>
+    <div class="idx"><div class="idx-n">深证 🔴 已收盘</div><div class="idx-p" style="color:#dc2626">-1.42%</div><div class="idx-v" style="color:#cbd5e1">14,061.44</div><div class="idx-ts">🕒 23:44</div></div>
+    <div class="idx"><div class="idx-n">创业板 🔴 已收盘</div><div class="idx-p" style="color:#dc2626">-3.23%</div><div class="idx-v" style="color:#cbd5e1">3,566.73</div><div class="idx-ts">🕒 23:44</div></div></div>
 
 <!-- Agent 实时研究分析（红色填充 · 合并原 topcall + hot-badge，去除重复） -->
 <div class="hot-badge-full">
-<div class="hb-head">🤖 Agent 实时研究分析中 · 数据每 5 分钟自动同步</div><div class="hb-body"><b>今日震荡概率大：</b><span class="bull">有色板块</span>关注夜盘铜铝价格 + 美联储降息路径，作为主线候选；<span class="bull">银行板块</span>（招商银行持仓，高股息 + 不良率 0.95%）作为防御对冲；创业板ETF 观察 3.90 关键突破位（浮亏 -19.06% 较大，仓位管理为重）；<span class="bull">医药化工板块</span>（百合花持仓所在，染料中间体行业）关注半年报业绩窗口；其他潜在主力板块：半导体（紫光国微 MCU 催化）、消费（国常会统一大市场）、新能源（汽车产业座谈会延续宽松）。</div><div class="hb-meta">▶ 行业板块信号：非交易时段使用昨日收盘数据，等待 9:21 盘前舆情自动更新 · 综合研判由 westock-data 实时拉取 · 与盘中 5 时段追踪保持同步更新频率（每 5 分钟）</div>
+<div class="hb-head">🤖 Agent 实时研究分析中 · 数据每 5 分钟自动同步 · 与盘中 5 时段追踪同频</div><div class="hb-body"><b>今日震荡概率大：</b><span class="bull">有色板块</span>关注夜盘铜铝价格 + 美联储降息路径，作为主线候选；<span class="bull">银行板块</span>（招商银行持仓，高股息 + 不良率 0.95%）作为防御对冲；创业板ETF 观察 3.90 关键突破位（浮亏 -19.06% 较大，仓位管理为重）；<span class="bull">医药化工板块</span>（百合花持仓所在，染料中间体行业）关注半年报业绩窗口；其他潜在主力板块：半导体（紫光国微 MCU 催化）、消费（国常会统一大市场）、新能源（汽车产业座谈会延续宽松）。</div><div class="hb-meta">▶ 行业板块信号：非交易时段使用昨日收盘数据（westock 收盘字段）；交易时段 9:15-15:00 拉取实时 · 综合研判由 westock-data 实时拉取 · 与盘中 5 时段追踪保持同步更新频率（每 5 分钟）</div>
 </div>
 
 <!-- 我方报告（4 卡片 · 2×2 网格：盘前/盘中/盘后/实时） -->
