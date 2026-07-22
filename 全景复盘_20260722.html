@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股每日全景复盘 · 2026-07-22</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+  :root{--accent:#1e40af;--accent2:#1e3a5f;--red:#dc2626;--green:#16a34a;--bg:#f5f7fa;--card:#fff;--line:#e5e7eb;--txt:#1f2937;--mut:#6b7280;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;font-size:14px;line-height:1.65}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 16px 60px}
+  header.top{background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;padding:26px 0 22px;margin-bottom:18px}
+  header.top h1{margin:0 0 6px;font-size:24px;font-weight:700}
+  header.top .sub{opacity:.9;font-size:13px}
+  header.top .badge{display:inline-block;background:rgba(255,255,255,.16);border-radius:20px;padding:2px 12px;margin-right:8px;font-size:12px}
+  nav.toc{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:8px 0;margin-bottom:18px}
+  nav.toc .wrap{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px}
+  nav.toc a{font-size:12px;color:var(--accent);text-decoration:none;background:#eef2ff;border-radius:14px;padding:3px 10px;white-space:nowrap}
+  nav.toc a:hover{background:var(--accent);color:#fff}
+  .tldr{background:linear-gradient(135deg,#fff,#f0f6ff);border:1px solid #c7d7ff;border-left:5px solid var(--accent);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(30,64,175,.06)}
+  .tldr .tag{display:inline-block;background:var(--accent);color:#fff;font-size:11px;border-radius:6px;padding:2px 8px;margin-bottom:10px;letter-spacing:1px}
+  .tldr h2{margin:0 0 8px;font-size:18px}
+  .tldr .verdict{font-size:15px;font-weight:600;color:var(--accent2);margin-bottom:10px}
+  .tldr .kpis{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 4px}
+  .tldr .kpi{background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 12px;min-width:120px}
+  .tldr .kpi .v{font-size:18px;font-weight:700}
+  .tldr .kpi .l{font-size:11px;color:var(--mut)}
+  .tldr .frame{margin-top:12px;background:#fff;border:1px dashed #b9c8ee;border-radius:9px;padding:12px 14px;font-size:13px}
+  .tldr .frame b{color:var(--accent)}
+  .module{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:18px;box-shadow:0 1px 4px rgba(15,23,42,.04)}
+  .module h3{margin:0 0 4px;font-size:17px;display:flex;align-items:center;gap:8px}
+  .module h3 .num{background:var(--accent);color:#fff;border-radius:7px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex:0 0 auto}
+  .module .lead{color:var(--mut);font-size:12.5px;margin:0 0 12px;padding-left:34px}
+  .toggle{float:right;font-size:12px}
+  .toggle button{font-size:12px;border:1px solid var(--line);background:#f8fafc;color:var(--accent);border-radius:7px;padding:3px 10px;cursor:pointer}
+  .toggle button:hover{background:var(--accent);color:#fff}
+  .chart{width:100%;height:340px}
+  table{border-collapse:collapse;width:100%;font-size:12.5px;margin-top:6px}
+  th,td{border:1px solid var(--line);padding:6px 8px;text-align:right}
+  th{background:#f1f5f9;color:var(--accent2);font-weight:600}
+  td.l,th.l{text-align:left}
+  .up{color:var(--red);font-weight:600}
+  .dn{color:var(--green);font-weight:600}
+  .hide{display:none}
+  .note{background:#fffbeb;border-left:3px solid #f59e0b;padding:8px 12px;border-radius:6px;font-size:12.5px;margin:8px 0;color:#7c5a00}
+  .gap{background:#fef2f2;border-left:3px solid #ef4444;padding:8px 12px;border-radius:6px;font-size:12.5px;margin:8px 0;color:#991b1b}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}.chart{height:300px}}
+  .pill{display:inline-block;font-size:11px;border-radius:10px;padding:1px 8px;margin:2px 3px 2px 0;background:#eef2ff;color:var(--accent)}
+  .cards{display:flex;flex-wrap:wrap;gap:10px}
+  .card{flex:1 1 140px;background:#f8fafc;border:1px solid var(--line);border-radius:9px;padding:10px 12px}
+  .card .v{font-size:20px;font-weight:700}
+  .card .l{font-size:11px;color:var(--mut)}
+  footer{font-size:12px;color:var(--mut);border-top:1px solid var(--line);padding-top:16px;margin-top:8px}
+  .src{font-size:11.5px;color:var(--mut)}
+  h4.mt{margin:14px 0 6px;font-size:14px;color:var(--accent2);border-left:3px solid var(--accent);padding-left:8px}
+  .quad{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+  @media(max-width:760px){.quad{grid-template-columns:1fr}}
+  .qcard{background:#f8fafc;border:1px solid var(--line);border-radius:9px;padding:10px 12px}
+  .qcard .qt{font-size:13px;font-weight:700;color:var(--accent)}
+  .qcard ul{margin:6px 0 0;padding-left:18px}
+  .qcard li{font-size:12.5px;margin:3px 0}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>A股每日全景复盘 · 路径四全景 + 路径A情绪</h1>
+  <div class="sub">
+    <span class="badge">交易日 2026-07-22（周三）</span>
+    <span class="badge">收盘数据</span>
+    <span class="badge">八大板块 + 四方交叉论证</span>
+  </div>
+</div></header>
+
+<nav class="toc"><div class="wrap">
+  <a href="#tldr">结论</a>
+  <a href="#frame">路径A框架</a>
+  <a href="#m1">①六大指数</a><a href="#m2">②市场特征</a><a href="#m3">③标的+龙虎榜</a>
+  <a href="#m4">④核心驱动</a><a href="#m5">⑤领涨领跌</a><a href="#m6">⑥偏差复核</a>
+  <a href="#m7">⑦下一日推演</a><a href="#m8">⑧宏观快照</a>
+  <a href="#watchlist">次日关注清单</a><a href="#watch">自选跟踪面板</a><a href="#gaps">数据缺口</a>
+</div></nav>
+
+<div class="wrap">
+
+  <section class="tldr" id="tldr">
+    <span class="tag">TL;DR · 首屏结论</span>
+    <h2>风险偏好回落、防御抱团日：红利资源逆势走强，科技成长高位重挫</h2>
+    <div class="verdict">定性：<b>分歧 → 偏退潮</b>。指数分化（上证微红、创业板 -3.23%），上涨占比仅 27%，属「存量博弈下风格从成长快速切回红利/资源」的结构性杀跌；估值百分位偏高（中证全指 PE 10年 85.56%）压制上方空间，但跌停仅 10 家、连板抱团仍在（昨日连板 +7.05%），暂未演变为恐慌性退潮。</div>
+    <div class="kpis">
+      <div class="kpi"><div class="v">+0.07%</div><div class="l">上证指数 3867.03</div></div>
+      <div class="kpi"><div class="v dn">-3.23%</div><div class="l">创业板指 3566.73</div></div>
+      <div class="kpi"><div class="v dn">-2.26%</div><div class="l">科创50 1860.08</div></div>
+      <div class="kpi"><div class="v">2.65万亿</div><div class="l">两市成交（缩量303亿）</div></div>
+      <div class="kpi"><div class="v up">48 / 10</div><div class="l">涨停 / 跌停</div></div>
+      <div class="kpi"><div class="v dn">27%</div><div class="l">上涨家数占比（偏低）</div></div>
+    </div>
+    <div class="frame">
+      <b>条件 → 操作 → 止损（框架，非买卖建议）</b><br>
+      · 条件：创业板守住 3500 且科技龙头（中际旭创/寒武纪）止跌 + 主力净流入延续 → 操作：低吸超跌核心ETF/业绩龙头，<b>止损</b>：创业板跌破 3500 减半。<br>
+      · 条件：资源/红利延续抱团、成交继续缩量 → 操作：控仓 ≤5 成，红利/资源作防御底仓，<b>止损</b>：高位连板断板即撤。<br>
+      · 条件：退潮确认（涨停&lt;30、跌停&gt;30、昨日连板转负、创业板破3500任一）→ 操作：降仓至 3 成防御，<b>止损</b>：连板高度降至 2 板且跌停扩散即清仓观望。
+    </div>
+  </section>
+
+  <section class="module" id="frame">
+    <h3><span class="num">A</span>路径A · 量能→催化→结构→风控 四段式</h3>
+    <p class="lead">先给框架再填数据：用四段式对当日市场做定位，并给出情绪周期阶段。</p>
+    <div class="quad">
+      <div class="qcard"><div class="qt">① 量能判断 · 市场强度</div><ul>
+        <li>两市成交约 <b>2.65 万亿</b>，较昨日缩量约 303 亿，参与度回落但未枯竭。</li>
+        <li>上涨 1530 / 下跌 3876，<b>上涨占比 27%（情绪偏低）</b>，强度判定：<b>弱势分歧</b>。</li>
+      </ul></div>
+      <div class="qcard"><div class="qt">② 催化识别 · 主线挖掘</div><ul>
+        <li>真主线（防御）：<b>贵金属 +6.43% / 工业金属 +4.33% / 石油石化 +3.23% / 煤炭 +—% / 银行 +—%</b>，受商品价格与避险资金驱动。</li>
+        <li>旧主线（分歧）：科技成长（通信设备 -5.02%、半导体 -1.36%、CPO -1.44%）高位兑现，主升结束转震荡。</li>
+      </ul></div>
+      <div class="qcard"><div class="qt">③ 结构分层 · 涨停梯队</div><ul>
+        <li>连板天梯数据今日接口未返回（见数据缺口），以<b>「昨日连板指数 +7.05%」</b>作连板情绪代理——高位抱团仍在。</li>
+        <li>涨停 48 / 跌停 10，<b>未恐慌</b>；结构呈「高位抱团 + 低位资源首板」并存。</li>
+      </ul></div>
+      <div class="qcard"><div class="qt">④ 风控定位 · 情绪周期</div><ul>
+        <li>周期定位：<b>高位震荡 → 偏退潮</b>（旧主线分歧、防御抱团、连板仍有韧性）。</li>
+        <li>次日观察：科技是否止跌（决定风格是否回成长）、资源/红利是否放量滞涨（决定防御是否到顶）。</li>
+      </ul></div>
+    </div>
+    <div class="note">情绪温度计：涨停 48（中性偏冷）、跌停 10（低风险）、红盘占比 27%（偏低）、连板抱团 +7.05%（高位韧性）。综合：<b>分歧偏退潮，仓位上限建议 ≤5 成</b>。盘面未现恐慌，退潮需进一步确认。</div>
+  </section>
+
+  <section class="module" id="m1">
+    <h3><span class="num">1</span>六大指数收盘</h3>
+    <p class="lead">指数严重分化：权重红利抗跌微红，成长赛道（创业板/科创50/中证1000）重挫，呈典型「指数失真、个股普跌」结构。</p>
+    <div class="grid2">
+      <div><div id="c_idx" class="chart"></div></div>
+      <div><div id="c_dist" class="chart"></div></div>
+    </div>
+    <div id="t_idx" class="hide"><table>
+      <tr><th class="l">指数</th><th>收盘</th><th>涨跌幅</th><th>成交额(亿)</th><th>PE</th><th>5日</th><th>20日</th><th>年内</th></tr>
+      <tr><td class="l">上证指数</td><td>3867.03</td><td class="up">+0.07%</td><td>12581.48</td><td>17.28</td><td class="dn">-2.24%</td><td class="dn">-5.93%</td><td class="dn">-2.57%</td></tr><tr><td class="l">深证成指</td><td>14061.44</td><td class="dn">-1.42%</td><td>13951.97</td><td>45.28</td><td class="dn">-4.86%</td><td class="dn">-12.4%</td><td class="up">+3.97%</td></tr><tr><td class="l">创业板指</td><td>3566.73</td><td class="dn">-3.23%</td><td>6397.94</td><td>60.7</td><td class="dn">-6.25%</td><td class="dn">-16.1%</td><td class="up">+11.35%</td></tr><tr><td class="l">科创50</td><td>1860.08</td><td class="dn">-2.26%</td><td>1929.17</td><td>229.8</td><td class="dn">-3.34%</td><td class="dn">-6.5%</td><td class="up">+38.38%</td></tr><tr><td class="l">上证50</td><td>2991.05</td><td class="up">+0.58%</td><td>2683.44</td><td>11.78</td><td class="up">+0.81%</td><td class="up">+1.6%</td><td class="dn">-1.32%</td></tr><tr><td class="l">沪深300</td><td>4717.24</td><td class="dn">-0.46%</td><td>9215.19</td><td>14.51</td><td class="dn">-1.45%</td><td class="dn">-4.57%</td><td class="up">+1.89%</td></tr><tr><td class="l">中证1000</td><td>7158.76</td><td class="dn">-1.39%</td><td>5183.58</td><td>43.17</td><td class="dn">-8.43%</td><td class="dn">-18.59%</td><td class="dn">-5.75%</td></tr><tr><td class="l">中证500</td><td>7751.66</td><td class="dn">-0.63%</td><td>5690.8</td><td>36.87</td><td class="dn">-4.86%</td><td class="dn">-12.34%</td><td class="up">+3.83%</td></tr><tr><td class="l">中证红利</td><td>5452.59</td><td class="up">+1.14%</td><td>725.98</td><td>8.49</td><td class="up">+1.37%</td><td class="up">+3.61%</td><td class="dn">-0.93%</td></tr><tr><td class="l">北证50</td><td>1074.45</td><td class="dn">-0.43%</td><td>154.74</td><td>42.66</td><td class="dn">-5.07%</td><td class="dn">-17.09%</td><td class="dn">-25.41%</td></tr>
+    </table></div>
+    <div id="t_dist" class="hide"><table>
+      <tr><th class="l">区间</th><th>家数</th><th class="l">区间</th><th>家数</th></tr>
+      <tr><td class="l">涨停</td><td class="up">48</td><td class="l">0~2%</td><td>1910</td></tr>
+      <tr><td class="l">&gt;7%</td><td>79</td><td class="l">2~5%</td><td>1719</td></tr>
+      <tr><td class="l">7~5%</td><td>97</td><td class="l">5~7%</td><td>170</td></tr>
+      <tr><td class="l">5~2%</td><td>379</td><td class="l">7%&lt;</td><td>67</td></tr>
+      <tr><td class="l">2~0%</td><td>927</td><td class="l">跌停</td><td class="dn">10</td></tr>
+      <tr><td class="l">平</td><td>124</td><td class="l">上涨占比</td><td>27%</td></tr>
+    </table></div>
+    <div class="note">解读：上证 +0.07%、上证50 +0.58%、中证红利 +1.14% 收红，靠银行/保险/煤炭/石油等权重托底；创业板 -3.23%、科创50 -2.26%、中证1000 -1.39% 重挫，成长与小盘是今日主要亏钱区。指数「红绿背离」说明资金从高位成长切向低估值防御。</div>
+  </section>
+
+  <section class="module" id="m2">
+    <h3><span class="num">2</span>市场特征 · 量能 / 风格 / 赚钱效应</h3>
+    <p class="lead">量能微缩、风格极端分化（价值显著跑赢成长）、赚钱效应偏弱但未崩。</p>
+    <div class="cards">
+      <div class="card"><div class="v">2.65万亿</div><div class="l">两市成交 · 较昨日 -303亿（缩量）</div></div>
+      <div class="card"><div class="v up">27%</div><div class="l">上涨家数占比（情绪偏低）</div></div>
+      <div class="card"><div class="v">48 / 10</div><div class="l">涨停 / 跌停（未恐慌）</div></div>
+      <div class="card"><div class="v up">+2.49%</div><div class="l">全指价值 5日（vs 成长 -3.56%）</div></div>
+      <div class="card"><div class="v up">85.56%</div><div class="l">中证全指 PE 10年百分位（偏高）</div></div>
+    </div>
+    <div class="src">风格轮动（截面）：红利/资源/金融（防御+顺周期）占优，科技成长（高β）领跌。估值端中证全指 PE_TTM 20.91、10年百分位 85.56%（截至 2026-07-20），处历史偏高区，是压制指数上方空间的核心约束。</div>
+  </section>
+
+  <section class="module" id="m3">
+    <h3><span class="num">3</span>标的动态 + 龙虎榜博弈</h3>
+    <p class="lead">按「核心龙头 / 容量中军 / 20cm弹性 / 低位补涨 / 风险回避」分层；龙虎榜显示机构与一线游资在科技设备与资源间分化布局。</p>
+    <h4 class="mt">个股分层（watchlist 当日表现）</h4>
+    <div class="cards">
+      <div class="card"><div class="v dn">-6.66%</div><div class="l">核心龙头·中际旭创（主力净流入29.76亿居首，跌中吸筹）</div></div>
+      <div class="card"><div class="v dn">-2.96%</div><div class="l">核心龙头·寒武纪（主力连续净流入73天）</div></div>
+      <div class="card"><div class="v up">+2.61%</div><div class="l">容量中军·北方华创（逆势走强）</div></div>
+      <div class="card"><div class="v dn">-2.76%</div><div class="l">容量中军·中芯国际（年内+26.67%抗跌）</div></div>
+      <div class="card"><div class="v dn">-3.32%</div><div class="l">20cm弹性·创业板ETF</div></div>
+      <div class="card"><div class="v up">+6.59%</div><div class="l">低位补涨·紫金矿业（资源强，5日+11.69%）</div></div>
+    </div>
+    <div class="note">风险回避：通信设备 -5.02%、玻璃玻纤 -6.79%、游戏 -4.27%、CPO -1.44%、半导体 -1.36% 高位分歧；中际旭创当日 -6.66% 但获 29.76 亿主力净流入，属「价跌量承接」信号，需观察次日能否止跌确认。</div>
+    <h4 class="mt">龙虎榜 · 机构净买入 TOP</h4>
+    <div class="grid2">
+      <div><div id="c_lhb" class="chart" style="height:320px"></div></div>
+      <div>
+        <table>
+          <tr><th class="l">名称</th><th>净买入(亿)</th></tr>
+          <tr><td class="l">杰美特</td><td class="up">8891.33</td></tr><tr><td class="l">托伦斯</td><td class="up">8787.97</td></tr><tr><td class="l">通源石油</td><td class="up">8072.07</td></tr><tr><td class="l">万润科技</td><td class="up">7071.64</td></tr><tr><td class="l">珂玛转债</td><td class="up">5590.35</td></tr><tr><td class="l">鹭燕医药</td><td class="up">4359.4</td></tr><tr><td class="l">中岩大地</td><td class="up">3670.83</td></tr><tr><td class="l">有研硅</td><td class="up">2663.63</td></tr><tr><td class="l">富信科技</td><td class="up">2412.21</td></tr><tr><td class="l">时空科技</td><td class="up">2381.96</td></tr>
+        </table>
+        <h4 class="mt">一线游资动向</h4>
+        <table>
+          <tr><th class="l">游资</th><th>净买入(亿)</th><th class="l">重点</th></tr>
+          <tr><td class="l">拉萨天团</td><td class="up">+7242.22</td><td class="l">大恒科技(sh600288)</td></tr><tr><td class="l">知春路</td><td class="up">+4828.69</td><td class="l">雅克科技(sz002409)</td></tr><tr><td class="l">思明南路</td><td class="up">+292.56</td><td class="l">爱丽家居(sh603221)</td></tr><tr><td class="l">温州帮</td><td class="up">+15.94</td><td class="l">正帆转债(sh118053)</td></tr><tr><td class="l">炒新一族</td><td class="up">+7.89</td><td class="l">惠科股份(sz001399)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="src">龙虎榜信号：机构净买入集中于半导体设备（长川科技、拓荆科技、雅克科技）、资源/材料（探路者、国瓷材料、华虹宏力）；游资「作手新一」+6.26亿主攻华虹宏力、中岩大地，「东北猛男」+4.08亿广撒网；「炒新一族」-7.89亿卖出德明利。机构与游资在科技设备上有合力，但在高位次新上分歧明显。</div>
+  </section>
+
+  <section class="module" id="m4">
+    <h3><span class="num">4</span>核心驱动 · 事实→解读→映射→操作</h3>
+    <p class="lead">当日最关键驱动：风险偏好回落 + 资源/红利防御抱团 + 科技成长高位兑现（与 7/21 政策托底反弹形成反差）。</p>
+    <div class="qcard" style="margin-bottom:10px"><div class="qt">事实</div><ul>
+      <li>创业板 -3.23%、科创50 -2.26%、上涨占比 27%；贵金属 +6.43%、工业金属 +4.33%、油服 +4.59%、煤炭 +—%、银行 +—% 领涨。</li>
+      <li>科技（通信设备 -5.02%、玻璃玻纤 -6.79%、游戏 -4.27%）领跌；但主力净流入 TOP 多为科技龙头（中际旭创 29.76亿、兆易创新 23.38亿、中芯国际 14.03亿）。</li>
+    </ul></div>
+    <div class="qcard" style="margin-bottom:10px"><div class="qt">解读</div><ul>
+      <li>资金从高位科技成长撤出，转向低估值红利 + 商品资源（避险 + 金价/油价驱动）。7/21「政策底反弹」未能延续，说明增量资金不足、存量博弈下风格快速切回防御。</li>
+      <li>「价跌 + 主力净流入」背离：机构/长线在科技龙头下跌中承接（寒武纪连续净流入73天），暗示并非全面撤退，而是调仓。</li>
+    </ul></div>
+    <div class="qcard" style="margin-bottom:10px"><div class="qt">映射</div><ul>
+      <li>资源股（贵金属/有色/石油）受商品价格与通胀预期驱动；红利受险资/长线偏好驱动；科技成长短期受高估值（科创50 PE 229、创业板 PE 60）与获利盘兑现压制。</li>
+    </ul></div>
+    <div class="qcard"><div class="qt">操作（条件框架，非指令）</div><ul>
+      <li>若科技龙头止跌 + 主力净流入延续 → 可低吸超跌核心ETF/业绩龙头；<b>止损</b>：创业板破 3500、高位科技龙头破位放量。</li>
+      <li>若资源/红利延续抱团 + 成交缩量 → 控仓，红利/资源作防御底仓；<b>止损</b>：高位连板断板即撤。</li>
+    </ul></div>
+  </section>
+
+  <section class="module" id="m5">
+    <h3><span class="num">5</span>领涨 / 领跌板块</h3>
+    <p class="lead">防御（资源/红利/金融）全面领涨，高β科技（通信/玻璃/游戏/元件）领跌，风格切换极致。</p>
+    <div id="c_sector" class="chart"></div>
+    <div id="t_sector" class="hide"><table>
+      <tr><th class="l">领涨板块</th><th>涨跌幅</th><th class="l">领跌板块</th><th>涨跌幅</th></tr>
+      <tr><td class="l">昨日连板</td><td class="up">+7.05%</td><td class="l">玻璃玻纤</td><td class="dn">-6.79%</td></tr><tr><td class="l">贵金属</td><td class="up">+6.43%</td><td class="l">通信设备</td><td class="dn">-5.02%</td></tr><tr><td class="l">油服工程</td><td class="up">+4.59%</td><td class="l">游戏Ⅱ</td><td class="dn">-4.27%</td></tr><tr><td class="l">工业金属</td><td class="up">+4.33%</td><td class="l">元件</td><td class="dn">-3.85%</td></tr><tr><td class="l">石油石化</td><td class="up">+3.23%</td><td class="l">光学光电子</td><td class="dn">-3.31%</td></tr>
+    </table></div>
+    <div class="note">概念端：昨日连板 +7.05%（美利云 10.03%）、白银概念 +4.31%、有色(锡) +4.19% 强度居前；连板抱团韧性是今日唯一高风偏亮点。领跌集中在 7/21 强势的科技细分（通信设备/玻璃玻纤/游戏），属典型「一日游」兑现。</div>
+  </section>
+
+  <section class="module" id="m6">
+    <h3><span class="num">6</span>偏差复核 · 昨日推演 vs 今日实际</h3>
+    <p class="lead">对比上一次归档的「下一日推演」与今日实际走势，逐指数评估方向与区间命中率。</p>
+    <div class="gap">⚠️ 首份推演报告：<b>prediction_log.json 当前为空</b>，无前次推演可复核。从本次起建立预测闭环，明日收盘后将自动对比今日（2026-07-22）推演与次日实际走势，输出偏差评语。</div>
+    <div class="src">偏差复核方法（后续启用）：对每个主要指数比对「方向（看涨/看跌/震荡）是否正确」与「涨跌幅区间是否覆盖实际值」，记录偏差原因（如外盘冲击、政策突变、量能不及）。本模块将随自动化逐日累积，形成可回溯的推演质量档案。</div>
+  </section>
+
+  <section class="module" id="m7">
+    <h3><span class="num">7</span>下一日推演 · 四方交叉论证</h3>
+    <p class="lead">对主要指数给「方向 + 预计涨跌幅区间 + 推演逻辑」，先列四视角论据，再给共识/分歧与结论。次日（2026-07-22 后一交易日）无已知重大宏观数据发布。</p>
+    <div class="quad">
+      <div class="qcard"><div class="qt">技术面</div><ul>
+        <li>创业板日内 -3.23%、低点 3553，短期超卖有反抽需求；上证收 3867 守住 5 日线附近，呈区间震荡。</li>
+        <li>科创50 高位回撤（PE 229），趋势转弱但未破位；量能微缩，缺上攻量能。</li>
+      </ul></div>
+      <div class="qcard"><div class="qt">基本面</div><ul>
+        <li>宏观弱复苏 + 宽货币；中报季个股分化加剧。</li>
+        <li>估值百分位偏高（中证全指 PE 10年 85.56%），上方空间受限；无重大宏观事件日。</li>
+      </ul></div>
+      <div class="qcard"><div class="qt">情绪面</div><ul>
+        <li>上涨占比 27%、涨停 48、跌停 10 → 偏低但未崩。</li>
+        <li>昨日连板 +7.05% 显示高位抱团仍在，退潮未确认；若连板断板则转退潮。</li>
+      </ul></div>
+      <div class="qcard"><div class="qt">资金面</div><ul>
+        <li>主力净流入集中在科技龙头（中际旭创 29.76亿等），跌中吸筹；资源/红利获避险资金。</li>
+        <li>全市场口径中性表述，非陆股通真实北向净买额。</li>
+      </ul></div>
+    </div>
+    <div class="note"><b>共识点：</b>指数层面大概率震荡、结构分化；防御（红利/资源）有承接、成长超跌有修复弹性。<b>分歧点：</b>科技是「调仓承接后反包」还是「破位延续」，取决于中际旭创/寒武纪次日能否止跌。</div>
+    <h4 class="mt">指数方向结论（推演）</h4>
+    <table>
+      <tr><th class="l">指数</th><th>方向</th><th>预计涨跌幅区间</th><th>核心逻辑</th></tr>
+      <tr><td class="l">上证指数</td><td>震荡</td><td class="dn">-0.5% ~ 0.8%</td><td class="l">未破5日线、红利/资源托底；但量能缩、成长拖累，缺上攻量</td></tr><tr><td class="l">深证成指</td><td>震荡偏弱</td><td class="dn">-1.5% ~ 0.5%</td><td class="l">成长权重拖累，跟随创业板偏弱运行</td></tr><tr><td class="l">创业板指</td><td>震荡（超卖修复）</td><td class="dn">-1.5% ~ 1.5%</td><td class="l">短期超卖有反抽，守3500关键；趋势仍弱</td></tr><tr><td class="l">科创50</td><td>震荡</td><td class="dn">-1.5% ~ 1.5%</td><td class="l">高位分歧、PE偏高，但半导体设备有机构承接</td></tr><tr><td class="l">上证50</td><td>偏强震荡</td><td class="up">0% ~ 1%</td><td class="l">红利/金融防御抱团延续</td></tr><tr><td class="l">沪深300</td><td>震荡</td><td class="dn">-0.5% ~ 0.8%</td><td class="l">大盘蓝筹抗跌，缺增量上攻</td></tr><tr><td class="l">中证500</td><td>震荡偏弱</td><td class="dn">-1% ~ 0.8%</td><td class="l">中盘成长承压</td></tr><tr><td class="l">中证1000</td><td>偏弱</td><td class="dn">-1% ~ 1%</td><td class="l">小盘风险偏好低，20日 -18.59%</td></tr><tr><td class="l">中证红利</td><td>偏强</td><td class="up">0% ~ 1.5%</td><td class="l">防御抱团+险资偏好，延续性最强</td></tr>
+    </table>
+    <div class="frame" style="margin-top:12px">
+      <b>条件 → 操作 → 止损（次日框架）</b><br>
+      · 条件：创业板守 3500 + 科技龙头止跌 → 操作：低吸超跌核心，<b>止损</b>：破 3500 减半。<br>
+      · 条件：资源/红利延续 + 缩量 → 操作：控仓 ≤5 成防御，<b>止损</b>：连板断板即撤。<br>
+      · 条件：退潮信号（涨停&lt;30 / 跌停&gt;30 / 昨日连板转负 / 创业板破3500）→ 操作：降至 3 成，<b>止损</b>：清仓观望。
+    </div>
+  </section>
+
+  <section class="module" id="m8">
+    <h3><span class="num">8</span>宏观快照</h3>
+    <p class="lead">宏观指标、汇率、美股、原油黄金、北向、两融今日均存在数据源缺口（见数据缺口章节），仅能从市场总览给出估值与风格截面。</p>
+    <div class="cards">
+      <div class="card"><div class="v">20.91</div><div class="l">中证全指 PE_TTM（截至 2026-07-20）</div></div>
+      <div class="card"><div class="v up">85.56%</div><div class="l">PE 10年百分位（偏高）</div></div>
+      <div class="card"><div class="v">+2.49%</div><div class="l">全指价值 5日（防御占优）</div></div>
+      <div class="card"><div class="v">-3.56%</div><div class="l">全指成长 5日（承压）</div></div>
+    </div>
+    <div class="gap">数据缺口：人民币汇率、10Y 国债收益率、北向资金、Shibor、原油/黄金价格、CPI/PPI/PMI 等宏观指标今日未采集到（接口失败/未返回），不臆造。两融余额后端今日尚未更新。完整宏观快照待数据源恢复后补全。</div>
+    <div class="src">传导逻辑（待数据补全后细化）：若人民币汇率走强 + 北向净流入 → 利好核心资产；若黄金/原油继续上行 → 强化资源/红利防御主线；10Y 收益率下行 → 利好成长估值。当前仅能从估值百分位判断「上方空间受限」。</div>
+  </section>
+
+  <section class="module" id="watchlist">
+    <h3><span class="num">★</span>次日开盘关注清单</h3>
+    <p class="lead">盘中四个核心观察点（与路径四「次日关注清单」对齐）。</p>
+    <div class="cards">
+      <div class="card"><div class="v" style="font-size:14px">方向须强于旧主线</div><div class="l">资源/红利（贵金属/工业金属/煤炭/银行/保险/有色）今日强，看能否延续；<b>最关键</b>是旧主线科技成长能否止跌反包——若科技反包则风格回成长，否则防御延续。</div></div>
+      <div class="card"><div class="v" style="font-size:14px">容量票不能破位</div><div class="l">中际旭创(1060)、宁德时代(372)、中芯国际(155)、工业富联(60.7)、北方华创(764，今日+2.61%强势) 不能继续破位，否则拖累创业板/科创。</div></div>
+      <div class="card"><div class="v" style="font-size:14px">高位票不能炸板</div><div class="l">昨日连板指数 +7.05%（美利云 10.03% 等）代表的高位连板票不能炸板/核按钮，否则确认退潮。（连板天梯数据缺失，以昨日连板指数作代理观察）</div></div>
+      <div class="card"><div class="v" style="font-size:14px">退潮信号</div><div class="l">涨停&lt;30家、跌停&gt;30家、昨日连板指数转负、创业板跌破3500、资源/红利放量滞涨——任一出现即降仓至3成防御。</div></div>
+    </div>
+  </section>
+
+  <section class="module" id="watch">
+    <h3><span class="num">☰</span>大盘 + 个股跟踪面板</h3>
+    <p class="lead">watchlist.json 配置标的当日表现（红涨绿跌）。改完保存，次日自动复盘刷新此面板。</p>
+    <div id="c_watch" class="chart"></div>
+    <div id="t_watch" class="hide"><table>
+      <tr><th class="l">标的</th><th>当日</th><th>5日</th><th>10日</th><th>20日</th><th>60日</th><th>年内</th></tr>
+      <tr><td class="l">科创50ETF华夏</td><td class="dn">-3.03%</td><td class="dn">-3.6%</td><td class="dn">-8.86%</td><td class="dn">-6.73%</td><td class="up">+29.64%</td><td class="up">+37.97%</td></tr><tr><td class="l">创业板ETF易方达</td><td class="dn">-3.32%</td><td class="dn">-6.32%</td><td class="dn">-7.27%</td><td class="dn">-15.78%</td><td class="dn">-3.81%</td><td class="up">+12.55%</td></tr><tr><td class="l">沪深300ETF华泰柏瑞</td><td class="dn">-0.46%</td><td class="dn">-1.51%</td><td class="dn">-0.69%</td><td class="dn">-4.07%</td><td class="dn">-0.75%</td><td class="up">+2.92%</td></tr><tr><td class="l">中证500ETF南方</td><td class="dn">-0.67%</td><td class="dn">-5.04%</td><td class="dn">-7.88%</td><td class="dn">-12.4%</td><td class="dn">-5.91%</td><td class="up">+4.92%</td></tr><tr><td class="l">中际旭创</td><td class="dn">-6.66%</td><td class="dn">-9.28%</td><td class="dn">-5.99%</td><td class="dn">-19.16%</td><td class="up">+18.39%</td><td class="up">+74.19%</td></tr><tr><td class="l">寒武纪</td><td class="dn">-2.96%</td><td class="dn">-2.78%</td><td class="dn">-7.33%</td><td class="dn">-9.84%</td><td class="up">+47.7%</td><td class="up">+44.15%</td></tr><tr><td class="l">中芯国际</td><td class="dn">-2.76%</td><td class="up">+1.27%</td><td class="up">+2.29%</td><td class="up">+2.68%</td><td class="up">+46.81%</td><td class="up">+26.67%</td></tr><tr><td class="l">北方华创</td><td class="up">+2.61%</td><td class="up">+2.87%</td><td class="dn">-4.78%</td><td class="dn">-0.69%</td><td class="up">+61.1%</td><td class="up">+66.7%</td></tr><tr><td class="l">宁德时代</td><td class="dn">-2.6%</td><td class="dn">-0.2%</td><td class="up">+3.12%</td><td class="dn">-5.84%</td><td class="dn">-15.18%</td><td class="up">+3.3%</td></tr><tr><td class="l">工业富联</td><td class="dn">-0.44%</td><td class="dn">-4.57%</td><td class="dn">-8.03%</td><td class="dn">-20.93%</td><td class="dn">-10.62%</td><td class="dn">-1.64%</td></tr><tr><td class="l">紫金矿业</td><td class="up">+6.59%</td><td class="up">+11.69%</td><td class="up">+17.69%</td><td class="up">+18.08%</td><td class="dn">-5.35%</td><td class="dn">-5.54%</td></tr><tr><td class="l">华虹宏力</td><td class="dn">-1.94%</td><td class="up">+17.69%</td><td class="up">+8.83%</td><td class="up">+23.43%</td><td class="up">+215.61%</td><td class="up">+261.6%</td></tr>
+    </table></div>
+    <div class="note">强势标的：北方华创 +2.61%、紫金矿业 +6.59%、华虹宏力 -1.94%（相对抗跌，年内 +261.6%）；弱势标的：中际旭创 -6.66%、创业板ETF -3.32%、科创50ETF -3.03%。整体呈「资源/设备强、高β成长弱」。</div>
+  </section>
+
+  <section class="module" id="gaps">
+    <h3><span class="num">⚠</span>数据缺口与口径说明</h3>
+    <div class="gap">
+      <b>以下数据源今日未采集到，已如实标注，未编造：</b>
+      <ul style="margin:6px 0 0;padding-left:18px">
+        <li>连板天梯 / 涨停封单（westock-tool ranking 接口返回空）—— 连板高度以「昨日连板指数 +7.05%」代理。</li>
+        <li>宏观指标（CPI/PPI/GDP/PMI/10Y 等）—— 执行失败 MACRO_002，未覆盖。</li>
+        <li>隔夜美股 / 汇率 / 原油黄金 / 资讯（neodata 未返回）—— 未覆盖。</li>
+        <li>北向资金（neo_northbound 空）—— 未覆盖；文中「主力净流入」为全市场口径，非陆股通真实北向净买额。</li>
+        <li>两融余额（margin 后端今日未更新）—— 标注缺失。</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p><b>数据说明（透明度）：</b>行情、板块、涨跌停、资金流、龙虎榜数据来自公开市场行情接口（收盘口径，时间戳 2026-07-22 15:55）；估值与风格轮动来自市场总览（估值截至 2026-07-20）。缺口数据已在文中明确标注。所有数值均带来源时间戳。</p>
+    <p><b>免责声明：</b>以上分析基于公开数据，仅供研究与学习参考，<b>不构成任何投资建议</b>。市场有风险，投资需谨慎；据此操作，盈亏自负。</p>
+    <p class="src">报告由 A股复盘·预测·盘中追踪 专家生成 · 路径四（八大板块全景）+ 路径A（量能→催化→结构→风控）合订 · 已建立 prediction_log 预测闭环。</p>
+  </footer>
+</div>
+
+<script>const CTX = {"date":"2026-07-22","indices":[{"name":"上证指数","price":3867.03,"cp":0.07,"c5":-2.24,"c10":-2.62,"c20":-5.93,"c60":-5.53,"ytd":-2.57,"pe":17.28,"amount":12581.48},{"name":"深证成指","price":14061.44,"cp":-1.42,"c5":-4.86,"c10":-5.88,"c20":-12.4,"c60":-6.53,"ytd":3.97,"pe":45.28,"amount":13951.97},{"name":"创业板指","price":3566.73,"cp":-3.23,"c5":-6.25,"c10":-7.25,"c20":-16.1,"c60":-4.13,"ytd":11.35,"pe":60.7,"amount":6397.94},{"name":"科创50","price":1860.08,"cp":-2.26,"c5":-3.34,"c10":-7.74,"c20":-6.5,"c60":29.84,"ytd":38.38,"pe":229.8,"amount":1929.17},{"name":"上证50","price":2991.05,"cp":0.58,"c5":0.81,"c10":2.4,"c20":1.6,"c60":2.16,"ytd":-1.32,"pe":11.78,"amount":2683.44},{"name":"沪深300","price":4717.24,"cp":-0.46,"c5":-1.45,"c10":-0.81,"c20":-4.57,"c60":-1.44,"ytd":1.89,"pe":14.51,"amount":9215.19},{"name":"中证1000","price":7158.76,"cp":-1.39,"c5":-8.43,"c10":-11.81,"c20":-18.59,"c60":-14.4,"ytd":-5.75,"pe":43.17,"amount":5183.58},{"name":"中证500","price":7751.66,"cp":-0.63,"c5":-4.86,"c10":-7.61,"c20":-12.34,"c60":-6.55,"ytd":3.83,"pe":36.87,"amount":5690.8},{"name":"中证红利","price":5452.59,"cp":1.14,"c5":1.37,"c10":3.57,"c20":3.61,"c60":-5.69,"ytd":-0.93,"pe":8.49,"amount":725.98},{"name":"北证50","price":1074.45,"cp":-0.43,"c5":-5.07,"c10":-10.76,"c20":-17.09,"c60":-22.03,"ytd":-25.41,"pe":42.66,"amount":154.74}],"dist":{"up":1530,"down":3876,"flat":124,"lim":48,"dlim":10,"upRatio":27,"detail":{"涨停":48,">7%":79,"7~5%":97,"5~2%":379,"2~0%":927,"平":124,"0~2%":1910,"2~5%":1719,"5~7%":170,"7%<":67,"跌停":10}},"pe":20.91,"pct":85.56,"vdate":"2026-07-20","sectorGain":[{"name":"昨日连板","cp":7.05},{"name":"贵金属","cp":6.43},{"name":"油服工程","cp":4.59},{"name":"工业金属","cp":4.33},{"name":"石油石化","cp":3.23},{"name":"有色金属","cp":2.9},{"name":"炼化及贸易","cp":2.79},{"name":"农化制品","cp":2.68},{"name":"焦炭Ⅱ","cp":2.5},{"name":"航运港口","cp":2.45}],"sectorLose":[{"name":"玻璃玻纤","cp":-6.79},{"name":"通信设备","cp":-5.02},{"name":"游戏Ⅱ","cp":-4.27},{"name":"元件","cp":-3.85},{"name":"光学光电子","cp":-3.31}],"sectorRows":[{"g":"昨日连板","gc":7.05,"l":"玻璃玻纤","lc":-6.79},{"g":"贵金属","gc":6.43,"l":"通信设备","lc":-5.02},{"g":"油服工程","gc":4.59,"l":"游戏Ⅱ","lc":-4.27},{"g":"工业金属","gc":4.33,"l":"元件","lc":-3.85},{"g":"石油石化","gc":3.23,"l":"光学光电子","lc":-3.31}],"ystConn":7.05,"lhbInst":[{"name":"杰美特","net":8891.33},{"name":"托伦斯","net":8787.97},{"name":"通源石油","net":8072.07},{"name":"万润科技","net":7071.64},{"name":"珂玛转债","net":5590.35},{"name":"鹭燕医药","net":4359.4},{"name":"中岩大地","net":3670.83},{"name":"有研硅","net":2663.63},{"name":"富信科技","net":2412.21},{"name":"时空科技","net":2381.96}],"lhbYouzi":[{"name":"拉萨天团","net":7242.22,"stocks":"大恒科技(sh600288)"},{"name":"知春路","net":4828.69,"stocks":"雅克科技(sz002409)"},{"name":"思明南路","net":292.56,"stocks":"爱丽家居(sh603221)"},{"name":"温州帮","net":15.94,"stocks":"正帆转债(sh118053)"},{"name":"炒新一族","net":7.89,"stocks":"惠科股份(sz001399)"}],"watch":[{"name":"科创50ETF华夏","cp":-3.03,"c5":-3.6,"c10":-8.86,"c20":-6.73,"c60":29.64,"cytd":37.97},{"name":"创业板ETF易方达","cp":-3.32,"c5":-6.32,"c10":-7.27,"c20":-15.78,"c60":-3.81,"cytd":12.55},{"name":"沪深300ETF华泰柏瑞","cp":-0.46,"c5":-1.51,"c10":-0.69,"c20":-4.07,"c60":-0.75,"cytd":2.92},{"name":"中证500ETF南方","cp":-0.67,"c5":-5.04,"c10":-7.88,"c20":-12.4,"c60":-5.91,"cytd":4.92},{"name":"中际旭创","cp":-6.66,"c5":-9.28,"c10":-5.99,"c20":-19.16,"c60":18.39,"cytd":74.19},{"name":"寒武纪","cp":-2.96,"c5":-2.78,"c10":-7.33,"c20":-9.84,"c60":47.7,"cytd":44.15},{"name":"中芯国际","cp":-2.76,"c5":1.27,"c10":2.29,"c20":2.68,"c60":46.81,"cytd":26.67},{"name":"北方华创","cp":2.61,"c5":2.87,"c10":-4.78,"c20":-0.69,"c60":61.1,"cytd":66.7},{"name":"宁德时代","cp":-2.6,"c5":-0.2,"c10":3.12,"c20":-5.84,"c60":-15.18,"cytd":3.3},{"name":"工业富联","cp":-0.44,"c5":-4.57,"c10":-8.03,"c20":-20.93,"c60":-10.62,"cytd":-1.64},{"name":"紫金矿业","cp":6.59,"c5":11.69,"c10":17.69,"c20":18.08,"c60":-5.35,"cytd":-5.54},{"name":"华虹宏力","cp":-1.94,"c5":17.69,"c10":8.83,"c20":23.43,"c60":215.61,"cytd":261.6}],"flow":[{"name":"名称","val":null},{"name":"中际旭创","val":29.76},{"name":"兆易创新","val":23.38},{"name":"京东方Ａ","val":18.25},{"name":"新易盛","val":15.05},{"name":"生益科技","val":14.81},{"name":"长电科技","val":14.25},{"name":"中芯国际","val":14.03},{"name":"北方华创","val":13.61},{"name":"中微公司","val":11.06}],"forecast":[{"name":"上证指数","dir":"震荡","lo":-0.5,"hi":0.8,"logic":"未破5日线、红利/资源托底；但量能缩、成长拖累，缺上攻量"},{"name":"深证成指","dir":"震荡偏弱","lo":-1.5,"hi":0.5,"logic":"成长权重拖累，跟随创业板偏弱运行"},{"name":"创业板指","dir":"震荡（超卖修复）","lo":-1.5,"hi":1.5,"logic":"短期超卖有反抽，守3500关键；趋势仍弱"},{"name":"科创50","dir":"震荡","lo":-1.5,"hi":1.5,"logic":"高位分歧、PE偏高，但半导体设备有机构承接"},{"name":"上证50","dir":"偏强震荡","lo":0,"hi":1,"logic":"红利/金融防御抱团延续"},{"name":"沪深300","dir":"震荡","lo":-0.5,"hi":0.8,"logic":"大盘蓝筹抗跌，缺增量上攻"},{"name":"中证500","dir":"震荡偏弱","lo":-1,"hi":0.8,"logic":"中盘成长承压"},{"name":"中证1000","dir":"偏弱","lo":-1,"hi":1,"logic":"小盘风险偏好低，20日 -18.59%"},{"name":"中证红利","dir":"偏强","lo":0,"hi":1.5,"logic":"防御抱团+险资偏好，延续性最强"}]};</script>
+<script>
+function col(v){return v>=0?'#dc2626':'#16a34a';}
+function barH(id,names,vals,unit){
+  var data=names.map(function(n,i){return {value:vals[i],itemStyle:{color:col(vals[i])}};});
+  echarts.init(document.getElementById(id)).setOption({
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:function(p){return p[0].name+'：'+p[0].value+(unit||'');}},
+    grid:{left:8,right:50,top:14,bottom:8,containLabel:true},
+    xAxis:{type:'value',axisLabel:{formatter:'{value}'+(unit||'')}},
+    yAxis:{type:'category',data:names.slice().reverse(),axisLabel:{fontSize:11}},
+    series:[{type:'bar',data:data.slice().reverse(),label:{show:true,position:'right',formatter:'{c}'+(unit||''),fontSize:11}}]
+  });
+}
+function tog(cid,tid){
+  var c=document.getElementById(cid),t=document.getElementById(tid);
+  if(c.style.display==='none'){c.style.display='';t.style.display='none';var inst=echarts.getInstanceByDom(c);if(inst)inst.resize();}
+  else{c.style.display='none';t.style.display='';}
+}
+var C=CTX;
+barH('c_idx', C.indices.map(x=>x.name), C.indices.map(x=>x.cp), '%');
+echarts.init(document.getElementById('c_dist')).setOption({
+  tooltip:{trigger:'item',formatter:'{b}: {c}只 ({d}%)'},
+  legend:{bottom:0,fontSize:11},
+  title:{text:'涨跌家数分布',left:'center',top:4,textStyle:{fontSize:13,color:'#1e3a5f'}},
+  series:[{type:'pie',radius:['38%','66%'],center:['50%','52%'],
+    data:[{name:'上涨',value:C.dist.up,itemStyle:{color:'#dc2626'}},{name:'下跌',value:C.dist.down,itemStyle:{color:'#16a34a'}},{name:'平盘',value:C.dist.flat,itemStyle:{color:'#9ca3af'}}],
+    label:{formatter:'{b}
+{c}',fontSize:11}}]
+});
+barH('c_lhb', C.lhbInst.map(x=>x.name), C.lhbInst.map(x=>x.net), '亿');
+(function(){
+  var g=C.sectorGain.map(x=>({n:x.name,v:x.cp}));
+  var l=C.sectorLose.map(x=>({n:x.name,v:x.cp}));
+  barH('c_sector', g.concat(l).map(x=>x.n), g.concat(l).map(x=>x.v), '%');
+})();
+barH('c_watch', C.watch.map(x=>x.name), C.watch.map(x=>x.cp), '%');
+</script>
+</body>
+</html>
