@@ -101,7 +101,12 @@
   /* 5份报告卡（我方） */
   .our-reports{background:linear-gradient(135deg,#fafbff,#fff);border:1px solid #c7d7ff;border-radius:0;padding:16px 20px;margin:0;border-bottom:1px solid var(--line)}
   .our-reports h2{margin:0 0 10px;font-size:16px;font-weight:700;color:var(--accent2);border-left:4px solid var(--accent);padding-left:10px}
-  .reports{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+  .reports{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .hot-badge-full{background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;padding:14px 18px;margin:0 0 0;border-bottom:2px solid #fde68a}
+  .hot-badge-full .hb-head{font-size:14px;font-weight:700;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+  .hot-badge-full .hb-body{font-size:13.5px;line-height:1.6;margin-bottom:8px}
+  .hot-badge-full .hb-body .bull{color:#fef08a;font-weight:800}
+  .hot-badge-full .hb-meta{font-size:11.5px;opacity:.85;border-top:1px dashed rgba(255,255,255,.3);padding-top:6px}
   .report{border-radius:11px;padding:14px 16px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:6px;border-left:5px solid;background:#fff;transition:.15s;min-width:0;position:relative}
   .report:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
   .report.planned{opacity:.7;cursor:not-allowed}
@@ -209,35 +214,42 @@
 </div></header>
 
 <!-- 顶部指数预览条（6 指数 + 备注） -->
-<div class="indices-bar"><div class="idx"><div class="idx-n">道指</div><div class="idx-p" style="color:#16a34a">+0.74%</div><div class="idx-v" style="color:#cbd5e1">52,224.64</div></div>
-    <div class="idx"><div class="idx-n">纳指</div><div class="idx-p" style="color:#16a34a">+1.29%</div><div class="idx-v" style="color:#cbd5e1">25,837.21</div></div>
+<div class="indices-bar"><div class="idx"><div class="idx-n">道指</div><div class="idx-p" style="color:#16a34a">+0.15%</div><div class="idx-v" style="color:#cbd5e1">52,301.88</div></div>
+    <div class="idx"><div class="idx-n">纳指</div><div class="idx-p" style="color:#dc2626">-0.46%</div><div class="idx-v" style="color:#cbd5e1">25,718.06</div></div>
     <div class="idx"><div class="idx-n">恒生指数</div><div class="idx-p" style="color:#dc2626">-0.95%</div><div class="idx-v" style="color:#cbd5e1">24,892.66</div></div>
     <div class="idx"><div class="idx-n">恒生科技</div><div class="idx-p" style="color:#dc2626">-3.04%</div><div class="idx-v" style="color:#cbd5e1">4,668.23</div></div>
+    <div class="idx"><div class="idx-n">标普500</div><div class="idx-p" style="color:#dc2626">-0.16%</div><div class="idx-v" style="color:#cbd5e1">7,497.12</div></div>
     <div class="idx"><div class="idx-n">WTI原油</div><div class="idx-p" style="color:#16a34a">+2.50%</div><div class="idx-v" style="color:#cbd5e1">84.54</div></div>
     <div class="idx"><div class="idx-n">COMEX金</div><div class="idx-p" style="color:#16a34a">+1.65%</div><div class="idx-v" style="color:#cbd5e1">4,082.20</div></div>
     <div class="idx"><div class="idx-n">上证</div><div class="idx-p" style="color:#16a34a">+0.07%</div><div class="idx-v" style="color:#cbd5e1">3,867.03</div></div>
     <div class="idx"><div class="idx-n">深证</div><div class="idx-p" style="color:#dc2626">-1.42%</div><div class="idx-v" style="color:#cbd5e1">14,061.44</div></div>
     <div class="idx"><div class="idx-n">创业板</div><div class="idx-p" style="color:#dc2626">-3.23%</div><div class="idx-v" style="color:#cbd5e1">3,566.73</div></div></div>
 
-<!-- 红色徽章 -->
-<div class="hot-badge">🤖 Agent 实时研究分析中 · 数据加载中…</div>
-
-<!-- 顶部 Call（agent 实时研究） -->
-<div class="topcall">
-  <div class="tct">📌 顶部 CALL · Agent 实时研究分析</div>
-  <div class="tcb">今日高开概率大：<span class="bull">有色板块（商品周期+防御双轮）</span>作为主线候选，<span class="bull">银行ETF作为防御对冲</span>；创业板ETF 观察 3.90 关键突破位（浮亏较大，谨慎追高）；百合花待成本补完后激活操作信号。结构性机会优于指数，节奏胜于方向。</div>
+<!-- Agent 实时研究分析（红色填充 · 合并原 topcall + hot-badge，去除重复） -->
+<div class="hot-badge-full">
+  <div class="hb-head">🤖 Agent 实时研究分析中 · 数据每 5 分钟自动同步</div>
+  <div class="hb-body">今日高开概率大：<span class="bull">有色板块（商品周期+防御双轮）</span>作为主线候选，<span class="bull">银行ETF作为防御对冲</span>；创业板ETF 观察 3.90 关键突破位（浮亏较大，谨慎追高）；百合花待成本补完后激活操作信号。结构性机会优于指数，节奏胜于方向。</div>
+  <div class="hb-meta">▶ 综合研判依据：westock-data 实时外盘 5 指数 + 今日 6 大板块信号 + 5 持仓映射（创业板/有色/招行/紫光/百合花）</div>
 </div>
 
-<!-- 我方报告（盘后复盘 + 5时段 + 实时盯盘） -->
+<!-- 我方报告（4 卡片 · 2×2 网格：盘前/盘中/盘后/实时） -->
 <div class="m our-reports">
   <h2>📊 我方报告 · 今日</h2>
-  <p class="lead">盘后全景复盘 + 盘中 5 时段实时追踪 + 实时盯盘 30秒刷新 —— 全周期覆盖。</p>
+  <p class="lead">盘前舆情 + 盘中 5 时段 + 盘后复盘 + 实时盯盘 —— 全周期覆盖。</p>
   <div class="reports">
+    <a class="report r-pre" href="morning.html">
+      <div class="rt">🔴 盘前舆情分析 + 开盘前瞻 <span class="rbadge">已上线</span></div>
+      <div class="rtime">09:00 早报预测 / 09:21 主推 / 09:30 开盘快讯</div>
+      <div class="rpills"><span class="spill">外盘 6 指数</span><span class="spill">商品期货</span><span class="spill">集合竞价</span><span class="spill">宏观日历</span><span class="spill">今晨要闻</span></div>
+      <div class="rdesc">基于 5 持仓映射的盘前深度研究：12 板块全覆盖（外盘/期货/集合竞价/昨复盘/舆情/宏观日历/北向/板块矩阵/持仓策略/风险/总结），每条要闻含官方信源超链接 + YYYY-MM-DD 时间格式 + 50-100 字详细背景说明。</div>
+      <div class="rgo">查看盘前舆情深度 →</div>
+    </a>
+
     <a class="report r-intraday" href="intraday_1455_20260722.html">
       <div class="rt">🔵 盘中 5 时段实时追踪 <span class="rbadge">已上线</span></div>
       <div class="rtime">09:45 / 10:30 / 13:30 / 14:30 / 14:55 · 07-22 盘中</div>
       <div class="rpills"><span class="spill">westock-data 主力</span><span class="spill">腾讯财经 备援</span><span class="spill">板块/资金/技术</span></div>
-      <div class="rdesc">板块实时面板 + 持仓强度 + 分时段买卖剧本（红=买/绿=卖/橙=风控）</div>
+      <div class="rdesc">分时段差异化剧本：板块实时面板 + 持仓强度（0-100 分）+ 分时段买卖剧本（红=买/绿=卖/橙=风控）+ 关键价位（破位线/T 买回位/加仓触发位）+ 所属板块确认。每只持仓 5 因子综合强度评估。</div>
       <div class="rgo">查看最新盘中报告 →</div>
     </a>
 
@@ -245,24 +257,22 @@
       <div class="rt">🔵 盘后全景复盘 <span class="rbadge">已上线</span></div>
       <div class="rtime">16:00 · 收盘复盘 · 2026-07-22</div>
       <div class="rpills"><span class="spill">westock-data 全量</span><span class="spill">腾讯财经 备援</span><span class="spill">neodata</span><span class="spill">东财/新浪</span></div>
-      <div class="rdesc">八大板块全景 + 北向个股 + 自算组合风险（Beta/Sharpe/最大回撤）+ 明日推演 + 次日关注清单</div>
+      <div class="rdesc">八大板块全景 + 北向个股 + 自算组合风险（Beta/Sharpe/最大回撤）+ 明日推演（含 4 指数推演区间）+ 次日关注清单。覆盖技术/情绪/资金/政策多维度，含定调卡 + 板块拆解 + 数据源降级链。</div>
       <div class="rgo">查看盘后复盘 →</div>
     </a>
 
     <a class="report r-live" href="live_dashboard.html">
       <div class="rt">⚡ 实时盯盘 <span class="rbadge">已上线 · 30秒</span></div>
-      <div class="rtime">交易时段 · 价格 30 秒刷新</div>
-      <div class="rpills"><span class="spill">westock-data</span><span class="spill">板块 Top</span></div>
-      <div class="rdesc">持仓 + 三大指数 + 板块强度 + 创业板深度（5 分钟重算）</div>
+      <div class="rtime">交易时段 · 价格 30 秒刷新 · 深度 5 分钟重算</div>
+      <div class="rpills"><span class="spill">westock-data</span><span class="spill">板块 Top</span><span class="spill">持仓强度</span></div>
+      <div class="rdesc">持仓（5 只）+ 三大指数 + 板块强度 + 创业板深度（PE/换手率/相对强度/技术位/条件式点评）。浏览器常开即 30 秒自刷新，主电脑本地文件最稳定。</div>
       <div class="rgo">打开实时盯盘 →</div>
     </a></div>
-  <div class="src" style="margin-top:8px">▶ 盘前 12 板块全貌（外盘/期货/集合竞价/舆情/宏观日历/北向/板块矩阵/持仓策略/风险预警/总结）已迁移至 <a href="morning.html" style="color:#1e40af">📅 morning.html 盘前舆情分析+开盘前瞻</a> 独立页，避免重复</div>
 </div>
 
-<!-- 二级页 CTA + Skill 全家桶 + 盘前舆情 -->
+<!-- 二级页 CTA（Skill 全家桶 + 系统架构） -->
 <div class="cta">
   <div class="cta-row">
-    <a class="cta-btn" href="morning.html">📅 盘前舆情 · 09:21 · agent 实时</a>
     <a class="cta-btn" href="skills.html">📦 Skill 全家桶 · 71 已装 · 9 领域</a>
     <a class="cta-btn" href="system.html">📊 系统架构 / 数据源 / 双铁律 / 复用率</a>
   </div>
