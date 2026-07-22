@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股多agent交叉分析引擎</title>
+<style>
+  :root{--accent:#1e40af;--bg:#f4f6fb;--card:#fff;--mut:#64748b;--txt:#1f2937;--red:#dc2626;--green:#16a34a;--line:#e5e7eb}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--txt);font-size:14px;line-height:1.65}
+  .wrap{max-width:900px;margin:0 auto;padding:0 16px 60px}
+  header{background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;padding:20px 0 16px;margin-bottom:14px}
+  header .inner{max-width:900px;margin:0 auto;padding:0 16px}
+  header h1{margin:0 0 6px;font-size:20px;font-weight:700;display:flex;align-items:center;gap:8px}
+  header .sub{opacity:.9;font-size:12.5px}
+  .back{display:inline-block;margin-top:10px;color:#93c5fd;font-size:12.5px;text-decoration:none;font-weight:600}
+  .back:hover{color:#fff}
+  .module{background:var(--card);border-radius:14px;padding:18px 20px;margin:12px 0;box-shadow:0 2px 10px rgba(30,64,175,.06)}
+  .module h2{font-size:1.05rem;margin:0 0 12px;color:var(--accent);border-left:4px solid var(--accent);padding-left:10px;font-weight:700}
+  .verdict-card{border-radius:11px;padding:16px 18px;margin-bottom:12px;border:1px solid var(--line)}
+  .vc-buy{border-left:5px solid var(--green);background:linear-gradient(135deg,#f0fdf4,#fff)}
+  .vc-hold{border-left:5px solid #f59e0b;background:linear-gradient(135deg,#fffbeb,#fff)}
+  .vc-tag{display:inline-block;font-size:11px;font-weight:700;border-radius:6px;padding:2px 8px;margin-bottom:8px}
+  .vc-tag.buy{background:#dcfce7;color:#166534}
+  .vc-tag.hold{background:#fef3c7;color:#92400e}
+  .vc-name{font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .vc-code{font-size:12px;color:var(--mut);font-weight:400}
+  .vc-price{font-size:20px;font-weight:700;margin:6px 0}
+  .vc-meta{font-size:12px;color:var(--mut);margin-bottom:10px}
+  .debate{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+  @media(max-width:600px){.debate{grid-template-columns:1fr}}
+  .debate-col{border-radius:9px;padding:12px 14px;font-size:12.5px;line-height:1.6}
+  .debate-col.bull{background:#f0fdf4;border:1px solid #bbf7d0}
+  .debate-col.bear{background:#fef2f2;border:1px solid #fecaca}
+  .debate-col h4{margin:0 0 8px;font-size:13px;font-weight:700}
+  .debate-col.bull h4{color:#166534}
+  .debate-col.bear h4{color:#991b1b}
+  .debate-col li{margin:3px 0}
+  .row1{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .conclusion{background:#f8fafc;border:1px solid var(--line);border-radius:9px;padding:12px 14px;margin-top:10px;font-size:13px}
+  .conclusion strong{color:var(--accent)}
+  .ops{font-size:12.5px;line-height:1.7;color:#475569;margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
+  table.tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin:10px 0}
+  table.tbl th{background:#f1f5f9;color:#475569;padding:8px 10px;text-align:left;font-weight:600;font-size:11.5px}
+  table.tbl td{padding:8px 10px;border-bottom:1px solid #f1f5f9}
+  .up{color:var(--red)}.dn{color:var(--green)}
+  .total-row{background:#eef2ff;font-weight:700}
+  .total-row td{color:var(--accent)}
+  .footer{margin-top:22px;color:var(--mut);font-size:11.5px;text-align:center;line-height:1.7;border-top:1px solid var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+<header>
+  <div class="inner">
+    <h1>🔬 A股多agent交叉分析引擎</h1>
+    <div class="sub">trading-agent · 12 agent 协作 · 多空辩论 + 三方风险评估 · 2026-07-22 收盘后</div>
+    <a class="back" href="index.html">← 返回主页</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+<div class="module">
+  <h2>工作流</h2>
+  <p style="font-size:13px;color:#475569;margin:0 0 10px">
+    Phase 1【4 分析师并行】市场技术面 / 基本面 / 新闻面 / 情绪面<br>
+    → Phase 2【多空辩论】多头研究员 vs 空头研究员 → 裁判裁决<br>
+    → Phase 3【交易员】综合产出交易方案<br>
+    → Phase 4【三方风险并行】进取/保守/中性 → 风险经理终判<br>
+    → Phase 5【整合】orchestrator 生成最终投资报告
+  </p>
+</div>
+
+<div class="module">
+  <h2>📊 标的交叉分析（收盘后 · 2026-07-22 16:48）</h2>
+
+  <!-- 创业板指 -->
+  <div class="verdict-card vc-hold">
+    <span class="vc-tag hold">⚠ HOLD 持有观望</span>
+    <div class="vc-name">创业板指 <span class="vc-code">sz399006</span></div>
+    <div class="vc-price">现价 <span class="dn">3,566.73</span> <span style="font-size:14px;font-weight:400">(-3.23%)</span></div>
+    <div class="vc-meta">PE ~43x | 换手率 3.87% | 量比 0.92 | 振幅 1.59%</div>
+    <div class="debate">
+      <div class="debate-col bull">
+        <h4>🔺 多头</h4>
+        <li>量比 0.92 缩量（非恐慌卖），换手率 3.87% 正常范围内</li>
+        <li>政策预期（民营经济 + 新能源汽车），成长属性仍存在</li>
+        <li>PE ~43x 低于年初 50x，估值相对低位</li>
+      </div>
+      <div class="debate-col bear">
+        <h4>🔻 空头</h4>
+        <li>跌 3.23% 跌破 3600 整数关口，短期均线可能死叉</li>
+        <li>创业板指大幅弱于上证（-3.23% vs 上证约 0%），资金流出明显</li>
+        <li>权重股（宁德时代/医疗）业绩仍在承压</li>
+      </div>
+    </div>
+    <div class="conclusion">
+      <strong>裁决</strong>：⚠ Hold · 信心中等 · 3566 接近年初低位 3400 支撑区，已跌 3.23% 不宜割肉。
+      但 3600 跌破后需观察 3500 整数守稳才能确认底部。
+    </div>
+    <div class="ops">
+      若反弹站稳 3600（中阳+放量）→ 加仓；若跌破 3400（放量破位）→ 减仓止损
+    </div>
+  </div>
+
+  <!-- 紫光国微 -->
+  <div class="verdict-card vc-buy">
+    <span class="vc-tag buy">🟢 BUY 买入/跟进</span>
+    <div class="vc-name">紫光国微 <span class="vc-code">sz002049</span></div>
+    <div class="vc-price">现价 <span class="up">66.24</span> <span style="font-size:14px;font-weight:400">(+1.47%)</span></div>
+    <div class="vc-meta">换手率 5.21% | 量比 0.91 | 振幅 4.24%</div>
+    <div class="debate">
+      <div class="debate-col bull">
+        <h4>🔺 多头</h4>
+        <li>涨 1.47% 放量（换手率 5.21%），跑赢大盘</li>
+        <li><b>催化剂</b>：22nm 车规级 MCU 获国内头部车企定点（增量空间大）</li>
+        <li>紫光集团重整完成，资产质量改善；MCU 市场份额提升</li>
+      </div>
+      <div class="debate-col bear">
+        <h4>🔻 空头</h4>
+        <li>量比 0.91 缩量上涨（跟风盘不足），66.24 接近前期 68 压力位</li>
+        <li>半导体板块轮动太快，今日涨明日可能跌</li>
+        <li>车规级 MCU 量产时间表不确定</li>
+      </div>
+    </div>
+    <div class="conclusion">
+      <strong>裁决</strong>：🟢 Buy · 信心高 · car-MCU 定点是增量逻辑，换手率 5.21% 资金关注度高。当前 66 元不高（前期高点 75+）。
+    </div>
+    <div class="ops">
+      64-66 区间逢低吸纳；放量突破 68 压力位（+3%）确认上升趋势加仓；止损线 <b>62</b>（-6%）
+    </div>
+  </div>
+
+  <!-- 招商银行 -->
+  <div class="verdict-card vc-buy">
+    <span class="vc-tag buy">🟢 BUY 买入/跟进</span>
+    <div class="vc-name">招商银行 <span class="vc-code">sh600036</span></div>
+    <div class="vc-price">现价 <span class="up">38.71</span> <span style="font-size:14px;font-weight:400">(+1.90%)</span></div>
+    <div class="vc-meta">换手率 0.53% | 量比 0.89 | PE ~18x</div>
+    <div class="debate">
+      <div class="debate-col bull">
+        <h4>🔺 多头</h4>
+        <li>涨 1.9% 领涨四只标的，换手率低 0.53% 筹码稳定</li>
+        <li>高股息防御主线 + LPR 持平预期利好净息差</li>
+        <li>业绩快报：归母净利 +1.4%，不良率 0.95%（银行业最优），ROE ~15%</li>
+      </div>
+      <div class="debate-col bear">
+        <h4>🔻 空头</h4>
+        <li>量比 0.89 缩量上涨（资金推动力有限）</li>
+        <li>银行板块资金流入有限，一日游风险</li>
+        <li>息差仍在压缩，城投/地产风险隐忧</li>
+      </div>
+    </div>
+    <div class="conclusion">
+      <strong>裁决</strong>：🟢 Buy · 信心高 · 招行资产质量好 + 高股息 + 不良率低。涨 1.9% 跑赢大盘，资金态度明确。
+    </div>
+    <div class="ops">
+      40 以下可纳入防御对冲配置；中长线持有，不适合短线频繁操作；止损线 <b>36</b>（-7%）
+    </div>
+  </div>
+
+  <!-- 百合花 -->
+  <div class="verdict-card vc-hold">
+    <span class="vc-tag hold">🟡 HOLD 持有观望</span>
+    <div class="vc-name">百合花 <span class="vc-code">sh603823</span></div>
+    <div class="vc-price">现价 <span style="color:#334155">81.93</span> <span style="font-size:14px;font-weight:400">(0.00%)</span></div>
+    <div class="vc-meta">换手率 5.81% | 量比 0.86 | 平盘</div>
+    <div class="debate">
+      <div class="debate-col bull">
+        <h4>🔺 多头</h4>
+        <li>化工/染料行业景气，中小盘风格有利于小市值股票</li>
+        <li>换手 5.81% 说明有资金关注</li>
+      </div>
+      <div class="debate-col bear">
+        <h4>🔻 空头</h4>
+        <li>全天平盘，5.81% 换手率多空分歧大</li>
+        <li>量比 0.86 缩量，资金态度犹豫</li>
+        <li>无明显催化剂，基本面平淡</li>
+      </div>
+    </div>
+    <div class="conclusion">
+      <strong>裁决</strong>：🟡 Hold · 信心低 · 无明确多空信号。5.81% 换手率说明有人在买也有人在卖，等财报或催化剂。
+    </div>
+    <div class="ops">
+      等半年报业绩（7-8 月）。若业绩预增→加仓；若业绩平淡→减持；止损线 <b>75</b>（-8%）
+    </div>
+  </div>
+</div>
+
+<div class="module">
+  <h2>📌 总体交叉分析结论</h2>
+  <table class="tbl">
+    <tr><th>标的</th><th>裁决</th><th>信心</th><th>关键位</th><th>建议</th></tr>
+    <tr><td>创业板指 sz399006</td><td>⚠ Hold</td><td>中</td><td>3400 支撑 / 3600 确认</td><td>观望，不割肉不追高</td></tr>
+    <tr><td>紫光国微 sz002049</td><td>🟢 Buy</td><td>高</td><td>62 止损 / 68 突破</td><td>逢低吸纳</td></tr>
+    <tr><td>招商银行 sh600036</td><td>🟢 Buy</td><td>高</td><td>36 止损 / 40 阻力</td><td>防御对冲配置</td></tr>
+    <tr><td>百合花 sh603823</td><td>🟡 Hold</td><td>低</td><td>75 止损 / 半年报</td><td>等催化剂</td></tr>
+  </table>
+  <div class="footer" style="border:none;margin-top:8px">
+    以上分析基于 westock-data + neodata 公开数据，由 trading-agent（12 agent 多空辩论+三方风险评估）生成，不构成投资建议
+  </div>
+</div>
+
+<div class="footer">
+  数据来源不外露 · WorkBuddy 专家「A股复盘·预测·盘中追踪」维护 · 部署到 GitHub Pages<br>
+  以上分析基于公开数据，不构成投资建议
+</div>
+</div>
+</body>
+</html>
