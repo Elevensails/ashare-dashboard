@@ -207,8 +207,74 @@ pip install -e .
     <p>⚠️ <b>实盘前必读</b>：先用影子账户跟踪 30 天以上，确认 Sharpe > 1.5 / 最大回撤 < 15% 再考虑实盘，且<b>仅用可承受损失的资金</b>。</p>
   </div>
 
+<div class="module">
+    <h2>8. 5 持仓测试 · 实操案例</h2>
+    <p>用本项目持有的 5 个标的（含用户提供的 4 个）演示 Vibe-Trading 三种典型用法。每种用法对应不同投资目标，按需选择：</p>
+
+    <h3>📌 测试 1 · 银行板块趋势跟踪（招商银行 sh600036）</h3>
+    <div class="eval">
+      <b>当前数据</b>：价 38.71 / 涨 +1.90% / PE-TTM 8.2x / 不良率 0.95% / ROE 15%<br>
+      <b>Vibe-Trading 命令</b>：<br>
+      <pre>vibe research "A 股银行板块龙头 招商银行 2026 年下半年趋势，结合高股息防御主线 + LPR 持平/下调预期，给出 30 天回测策略"
+# 自动拆解：PE 分位 / ROE 趋势 / 不良率历史 / 北向资金 / 行业景气</pre>
+      <b>预期输出</b>：3 个候选策略（动量 / 估值修复 / 红利低波）+ Sharpe / 最大回撤 / 胜率对比<br>
+      <b>适合场景</b>：稳定派息、防御性配置、退休/保守型资金
+    </div>
+
+    <h3>📌 测试 2 · 指数定投择时（创业板指 sz399006）</h3>
+    <div class="eval">
+      <b>当前数据</b>：价 3,566.73 / 跌 -3.23% / PE-TTM 43x / 处于近 1 年 30% 分位<br>
+      <b>Vibe-Trading 命令</b>：<br>
+      <pre>vibe bench --strategies dip_buy,ma_cross,factor_etf --asset sz399006 --start 2018-01-01
+# 自动对比回调买入/均线交叉/因子定投在创业板指上的 7 年表现</pre>
+      <b>预期输出</b>：3 个策略历史回测 + 资金曲线 + 最大回撤 / 当前 PE 分位 / 定投建议<br>
+      <b>适合场景</b>：ETF/指数定投、估值分位择时、长期持有
+    </div>
+
+    <h3>📌 测试 3 · 个股事件驱动（紫光国微 sz002049）</h3>
+    <div class="eval">
+      <b>当前数据</b>：价 66.24 / 涨 +1.47% / 22nm 车规级 MCU 获车企定点 / 2026H1 车规业务 +230%<br>
+      <b>Vibe-Trading 命令</b>：<br>
+      <pre>vibe event "紫光国微 22nm 车规 MCU 定点 5 年 8-12 亿营收 + 6 家车企累计定点，事件驱动量化分析"
+# 自动拆解：事件类型 / 历史类比 / 业绩弹性 / 行业景气 / 散户情绪</pre>
+      <b>预期输出</b>：事件因子库命中 → 类似历史事件 30 天表现 → 最佳建仓时点 / 止损位<br>
+      <b>适合场景</b>：行业事件 / 公告催化 / 主题投资
+    </div>
+
+    <h3>📌 测试 4 · 中小盘基本面（百合花 sh603823）</h3>
+    <div class="eval">
+      <b>当前数据</b>：价 81.93 / 平盘 / 染料中间体行业 / 化工板块 / 中小盘<br>
+      <b>Vibe-Trading 命令</b>：<br>
+      <pre>vibe research "A 股化工/染料板块中小盘股百合花，行业景气 + 半年报业绩窗口 + 染料价格指数，给出择时策略"
+# 自动拆解：行业景气度 / 业绩超预期概率 / 染料价格历史 / 同业对比</pre>
+      <b>预期输出</b>：5 个候选策略（含事件驱动 / 估值修复 / 同业联动） + 季度持仓建议<br>
+      <b>适合场景</b>：中小盘 / 行业研究 / 财报季
+    </div>
+
+    <h3>📌 测试 5 · 大盘指数定投（上证 50ETF sh510050）</h3>
+    <div class="eval">
+      <b>当前数据</b>：价 3.086 / 涨 +0.23% / 跟踪上证 50 指数 / 含 50 只 A 股最大市值<br>
+      <b>Vibe-Trading 命令</b>：<br>
+      <pre>vibe bench --strategies ma_cross,volatility_targeting,factor_etf --asset sh510050 --start 2010-01-01
+# 跨 15 年 A 股最大盘股的定投 + 趋势 + 波动率控制 三策略对比</pre>
+      <b>预期输出</b>：3 个策略 + 历史 Sharpe / 最大回撤 / 适合资金性质（养老/子女教育/激进）<br>
+      <b>适合场景</b>：超长线定投 / 资产配置核心仓 / 养老组合
+    </div>
+
+    <h3>🛡️ 5 持仓汇总表（截至 2026-07-22 23:45 北京）</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:13.5px">
+      <tr style="background:#f1f5f9"><th style="padding:8px;text-align:left">标的</th><th style="padding:8px;text-align:left">代码</th><th style="padding:8px;text-align:right">现价</th><th style="padding:8px;text-align:right">涨跌</th><th style="padding:8px;text-align:left">适合策略</th><th style="padding:8px;text-align:left">Vibe-Trading 用法</th></tr>
+      <tr><td style="padding:6px;border-bottom:1px solid #f1f5f9">招商银行</td><td style="padding:6px">sh600036</td><td style="padding:6px;text-align:right">38.71</td><td style="padding:6px;text-align:right;color:#16a34a">+1.90%</td><td style="padding:6px">红利低波 / 估值修复</td><td style="padding:6px">研究 #1</td></tr>
+      <tr><td style="padding:6px;border-bottom:1px solid #f1f5f9">创业板指</td><td style="padding:6px">sz399006</td><td style="padding:6px;text-align:right">3,566.73</td><td style="padding:6px;text-align:right;color:#dc2626">-3.23%</td><td style="padding:6px">定投 / PE 分位</td><td style="padding:6px">研究 #2</td></tr>
+      <tr><td style="padding:6px;border-bottom:1px solid #f1f5f9">紫光国微</td><td style="padding:6px">sz002049</td><td style="padding:6px;text-align:right">66.24</td><td style="padding:6px;text-align:right;color:#16a34a">+1.47%</td><td style="padding:6px">事件驱动 / 主题</td><td style="padding:6px">事件 #3</td></tr>
+      <tr><td style="padding:6px;border-bottom:1px solid #f1f5f9">百合花</td><td style="padding:6px">sh603823</td><td style="padding:6px;text-align:right">81.93</td><td style="padding:6px;text-align:right">±0.00%</td><td style="padding:6px">行业景气 / 财报季</td><td style="padding:6px">研究 #4</td></tr>
+      <tr style="background:#fffbeb"><td style="padding:6px;border-bottom:1px solid #f1f5f9"><b>上证 50ETF</b></td><td style="padding:6px">sh510050</td><td style="padding:6px;text-align:right">3.086</td><td style="padding:6px;text-align:right;color:#16a34a">+0.23%</td><td style="padding:6px">超长线定投 / 配置</td><td style="padding:6px">研究 #5</td></tr>
+    </table>
+    <div class="src" style="margin-top:10px">▶ 数据源：westock-data 实时拉取（23:45 北京）· 5 持仓 Vibe-Trading 测试用例已发布到 HKUDS/Vibe-Trading Issue 跟踪。</div>
+</div>
+
   <div class="module">
-    <h2>8. 与本项目整合的 Roadmap</h2>
+    <h2>9. 与本项目整合的 Roadmap</h2>
     <div class="grid-3">
       <div class="feature-card">
         <div class="ico">📦</div>
