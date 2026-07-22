@@ -3,348 +3,152 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A股复盘·预测·盘中追踪 · 专家总览</title>
+<title>A股复盘·预测·盘中追踪</title>
 <style>
   :root{
     --accent:#1e40af;--accent2:#1e3a5f;--red:#dc2626;--green:#16a34a;--bg:#f5f7fa;--card:#fff;--line:#e5e7eb;--txt:#1f2937;--mut:#6b7280;
-    --pre:#fee2e2;--pre-txt:#991b1b;
-    --noon:#fef3c7;--noon-txt:#92400e;
-    --sect:#ede9fe;--sect-txt:#5b21b6;
-    --close:#dbeafe;--close-txt:#1e40af;
-    --holiday:#f3f4f6;--holiday-txt:#4b5563;
+    --pre:#fee2e2;--pre-txt:#991b1b;--noon:#fef3c7;--noon-txt:#92400e;--sect:#ede9fe;--sect-txt:#5b21b6;--close:#dbeafe;--close-txt:#1e40af;--holiday:#f3f4f6;--holiday-txt:#4b5563;
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;font-size:14px;line-height:1.6}
   .wrap{max-width:1080px;margin:0 auto;padding:0 16px 60px}
-  header.top{background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;padding:28px 0 24px;margin-bottom:18px}
-  header.top h1{margin:0 0 8px;font-size:24px;font-weight:700}
-  header.top .sub{opacity:.92;font-size:13px}
-  header.top .badge{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:3px 12px;margin:8px 8px 0 0;font-size:12px;font-weight:600}
-  .module{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:18px;box-shadow:0 1px 4px rgba(15,23,42,.04)}
-  .module h3{margin:0 0 10px;font-size:17px;display:flex;align-items:center;gap:8px}
-  .module h3 .num{background:var(--accent);color:#fff;border-radius:7px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex:0 0 auto}
-  .module .lead{color:var(--mut);font-size:12.5px;margin:0 0 12px;padding-left:34px}
-  .cards{display:flex;flex-wrap:wrap;gap:14px}
-  .rcard{flex:1 1 300px;background:linear-gradient(135deg,#fff,#f0f6ff);border:1px solid #c7d7ff;border-radius:11px;padding:16px 18px;display:flex;flex-direction:column;gap:7px;text-decoration:none;color:var(--txt);transition:.15s;min-width:0}
-  .rcard:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(30,64,175,.12)}
-  .rcard .rt{font-size:15.5px;font-weight:700;color:var(--accent2);line-height:1.35}
-  .rcard .rd{font-size:13px;color:var(--mut);line-height:1.55}
-  .rcard .rpreview{display:flex;flex-direction:column;gap:5px;margin-top:4px}
-  .rcard .rp-line{font-size:12.5px;color:#334155;line-height:1.5;background:#f8fafc;border:1px solid #eef2f7;border-radius:7px;padding:5px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .rcard .rp-line .muted{color:var(--mut);font-size:11.5px}
-  .rcard .rgo{margin-top:auto;font-size:12px;color:var(--accent);font-weight:600}
-  .rcard .rmeta{font-size:11.5px;color:var(--mut);margin-top:2px}
-  .pill{display:inline-block;font-size:11px;border-radius:10px;padding:2px 9px;margin:2px 4px 2px 0;background:#eef2ff;color:var(--accent)}
-  .note{background:#fffbeb;border-left:3px solid #f59e0b;padding:9px 12px;border-radius:6px;font-size:12.5px;margin:10px 0;color:#7c5a00}
-  .src{font-size:11.5px;color:var(--mut)}
-  footer{font-size:12px;color:var(--mut);border-top:1px solid var(--line);padding-top:16px;margin-top:8px}
-  ul.cap{margin:6px 0 0;padding-left:20px;font-size:13px}
-  ul.cap li{margin:3px 0}
-  .demo-tag{font-size:10px;color:#b45309;background:#fffbeb;border:1px solid #fcd34d;border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:middle}
-  .planned{font-size:10px;color:#6b7280;background:#f3f4f6;border:1px dashed #9ca3af;border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:middle}
-  /* 核心认知卡 */
-  .core-card{background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;border-radius:12px;padding:18px 22px;margin-bottom:18px;box-shadow:0 4px 12px rgba(30,58,95,.15)}
-  .core-card .core-title{font-size:18px;font-weight:700;margin-bottom:6px}
-  .core-card .core-sub{opacity:.92;font-size:13px;margin-bottom:12px;line-height:1.6}
-  .core-card .core-stats{display:flex;flex-wrap:wrap;gap:18px;font-size:13px}
-  .core-card .core-stats div{display:flex;align-items:baseline}
-  .core-card .core-stats b{font-size:20px;color:#fde68a;margin-right:4px;font-weight:700}
-  /* 数据源全景 */
-  .sources{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;margin-bottom:10px}
-  .source{background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
-  .source.main{border-color:#1e40af;background:linear-gradient(135deg,#eef4ff,#fff);border-width:2px}
-  .source .sn{display:flex;align-items:center;gap:6px;font-weight:700;color:#1f2937;font-size:14px;flex-wrap:wrap}
-  .source .sn .tag{font-size:10px;border-radius:8px;padding:1px 7px;background:#dbeafe;color:#1e40af;font-weight:600}
-  .source .sn .tag.main{background:#1e40af;color:#fff}
-  .source .sn .tag.fb{background:#16a34a;color:#fff}
-  .source .sd{font-size:12px;color:#475569;line-height:1.55}
-  /* 5报告时序 */
-  .timeline{display:flex;flex-direction:column;gap:8px}
-  .timeblock{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:9px;border-left:5px solid;background:#fff;flex-wrap:wrap}
-  .timeblock.pre{background:var(--pre);border-color:#dc2626;color:var(--pre-txt)}
-  .timeblock.noon{background:var(--noon);border-color:#d97706;color:var(--noon-txt)}
-  .timeblock.sect{background:var(--sect);border-color:#7c3aed;color:var(--sect-txt)}
-  .timeblock.close{background:var(--close);border-color:#2563eb;color:var(--close-txt)}
-  .timeblock.holiday{background:var(--holiday);border-color:#6b7280;color:var(--holiday-txt)}
-  .timeblock.live{background:linear-gradient(135deg,#e0ecff,#fff);border-color:#1e40af;color:#1e3a5f}
-  .timeblock .ttime{font-weight:700;font-size:15px;flex:0 0 auto;min-width:64px}
-  .timeblock .tname{font-weight:600;font-size:14px;flex:0 0 auto;min-width:150px}
-  .timeblock .tsources{flex:1 1 auto;font-size:12px;opacity:.9;display:flex;flex-wrap:wrap;gap:4px;min-width:200px}
-  .timeblock .tsources .spill{background:rgba(255,255,255,.7);color:inherit;border:1px solid rgba(0,0,0,.08);font-size:11px;border-radius:8px;padding:1px 7px}
-  .timeblock .tdesc{font-size:12px;opacity:.88;flex:0 0 100%;margin-top:6px;line-height:1.55}
-  /* 两条铁律 */
-  .ironlaws{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
-  .ironlaw{background:#fef2f2;border:1px solid #fecaca;border-radius:9px;padding:12px 14px}
-  .ironlaw.green{background:#f0fdf4;border-color:#bbf7d0}
-  .ironlaw .ilt{font-weight:700;font-size:14.5px;color:#991b1b;margin-bottom:5px}
-  .ironlaw.green .ilt{color:#166534}
-  .ironlaw .ild{font-size:12.5px;color:#7f1d1d;line-height:1.65}
-  .ironlaw.green .ild{color:#14532d}
-  .ironlaw .ild strong{color:inherit;font-weight:700}
-  /* 降级链 */
-  .cascade{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;padding:10px 12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;margin:10px 0 0;font-size:12.5px}
-  .cascade .step{padding:3px 10px;border-radius:14px;background:#fff;border:1px solid #86efac;font-weight:600;color:#166534}
-  .cascade .arr{color:#6b7280;font-weight:700}
-  .cascade .fail{padding:3px 10px;border-radius:14px;background:#fee2e2;border:1px solid #fca5a5;color:#991b1b;font-weight:600}
-  /* 复用率柱状 */
-  .reuserate{display:flex;flex-direction:column;gap:7px}
-  .rate-row{display:grid;grid-template-columns:160px 1fr 70px;gap:12px;align-items:center;font-size:13px}
-  .rate-row .rname{color:#1f2937;font-weight:600}
-  .rate-row .rbar{height:14px;background:#e2e8f0;border-radius:7px;overflow:hidden;position:relative}
-  .rate-row .rfill{height:100%;background:linear-gradient(90deg,#3b82f6,#1e40af);border-radius:7px;transition:width .3s}
-  .rate-row .rnum{color:var(--mut);font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums}
+  header.top{background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;padding:22px 0 18px;margin-bottom:14px}
+  header.top h1{margin:0 0 6px;font-size:22px;font-weight:700}
+  header.top .sub{opacity:.92;font-size:12.5px}
+  .top-stat{display:flex;gap:10px;margin-top:10px;font-size:12px;flex-wrap:wrap}
+  .top-stat div{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:3px 10px}
+  .top-stat b{color:#fde68a;margin-right:3px}
+  /* 持仓快照 */
+  .holdings-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .h-item{flex:1 1 200px;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:8px 12px;font-size:12.5px;display:flex;flex-direction:column;gap:2px;min-width:0}
+  .h-item .hnm{font-weight:700;color:var(--accent2);font-size:13px}
+  .h-item .hmeta{color:var(--mut);font-size:11.5px}
+  .h-item.warn{border-color:#fcd34d;background:linear-gradient(135deg,#fffbeb,#fff)}
+  /* 5份报告卡片（按对方排版） */
+  .reports{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-bottom:14px}
+  .report{border-radius:11px;padding:14px 16px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:6px;border-left:5px solid;background:#fff;transition:.15s;min-width:0;position:relative}
+  .report:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
+  .report.planned{opacity:.7;cursor:not-allowed}
+  .report.planned:hover{transform:none;box-shadow:none}
+  .report.r-pre{background:var(--pre);border-color:#dc2626;color:var(--pre-txt)}
+  .report.r-noon{background:var(--noon);border-color:#d97706;color:var(--noon-txt)}
+  .report.r-sect{background:var(--sect);border-color:#7c3aed;color:var(--sect-txt)}
+  .report.r-intraday{background:linear-gradient(135deg,#e0ecff,#fff);border-color:#1e40af;color:#1e3a5f}
+  .report.r-close{background:var(--close);border-color:#2563eb;color:var(--close-txt)}
+  .report.r-live{background:linear-gradient(135deg,#fef9c3,#fff);border-color:#ca8a04;color:#713f12;animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(202,138,4,.2)}50%{box-shadow:0 0 0 6px rgba(202,138,4,0)}}
+  .report.r-holiday{background:var(--holiday);border-color:#6b7280;color:var(--holiday-txt)}
+  .report .rt{font-size:15.5px;font-weight:700;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .report .rtime{font-size:12px;opacity:.85;font-weight:600}
+  .report .rpills{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+  .report .spill{background:rgba(255,255,255,.7);color:inherit;border:1px solid rgba(0,0,0,.08);font-size:10.5px;border-radius:8px;padding:1px 6px;font-weight:600}
+  .report .rdesc{font-size:12.5px;line-height:1.55;margin-top:4px;opacity:.9}
+  .report .rgo{font-size:12.5px;font-weight:700;margin-top:6px;opacity:.9}
+  .report .rbadge{font-size:9.5px;background:rgba(0,0,0,.08);color:inherit;border:1px dashed rgba(0,0,0,.2);border-radius:5px;padding:1px 5px;font-weight:600;margin-left:2px}
+  .report.r-intraday .rbadge,.report.r-close .rbadge,.report.r-live .rbadge{background:rgba(30,64,175,.15);border-color:rgba(30,64,175,.3);color:#1e40af}
+  /* 二级页 CTA */
+  .cta{margin-bottom:18px}
+  .cta-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;text-decoration:none;border-radius:12px;padding:18px 24px;font-size:15px;font-weight:700;transition:.15s;box-shadow:0 4px 12px rgba(30,58,95,.2);text-align:center;line-height:1.5}
+  .cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(30,58,95,.3)}
+  .cta-btn .sub{font-size:11.5px;opacity:.85;font-weight:400;margin-left:8px}
+  footer{font-size:12px;color:var(--mut);border-top:1px solid var(--line);padding-top:14px;margin-top:8px;text-align:center;line-height:1.7}
   @media(max-width:760px){
-    .cards{flex-direction:column}.rcard{flex:1 1 auto}.rcard .rp-line{white-space:normal}
-    .timeblock .ttime{flex:0 0 100%}.timeblock .tname{flex:1 1 auto;min-width:0}
-    .timeblock .tsources{flex:0 0 100%;min-width:0}
-    .rate-row{grid-template-columns:100px 1fr 60px;font-size:12px}
+    .reports{grid-template-columns:1fr}
+    .holdings-bar{flex-direction:column}
+    .h-item{flex:1 1 auto}
   }
 </style>
 </head>
 <body>
 <header class="top"><div class="wrap">
   <h1>📡 A股复盘 · 预测 · 盘中追踪</h1>
-  <div class="sub">WorkBuddy 专家「A股复盘·预测·盘中追踪」· 一体化简报入口</div>
-  <div>
-    <span class="badge">盘后复盘 + 明日预测</span>
-    <span class="badge">盘中 5 时段实时强度</span>
-    <span class="badge">板块追踪 + 分时段买卖剧本</span>
-    <span class="badge">实时盯盘 30秒</span>
-    <span class="badge">异动即时提醒</span>
+  <div class="sub">WorkBuddy 专家 · 一体化简报入口 · 多源降级 · 0 LLM 编造 · 月成本≈0</div>
+  <div class="top-stat">
+    <div><b>5+</b>数据源</div>
+    <div><b>3</b>主报告</div>
+    <div><b>5</b>时段盘中</div>
+    <div><b>2</b>条铁律</div>
+    <div><b>4</b>只持仓</div>
   </div>
 </div></header>
 
 <div class="wrap">
 
-  <!-- 0 核心认知卡 -->
-  <div class="core-card">
-    <div class="core-title">💎 这套东西最值钱的不是数据本身</div>
-    <div class="core-sub">是「怎么把免费数据拼起来刚好够用」——多源降级 · 双铁律 · 零编造 · 全自动化</div>
-    <div class="core-stats">
-      <div><b>5+</b>数据源</div>
-      <div><b>3</b>份主报告</div>
-      <div><b>5</b>时段盘中</div>
-      <div><b>2</b>条铁律</div>
-      <div><b>0</b>LLM 编造</div>
-      <div><b>≈0</b>月成本</div>
-    </div>
+  <!-- 持仓快照 -->
+  <div class="holdings-bar"><div class="h-item"><div class="hnm">💼 创业板ETF易方达</div><div class="hmeta">sz159915 · 市值 1.25万 · 成本 4.549 · 3400 份</div></div>
+    <div class="h-item warn"><div class="hnm">💼 有色ETF博时</div><div class="hmeta">sz512400 · 成本待补</div></div>
+    <div class="h-item warn"><div class="hnm">💼 银行ETF华宝</div><div class="hmeta">sz512800 · 成本待补</div></div>
+    <div class="h-item warn"><div class="hnm">💼 百合花</div><div class="hmeta">sh603823 · 成本待补</div></div></div>
+
+  <!-- 5份报告卡片（按对方排版） -->
+  <div class="reports">
+    <a class="report r-pre planned" href="javascript:void(0)" onclick="return false;">
+      <div class="rt">🔴 盘前舆情分析 <span class="rbadge">规划中</span></div>
+      <div class="rtime">09:21 · 开盘前瞻</div>
+      <div class="rpills"><span class="spill">neodata 行情</span><span class="spill">westock 北向</span><span class="spill">东财/新浪</span><span class="spill">宏观日历</span></div>
+      <div class="rdesc">token 预检 → 盘前快讯 + 新闻影响分析 + 异动预警</div>
+      <div class="rgo">规划中 →</div>
+    </a>
+
+    <a class="report r-noon planned" href="javascript:void(0)" onclick="return false;">
+      <div class="rt">🟡 午间技术分析 <span class="rbadge">规划中</span></div>
+      <div class="rtime">12:30 · 期限联动</div>
+      <div class="rpills"><span class="spill">westock 资金/技术</span><span class="spill">neodata 行情</span></div>
+      <div class="rdesc">持仓 18 只全量 · 期限联动 IF+IC+IM · 上午收盘复盘</div>
+      <div class="rgo">规划中 →</div>
+    </a>
+
+    <a class="report r-sect planned" href="javascript:void(0)" onclick="return false;">
+      <div class="rt">🟣 板块走势速览 <span class="rbadge">规划中</span></div>
+      <div class="rtime">14:00 · 题材溯源</div>
+      <div class="rpills"><span class="spill">westock 深水区 A1-A6</span><span class="spill">neodata 估值分位</span><span class="spill">westock 宽度</span></div>
+      <div class="rdesc">板块详情 · 产业链 · 热点题材版谱 · 概念溯源</div>
+      <div class="rgo">规划中 →</div>
+    </a>
+
+    <a class="report r-intraday" href="intraday_1330_20260722.html">
+      <div class="rt">🔵 盘中 5 时段实时追踪 <span class="rbadge">已上线</span></div>
+      <div class="rtime">09:45 / 10:30 / 13:30 / 14:30 / 14:55 · 07-22 盘中</div>
+      <div class="rpills"><span class="spill">westock-data 主力</span><span class="spill">腾讯财经 备援</span><span class="spill">板块/资金/技术</span></div>
+      <div class="rdesc">板块实时面板 + 持仓强度 + 分时段买卖剧本（红=买/绿=卖/橙=风控）</div>
+      <div class="rgo">查看最新盘中报告 →</div>
+    </a>
+
+    <a class="report r-close" href="全景复盘_20260721.html">
+      <div class="rt">🔵 盘后全景复盘 <span class="rbadge">已上线</span></div>
+      <div class="rtime">16:00 · 收盘复盘 · 2026-07-21</div>
+      <div class="rpills"><span class="spill">westock-data 全量</span><span class="spill">腾讯财经 备援</span><span class="spill">neodata</span><span class="spill">东财/新浪</span></div>
+      <div class="rdesc">八大板块全景 + 北向个股 + 自算组合风险（Beta/Sharpe/最大回撤）+ 明日推演 + 次日关注清单</div>
+      <div class="rgo">查看盘后复盘 →</div>
+    </a>
+
+    <a class="report r-live" href="live_dashboard.html">
+      <div class="rt">⚡ 实时盯盘 <span class="rbadge">已上线 · 30秒</span></div>
+      <div class="rtime">交易时段 · 价格 30 秒刷新</div>
+      <div class="rpills"><span class="spill">westock-data</span><span class="spill">板块 Top</span></div>
+      <div class="rdesc">持仓 + 三大指数 + 板块强度 + 创业板深度（5 分钟重算）</div>
+      <div class="rgo">打开实时盯盘 →</div>
+    </a>
+
+    <a class="report r-holiday planned" href="javascript:void(0)" onclick="return false;">
+      <div class="rt">⚫ 假期策略 <span class="rbadge">规划中</span></div>
+      <div class="rtime">23:40 · 7 类深度</div>
+      <div class="rpills"><span class="spill">westock B1-B7 全开</span><span class="spill">neodata 外盘</span><span class="spill">宏观日历</span></div>
+      <div class="rdesc">产业链 · 机构持股 · 估值历史 · 筹码集中度 · 题材全景 · 一致预期</div>
+      <div class="rgo">规划中 →</div>
+    </a></div>
+
+  <!-- 二级页 CTA -->
+  <div class="cta">
+    <a class="cta-btn" href="system.html">
+      📊 系统架构 / 数据源全景 / 5报告时序 / 双铁律 / 复用率
+      <span class="sub">→ 进入二级页面</span>
+    </a>
   </div>
 
-  <!-- 1 专家说明 -->
-  <section class="module">
-    <h3><span class="num">★</span>专家说明</h3>
-    <p class="lead">本专家整合盘后全景复盘、情绪周期研判与盘中短线决策三类能力，自动产出自包含 HTML 简报；报告即专家产物，全套「小红书卡片风」。</p>
-    <ul class="cap">
-      <li><b>盘后复盘（16:00）</b>：八大板块全景 + 明日推演 + 次日关注清单，含偏差复核闭环。</li>
-      <li><b>盘中实时追踪（09:45/10:30/13:30/14:30/14:55）</b>：板块实时面板 + 持仓强度 + 分时段买卖剧本（条件式，红=买/绿=卖/橙=风控）。</li>
-      <li><b>实时盯盘 30秒</b>：常驻后台，价格每 30 秒刷新，含创业板深度模块（5 分钟重算）。</li>
-      <li><b>异动即时扫描（10:00/11:00/13:00/14:00/14:45）</b>：持仓破位/触板才提醒，平时静默。</li>
-    </ul>
-    <div><span class="pill">红涨绿跌</span><span class="pill">条件式信号</span><span class="pill">不下达确定买卖指令</span><span class="pill">跨设备可看</span></div>
-    <div class="note">以上分析基于公开数据，不构成投资建议；市场有风险，操作需谨慎。</div>
-  </section>
-
-  <!-- 2 数据源全景 -->
-  <section class="module">
-    <h3><span class="num">1</span>数据源全景</h3>
-    <p class="lead">主力源 + 备援源 + 宏观日历 + 兜底源，按报告时段自动调度；多源降级链确保任一源挂掉都不影响报告产出。</p>
-    <div class="sources">
-      <div class="source main">
-        <div class="sn">westock-data <span class="tag main">主力</span></div>
-        <div class="sd">个股/指数行情 · 板块涨跌幅 · 主力净流入 · 资金流 · ETF技术指标 MACD/RSI/KDJ · 涨跌停/炸板 · 美股港股指数</div>
-      </div>
-      <div class="source">
-        <div class="sn">腾讯财经 westock-mcp <span class="tag">备援</span></div>
-        <div class="sd">实时行情交叉校验 · Level-2 委比/盘口 · ETF 换手率/内盘占比</div>
-      </div>
-      <div class="source">
-        <div class="sn">neodata-financial-search <span class="tag">备援</span></div>
-        <div class="sd">指数行情 · 板块涨跌 · ETF价格 · 基金净值 · 外盘夜盘 · A50期货 · 港股</div>
-      </div>
-      <div class="source">
-        <div class="sn">东方财富 + 新浪 <span class="tag">备援</span></div>
-        <div class="sd">盘前必读 · 盘后要闻 · 周末舆情 · 金融快讯</div>
-      </div>
-      <div class="source">
-        <div class="sn">economic-calendar-cn <span class="tag">备援</span></div>
-        <div class="sd">宏观数据发布日程 · 下周大事日历 · CPI/PPI/PMI/LPR 等</div>
-      </div>
-      <div class="source">
-        <div class="sn">QVeris 兜底 <span class="tag fb">降级</span></div>
-        <div class="sd">免费源全部挂掉才触发，按次计费约1cr/次；宁缺毋滥，标记"暂缺"而非 LLM 编造</div>
-      </div>
-    </div>
-    <div class="cascade">
-      <span class="step">westock-data 主力</span><span class="arr">→</span>
-      <span class="step">腾讯财经 备援</span><span class="arr">→</span>
-      <span class="step">neodata 备援</span><span class="arr">→</span>
-      <span class="step">东财/新浪 备援</span><span class="arr">→</span>
-      <span class="fail">QVeris 按次付费</span><span class="arr">→</span>
-      <span class="fail">标记"暂缺"</span>
-    </div>
-    <div class="note">通用降级链：主力→备援→兜底→标记缺失。互备→按次付费兜底→宁缺毋滥。所有金融数字强制从 API 填入，月成本≈0。</div>
-  </section>
-
-  <!-- 3 5报告时序 -->
-  <section class="module">
-    <h3><span class="num">2</span>5 报告时序 · 一天下来你能收到什么</h3>
-    <p class="lead">按交易时序排列，颜色编码区分主题。当前已上线盘中 5 时段 + 盘后复盘 + 实时盯盘；盘前舆情与假期策略规划中。</p>
-    <div class="timeline">
-      <div class="timeblock pre">
-        <div class="ttime">09:21</div>
-        <div class="tname">盘前舆情分析<span class="planned">规划中</span></div>
-        <div class="tsources"><span class="spill">neodata 行情</span><span class="spill">westock 北向/异动</span><span class="spill">东财/新浪</span><span class="spill">宏观日历</span></div>
-        <div class="tdesc">token 预检 → 盘前快讯 + 新闻影响分析 + 异动预警（参考对方"盘前必读"形式）</div>
-      </div>
-      <div class="timeblock noon">
-        <div class="ttime">12:30</div>
-        <div class="tname">午间技术分析<span class="planned">规划中</span></div>
-        <div class="tsources"><span class="spill">westock 资金/技术</span><span class="spill">neodata 行情</span></div>
-        <div class="tdesc">持仓 18 只全量 · 期限联动 IF+IC+IM · 上午收盘复盘</div>
-      </div>
-      <div class="timeblock sect">
-        <div class="ttime">14:00</div>
-        <div class="tname">板块走势速览<span class="planned">规划中</span></div>
-        <div class="tsources"><span class="spill">westock 深水区 A1-A6</span><span class="spill">neodata 估值分位</span><span class="spill">westock 宽度</span></div>
-        <div class="tdesc">板块详情 · 产业链 · 热点题材版谱 · 概念溯源（可合并到盘中 14:00 时段）</div>
-      </div>
-      <div class="timeblock live">
-        <div class="ttime">09:45-14:55</div>
-        <div class="tname">盘中 5 时段实时追踪</div>
-        <div class="tsources"><span class="spill">westock-data 主力</span><span class="spill">腾讯财经 备援</span><span class="spill">板块/资金/技术</span></div>
-        <div class="tdesc">板块实时面板 + 持仓强度 + 分时段买卖剧本（红=买/绿=卖/橙=风控）</div>
-      </div>
-      <div class="timeblock close">
-        <div class="ttime">16:00</div>
-        <div class="tname">盘后全景复盘 + 明日推演</div>
-        <div class="tsources"><span class="spill">westock-data 全量</span><span class="spill">腾讯财经 备援</span><span class="spill">neodata</span><span class="spill">东财/新浪</span></div>
-        <div class="tdesc">八大板块全景 + 北向个股 + 自算组合风险（Beta/Sharpe/最大回撤） + 明日推演 + 次日关注清单</div>
-      </div>
-      <div class="timeblock live">
-        <div class="ttime">交易时段</div>
-        <div class="tname">实时盯盘 · 30秒刷新</div>
-        <div class="tsources"><span class="spill">westock-data</span><span class="spill">板块 Top</span></div>
-        <div class="tdesc">持仓 + 三大指数 + 板块强度 + 创业板深度（5 分钟重算）</div>
-      </div>
-      <div class="timeblock holiday">
-        <div class="ttime">23:40</div>
-        <div class="tname">假期策略<span class="planned">规划中</span></div>
-        <div class="tsources"><span class="spill">westock B1-B7 全开</span><span class="spill">neodata 外盘</span><span class="spill">宏观日历</span></div>
-        <div class="tdesc">7 类深度：产业链 · 机构持股 · 估值历史 · 筹码集中度 · 题材全景 · 一致预期</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4 两条铁律 -->
-  <section class="module">
-    <h3><span class="num">3</span>两条铁律 · 设计思路</h3>
-    <p class="lead">经多次 AI 幻觉踩坑后锁死的规范，每份报告统一遵守。</p>
-    <div class="ironlaws">
-      <div class="ironlaw">
-        <div class="ilt">铁律一：数字绑定 · 禁 LLM 编造</div>
-        <div class="ild">所有金融数字<strong>强制从 API 返回原值填入</strong>，不允许模型凭记忆生成。哪怕数据源返回空，字段标"暂缺"——零幻觉、零编造。</div>
-      </div>
-      <div class="ironlaw green">
-        <div class="ilt">铁律二：多源降级 · 双源交叉</div>
-        <div class="ild">每个数据项配专属降级链，5 时段报告统一遵守。<strong>主力源</strong>挂了自动切<strong>备援源</strong>，备援挂了才触发<strong>兜底源</strong>（按次付费）。两道免费防线，99% 报告零干预正常出。</div>
-      </div>
-    </div>
-    <div class="note"><strong>实际运转案例</strong>：① 正常状态 — westock-data 数据正常 → 5 份报告零人工干预正常出。② 降级触发 — 主力源某接口维护 + 备援源缺数据 → 走兜底源，报告照常发出。③ 跨源验证（G3） — 盘前/午间/板块/收盘三轮对照，偏差&gt;0.5% 禁止发送，避免幻觉数字蔓延。</div>
-  </section>
-
-  <!-- 5 数据源复用率 -->
-  <section class="module">
-    <h3><span class="num">4</span>数据源复用率</h3>
-    <p class="lead">每个数据源被多少报告/时段使用——主力源覆盖 5/5 是核心基础设施，备援源覆盖越广越安全。</p>
-    <div class="reuserate">
-      <div class="rate-row"><div class="rname">westock-data</div><div class="rbar"><div class="rfill" style="width:100%"></div></div><div class="rnum">5/5 报告</div></div>
-      <div class="rate-row"><div class="rname">腾讯财经</div><div class="rbar"><div class="rfill" style="width:80%"></div></div><div class="rnum">4/5 报告</div></div>
-      <div class="rate-row"><div class="rname">neodata</div><div class="rbar"><div class="rfill" style="width:80%"></div></div><div class="rnum">4/5 报告</div></div>
-      <div class="rate-row"><div class="rname">东方财富+新浪</div><div class="rbar"><div class="rfill" style="width:40%"></div></div><div class="rnum">2/5 报告</div></div>
-      <div class="rate-row"><div class="rname">economic-calendar</div><div class="rbar"><div class="rfill" style="width:40%"></div></div><div class="rnum">2/5 报告</div></div>
-      <div class="rate-row"><div class="rname">QVeris 兜底</div><div class="rbar"><div class="rfill" style="width:20%"></div></div><div class="rnum">按需触发</div></div>
-    </div>
-  </section>
-
-  <!-- 6 实时盯盘 -->
-  <section class="module" style="border-color:#1e40af;background:linear-gradient(135deg,#fff,#eef4ff)">
-    <h3><span class="num" style="background:#16a34a">●</span>实时盯盘 · 30秒刷新</h3>
-    <p class="lead">交易时段内价格每 30 秒刷新，覆盖持仓创业板ETF + 三大指数 + 板块强度 + 创业板深度。本机运行即真·实时。</p>
-    <div class="cards">
-      <a class="rcard" href="live_dashboard.html" style="border-color:#1e40af;background:linear-gradient(135deg,#fff,#e0ecff)">
-        <div class="rt">A股实时盯盘 · 30秒刷新</div>
-        <div class="rd">当前持仓：创业板ETF易方达(sz159915) 市值1.25万 占比12.52% 成本4.549</div>
-        <div class="rpreview">
-          <div class="rp-line"><span class="muted">大盘：</span>上证 +0.09% · 深证 -0.15% · 创业 -1.27%</div>
-          <div class="rp-line"><span class="muted">持仓：</span>创业板ETF易方达 3.66 -1.27% 持仓市值 1.25万 · 占比 12.52% · 盈亏 -19.50% 破位线 4.19（距 -12.50%） 若跌破 4.19…</div>
-          <div class="rp-line"><span class="muted">领涨：</span>贵金属 +7.64%</div>
-          <div class="rp-line"><span class="muted">主力：</span>半导体 +84.53亿</div>
-        </div>
-        <div class="rmeta">2026-07-22 13:12:54 (北京)</div>
-        <div class="rgo">打开实时盯盘 →</div>
-      </a>
-    </div>
-    <div class="note">提示：GitHub Pages 数据约每 5 分钟由本机自动同步一次；页面自带 30 秒刷新机制。只要本机保持运行，手机/其他电脑浏览器打开即看到约 5 分钟级真·实时。</div>
-  </section>
-
-  <!-- 7 盘后全景复盘 -->
-  <section class="module">
-    <h3><span class="num">5</span>盘后全景复盘</h3>
-    <p class="lead">交易日 16:00 自动生成，覆盖 10 模块 + 自选跟踪 + 明日推演。</p>
-    <div class="cards">
-      <a class="rcard" href="全景复盘_20260721.html">
-        <div class="rt">全景复盘 · 2026-07-21</div>
-        <div class="rd">定性：缩量后的放量反包，风格由红利切向科技；情绪正常偏暖，但估值百分位偏高（中证全指 PE_TTM 10年 85.56%），属修复而非反转确认。</div>
-        <div class="rgo">打开报告 →</div>
-      </a>
-    </div>
-  </section>
-
-  <!-- 8 盘中实时追踪 -->
-  <section class="module">
-    <h3><span class="num">6</span>盘中实时追踪</h3>
-    <p class="lead">五个时段各一份（09:45/10:30/13:30/14:30/14:55），含板块实时面板 + 持仓操作面板（分时段买卖剧本）。下方为今日已生成报告，新时段会自动追加。</p>
-    <div class="cards">
-      <a class="rcard" href="intraday_0945_20260722.html">
-        <div class="rt">[09:45] 开盘定势段</div>
-        <div class="rd">开盘定势：根据早盘强度与板块确认，制定今日主策略与关键价位，作为全天做T的基准。</div>
-        <div class="rpreview">
-          <div class="rp-line"><span class="muted">指数：</span>-0.22% 上证指数 · +0.20% 深证成指 · 偏弱 盘面状态</div>
-          <div class="rp-line"><span class="muted">领涨：</span>+5.30% 贵金属 · 龙头赤峰黄金(8.26) · +3.35% 工业金属 · 龙头兴业银锡(8.68) · +2.56% 油服工程 · 龙头通源石油(6.02)</div>
-          <div class="rp-line"><span class="muted">持仓：</span>-0.04% 创业板指 sz399006 · 强度45/100 现价3684.44（ -0.04% ）· 持有，注意盘面变化</div>
-          <div class="rp-line"><span class="muted">信号：</span>持有/做T · 破位线 0.00 · T买回 3573.91 · 加仓触发 3758.13</div>
-        </div>
-        <div class="rgo">打开报告 →</div>
-      </a>
-      <a class="rcard" href="intraday_1030_20260722.html">
-        <div class="rt">[10:30] 早盘博弈段</div>
-        <div class="rd">早盘博弈：第一做T窗口，观察早盘冲高/回踩，给出高抛低吸的具体触发条件。</div>
-        <div class="rpreview">
-          <div class="rp-line"><span class="muted">指数：</span>+0.32% 上证指数 · +0.48% 深证成指 · 偏强 盘面状态</div>
-          <div class="rp-line"><span class="muted">领涨：</span>+6.06% 贵金属 · 龙头晓程科技(9.69) · +4.66% 工业金属 · 龙头兴业银锡(9.99) · +3.81% 油服工程 · 龙头中曼石油(10.00)</div>
-          <div class="rp-line"><span class="muted">持仓：</span>-0.40% 创业板ETF易方达 sz159915 · 强度38/100 现价3.69（ -0.40% ）· ⚠️ 强度偏弱，考虑减半仓位</div>
-          <div class="rp-line"><span class="muted">信号：</span>止损 · 破位线 4.19 · T买回 3.58 · 加仓触发 3.77</div>
-        </div>
-        <div class="rgo">打开报告 →</div>
-      </a>
-      <a class="rcard" href="intraday_1330_20260722.html">
-        <div class="rt">[13:30] 午后开局段</div>
-        <div class="rd">午后开局：午后方向选择，确认是否延续早盘策略或切换，捕捉二次做T机会。</div>
-        <div class="rpreview">
-          <div class="rp-line"><span class="muted">指数：</span>+0.20% 上证指数 · -0.55% 深证成指 · 偏弱 盘面状态</div>
-          <div class="rp-line"><span class="muted">领涨：</span>+7.01% 贵金属 · 龙头山金国际(10.01) · +4.93% 工业金属 · 龙头盛屯矿业(10.00) · +4.20% 油服工程 · 龙头中曼石油(10.00)</div>
-          <div class="rp-line"><span class="muted">持仓：</span>-1.81% 创业板ETF易方达 sz159915 · 强度31/100 现价3.64（ -1.81% ）· ⚠️ 强度偏弱，考虑减半仓位</div>
-          <div class="rp-line"><span class="muted">信号：</span>止损 · 破位线 4.19 · T买回 3.53 · 加仓触发 3.71</div>
-        </div>
-        <div class="rgo">打开报告 →</div>
-      </a>
-    </div>
-    <div class="src">注：盘中报告由自动化在每个时段实跑生成并写入 trading/reports/；本页随 generate_index.py 自动同步最新报告。</div>
-  </section>
-
   <footer>
-    本页由 WorkBuddy 专家「A股复盘·预测·盘中追踪」维护，部署到 GitHub Pages 后可在手机/其他电脑设备的浏览器打开。
-    数据口径：收盘 / 盘中实时（来源不外露）。以上分析基于公开数据，不构成投资建议。
+    本页由 WorkBuddy 专家「A股复盘·预测·盘中追踪」维护 · 部署到 GitHub Pages · 数据来源不外露<br>
+    以上分析基于公开数据，不构成投资建议
   </footer>
 </div>
 </body>
