@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股复盘·预测·盘中追踪 · 专家总览</title>
+<style>
+  :root{--accent:#1e40af;--accent2:#1e3a5f;--red:#dc2626;--green:#16a34a;--bg:#f5f7fa;--card:#fff;--line:#e5e7eb;--txt:#1f2937;--mut:#6b7280;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;font-size:14px;line-height:1.65}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 16px 60px}
+  header.top{background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;padding:30px 0 24px;margin-bottom:18px}
+  header.top h1{margin:0 0 8px;font-size:24px;font-weight:700}
+  header.top .sub{opacity:.92;font-size:13px}
+  header.top .badge{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:3px 12px;margin:8px 8px 0 0;font-size:12px;font-weight:600}
+  .module{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:18px;box-shadow:0 1px 4px rgba(15,23,42,.04)}
+  .module h3{margin:0 0 10px;font-size:17px;display:flex;align-items:center;gap:8px}
+  .module h3 .num{background:var(--accent);color:#fff;border-radius:7px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex:0 0 auto}
+  .module .lead{color:var(--mut);font-size:12.5px;margin:0 0 12px;padding-left:34px}
+  .cards{display:flex;flex-wrap:wrap;gap:14px}
+  .rcard{flex:1 1 280px;background:linear-gradient(135deg,#fff,#f0f6ff);border:1px solid #c7d7ff;border-radius:11px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--txt);transition:.15s}
+  .rcard:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(30,64,175,.12)}
+  .rcard .rt{font-size:15px;font-weight:700;color:var(--accent2)}
+  .rcard .rd{font-size:12.5px;color:var(--mut)}
+  .rcard .rgo{margin-top:auto;font-size:12px;color:var(--accent);font-weight:600}
+  .pill{display:inline-block;font-size:11px;border-radius:10px;padding:2px 9px;margin:2px 4px 2px 0;background:#eef2ff;color:var(--accent)}
+  .note{background:#fffbeb;border-left:3px solid #f59e0b;padding:9px 12px;border-radius:6px;font-size:12.5px;margin:10px 0;color:#7c5a00}
+  .src{font-size:11.5px;color:var(--mut)}
+  footer{font-size:12px;color:var(--mut);border-top:1px solid var(--line);padding-top:16px;margin-top:8px}
+  ul.cap{margin:6px 0 0;padding-left:20px;font-size:13px}
+  ul.cap li{margin:3px 0}
+  @media(max-width:760px){.cards{flex-direction:column}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>📡 A股复盘 · 预测 · 盘中追踪</h1>
+  <div class="sub">WorkBuddy 专家「A股复盘·预测·盘中追踪」· 一体化简报入口</div>
+  <div>
+    <span class="badge">盘后复盘 + 明日预测</span>
+    <span class="badge">盘中 5 时段实时强度</span>
+    <span class="badge">板块追踪 + 分时段买卖剧本</span>
+    <span class="badge">异动即时提醒</span>
+  </div>
+</div></header>
+
+<div class="wrap">
+
+  <section class="module">
+    <h3><span class="num">★</span>专家说明</h3>
+    <p class="lead">本专家整合盘后全景复盘、情绪周期研判与盘中短线决策三类能力，自动产出自包含 HTML 简报；报告即专家产物，全套「小红书卡片风」。</p>
+    <ul class="cap">
+      <li><b>盘后复盘（16:00）</b>：八大板块全景 + 明日推演 + 次日关注清单，含偏差复核闭环。</li>
+      <li><b>盘中实时追踪（09:45/10:30/13:30/14:30/14:55）</b>：板块实时面板 + 持仓强度 + 分时段买卖剧本（条件式，红=买/绿=卖/橙=风控）。</li>
+      <li><b>异动即时扫描（10:00/11:00/13:00/14:00/14:45）</b>：持仓破位/触板才提醒，平时静默。</li>
+    </ul>
+    <div><span class="pill">红涨绿跌</span><span class="pill">条件式信号</span><span class="pill">不下达确定买卖指令</span><span class="pill">跨设备可看</span></div>
+    <div class="note">以上分析基于公开数据，不构成投资建议；市场有风险，操作需谨慎。</div>
+  </section>
+
+  <section class="module" style="border-color:#1e40af;background:linear-gradient(135deg,#fff,#eef4ff)">
+    <h3><span class="num" style="background:#16a34a">●</span>实时盯盘 · 30秒刷新</h3>
+    <p class="lead">交易时段内每 30 秒自动刷新（页面自带刷新机制），覆盖持仓创业板指 + 三大指数 + 常看板块强度。开盘后打开即可持续盯。</p>
+    <div class="cards">
+      <a class="rcard" href="live_dashboard.html" style="border-color:#1e40af;background:linear-gradient(135deg,#fff,#e0ecff)">
+        <div class="rt">A股实时盯盘 · 30秒刷新</div>
+        <div class="rd">持仓创业板指（市值2.8万）+ 沪/深/创三大指数 + 7大常看板块强度；红涨绿跌，自带自动刷新。</div>
+        <div class="rgo">打开实时盯盘 →</div>
+      </a>
+    </div>
+    <div class="note">提示：此页含自动刷新机制，浏览器停留即每 30 秒拉最新行情；非交易时段显示最近快照。跨设备查看时本页为部署时刻快照，需重部署刷新。</div>
+  </section>
+
+  <section class="module">
+    <h3><span class="num">1</span>盘后全景复盘</h3>
+    <p class="lead">交易日 16:00 自动生成，覆盖 10 模块 + 自选跟踪 + 明日推演。</p>
+    <div class="cards">
+      <a class="rcard" href="panorama_20260721.html">
+        <div class="rt">全景复盘 · 2026-07-21</div>
+        <div class="rd">政策底 + 国家队 ETF 托市催化的科技成长超跌反弹日；八模块 + 自选跟踪。</div>
+        <div class="rgo">打开报告 →</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="module">
+    <h3><span class="num">2</span>盘中实时追踪（示例）</h3>
+    <p class="lead">五个时段各一份，含板块实时面板 + 持仓操作面板（分时段买卖剧本）。下方为 09:45 示例（含模拟持仓）。</p>
+    <div class="cards">
+      <a class="rcard" href="intraday_0945_demo.html">
+        <div class="rt">盘中追踪 · 09:45 开盘定势（示例）</div>
+        <div class="rd">板块实时面板 + 持仓操作剧本：主做T，压力/支撑/破位线见面板。</div>
+        <div class="rgo">打开示例 →</div>
+      </a>
+    </div>
+    <div class="src">注：盘中报告由自动化在每个时段实跑生成并写入 trading/reports/；本页示例用于预览样式，正式报告在交易日盘中更新。</div>
+  </section>
+
+  <footer>
+    本页由 WorkBuddy 专家「A股复盘·预测·盘中追踪」维护，部署到静态托管后可在手机/其他设备的浏览器打开。
+    数据口径：收盘 / 盘中实时（来源不外露）。以上分析基于公开数据，不构成投资建议。
+  </footer>
+</div>
+</body>
+</html>
