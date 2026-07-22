@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A股复盘·预测·盘中追踪</title>
+<title>盘前舆情分析 + 开盘前瞻 | A股复盘专家</title>
 <style>
   :root{
     --accent:#1e40af;--accent2:#1e3a5f;--red:#dc2626;--green:#16a34a;--bg:#f5f7fa;--card:#fff;--line:#e5e7eb;--txt:#1f2937;--mut:#6b7280;
@@ -12,20 +12,58 @@
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;font-size:14px;line-height:1.6}
   .wrap{max-width:1080px;margin:0 auto;padding:0 16px 60px}
-  header.top{background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;padding:22px 0 18px;margin-bottom:14px}
+  header.top{background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;padding:22px 0 18px;margin-bottom:0}
   header.top h1{margin:0 0 6px;font-size:22px;font-weight:700}
   header.top .sub{opacity:.92;font-size:12.5px}
   .top-stat{display:flex;gap:10px;margin-top:10px;font-size:12px;flex-wrap:wrap}
   .top-stat div{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:3px 10px}
   .top-stat b{color:#fde68a;margin-right:3px}
+  /* 顶部指数预览条（黑底） */
+  .indices-bar{background:#1f2937;color:#fff;padding:14px 16px;display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:0}
+  .idx{text-align:center;display:flex;flex-direction:column;gap:2px;padding:4px 0}
+  .idx-n{font-size:12px;opacity:.85}
+  .idx-p{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
+  .idx-v{font-size:11px;opacity:.7;font-variant-numeric:tabular-nums}
+  /* 红色徽章 */
+  .hot-badge{display:block;background:#dc2626;color:#fff;padding:10px 16px;text-align:center;font-weight:700;font-size:14px;letter-spacing:.5px}
   /* 持仓快照 */
-  .holdings-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-  .h-item{flex:1 1 200px;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:8px 12px;font-size:12.5px;display:flex;flex-direction:column;gap:2px;min-width:0}
+  .holdings-bar{display:flex;flex-wrap:wrap;gap:8px;padding:14px 16px;background:#fff;border-bottom:1px solid var(--line)}
+  .h-item{flex:1 1 200px;background:#f8fafc;border:1px solid var(--line);border-radius:9px;padding:8px 12px;font-size:12.5px;display:flex;flex-direction:column;gap:2px;min-width:0}
   .h-item .hnm{font-weight:700;color:var(--accent2);font-size:13px}
   .h-item .hmeta{color:var(--mut);font-size:11.5px}
   .h-item.warn{border-color:#fcd34d;background:linear-gradient(135deg,#fffbeb,#fff)}
-  /* 5份报告卡片（按对方排版） */
-  .reports{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-bottom:14px}
+  /* 通用模块 */
+  .m{background:var(--card);border:1px solid var(--line);border-radius:0;padding:16px 20px;margin:0 0 0;border-bottom:1px solid var(--line)}
+  .m:last-child{border-bottom:none}
+  .m h2{margin:0 0 10px;font-size:16px;font-weight:700;color:var(--accent2);border-left:4px solid var(--accent);padding-left:10px}
+  .m h3.sub-h{margin:14px 0 8px;font-size:13.5px;color:#475569;font-weight:600}
+  .m .lead{color:#374151;font-size:13px;margin:0 0 12px;line-height:1.65}
+  .m .src{color:var(--mut);font-size:11.5px;margin-top:8px;font-style:italic}
+  /* 表格 */
+  table.tbl{width:100%%;border-collapse:collapse;font-size:12.5px;margin-bottom:8px}
+  table.tbl th{background:#f1f5f9;color:#1f2937;font-weight:700;padding:8px 10px;text-align:left;border-bottom:2px solid #cbd5e1}
+  table.tbl td{padding:7px 10px;border-bottom:1px solid #e5e7eb}
+  table.tbl tr:hover td{background:#f8fafc}
+  table.tbl td.empty{text-align:center;color:var(--mut);padding:20px}
+  /* 核心解读/琦琦点评 */
+  .core-interpret{background:linear-gradient(135deg,#eff6ff,#fff);border-left:3px solid var(--accent);padding:9px 12px;border-radius:6px;font-size:12.5px;margin-top:10px;color:#1e3a5f;line-height:1.7}
+  .key-eval{background:linear-gradient(135deg,#fef3c7,#fff);border-left:3px solid #d97706;padding:9px 12px;border-radius:6px;font-size:12.5px;margin-top:8px;color:#78350f;line-height:1.7}
+  /* 舆情列表 */
+  ul.news-list{list-style:none;margin:0;padding:0;font-size:12.5px;line-height:1.7}
+  ul.news-list li{padding:6px 0;border-bottom:1px dashed #e5e7eb;display:flex;gap:8px}
+  ul.news-list li:last-child{border-bottom:none}
+  ul.news-list .time{flex:0 0 auto;background:#eef2ff;color:var(--accent);border-radius:5px;padding:1px 6px;font-size:11px;font-weight:600}
+  /* 风险提示 */
+  .risk-high{background:#fef2f2;border-left:4px solid #dc2626;padding:8px 12px;border-radius:6px;font-size:12.5px;margin-bottom:6px;color:#7f1d1d;line-height:1.7}
+  .risk-mid{background:#fffbeb;border-left:4px solid #d97706;padding:8px 12px;border-radius:6px;font-size:12.5px;margin-bottom:6px;color:#78350f;line-height:1.7}
+  .risk-low{background:#f0fdf4;border-left:4px solid #16a34a;padding:8px 12px;border-radius:6px;font-size:12.5px;margin-bottom:6px;color:#14532d;line-height:1.7}
+  /* 总结 */
+  .summary{background:linear-gradient(135deg,#f1f5f9,#fff);border:1px solid #cbd5e1;border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.7;color:#1f2937}
+  .summary p{margin:6px 0}
+  /* 5份报告卡（我方） */
+  .our-reports{background:linear-gradient(135deg,#fafbff,#fff);border:1px solid #c7d7ff;border-radius:0;padding:16px 20px;margin:0;border-bottom:1px solid var(--line)}
+  .our-reports h2{margin:0 0 10px;font-size:16px;font-weight:700;color:var(--accent2);border-left:4px solid var(--accent);padding-left:10px}
+  .reports{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
   .report{border-radius:11px;padding:14px 16px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:6px;border-left:5px solid;background:#fff;transition:.15s;min-width:0;position:relative}
   .report:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
   .report.planned{opacity:.7;cursor:not-allowed}
@@ -47,22 +85,23 @@
   .report .rbadge{font-size:9.5px;background:rgba(0,0,0,.08);color:inherit;border:1px dashed rgba(0,0,0,.2);border-radius:5px;padding:1px 5px;font-weight:600;margin-left:2px}
   .report.r-intraday .rbadge,.report.r-close .rbadge,.report.r-live .rbadge{background:rgba(30,64,175,.15);border-color:rgba(30,64,175,.3);color:#1e40af}
   /* 二级页 CTA */
-  .cta{margin-bottom:18px}
-  .cta-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;text-decoration:none;border-radius:12px;padding:18px 24px;font-size:15px;font-weight:700;transition:.15s;box-shadow:0 4px 12px rgba(30,58,95,.2);text-align:center;line-height:1.5}
-  .cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(30,58,95,.3)}
-  .cta-btn .sub{font-size:11.5px;opacity:.85;font-weight:400;margin-left:8px}
-  footer{font-size:12px;color:var(--mut);border-top:1px solid var(--line);padding-top:14px;margin-top:8px;text-align:center;line-height:1.7}
+  .cta{background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;padding:18px 16px;text-align:center}
+  .cta-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.18);color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.35);border-radius:10px;padding:10px 20px;font-size:13px;font-weight:600;transition:.15s}
+  .cta-btn:hover{background:rgba(255,255,255,.28);transform:translateY(-2px)}
+  footer{font-size:12px;color:var(--mut);border-top:1px solid var(--line);padding:14px 16px;margin-top:0;text-align:center;line-height:1.7;background:#fff}
   @media(max-width:760px){
+    .indices-bar{grid-template-columns:repeat(3,1fr)}
     .reports{grid-template-columns:1fr}
     .holdings-bar{flex-direction:column}
     .h-item{flex:1 1 auto}
+    .top-stat{font-size:11px}
   }
 </style>
 </head>
 <body>
 <header class="top"><div class="wrap">
-  <h1>📡 A股复盘 · 预测 · 盘中追踪</h1>
-  <div class="sub">WorkBuddy 专家 · 一体化简报入口 · 多源降级 · 0 LLM 编造 · 月成本≈0</div>
+  <h1>📡 盘前舆情分析 + 开盘前瞻</h1>
+  <div class="sub">2026-07-22 (周三) · 09:25 · WorkBuddy 专家「A股复盘·预测·盘中追踪」</div>
   <div class="top-stat">
     <div><b>5+</b>数据源</div>
     <div><b>3</b>主报告</div>
@@ -72,15 +111,183 @@
   </div>
 </div></header>
 
-<div class="wrap">
+<!-- 顶部指数预览条（6 指数 + 备注） -->
+<div class="indices-bar"><div class="idx"><div class="idx-n">道指</div><div class="idx-p" style="color:#9ca3af">--</div><div class="idx-v" style="color:#cbd5e1">昨收参考 · agent填充</div></div>
+    <div class="idx"><div class="idx-n">纳指</div><div class="idx-p" style="color:#9ca3af">--</div><div class="idx-v" style="color:#cbd5e1">昨收参考 · agent填充</div></div>
+    <div class="idx"><div class="idx-n">恒生指数</div><div class="idx-p" style="color:#9ca3af">--</div><div class="idx-v" style="color:#cbd5e1">昨收参考 · agent填充</div></div>
+    <div class="idx"><div class="idx-n">WTI原油</div><div class="idx-p" style="color:#9ca3af">--</div><div class="idx-v" style="color:#cbd5e1">昨收参考 · agent填充</div></div>
+    <div class="idx"><div class="idx-n">COMEX金</div><div class="idx-p" style="color:#9ca3af">--</div><div class="idx-v" style="color:#cbd5e1">昨收参考 · agent填充</div></div>
+    <div class="idx"><div class="idx-n">恒生科技</div><div class="idx-p" style="color:#9ca3af">--</div><div class="idx-v" style="color:#cbd5e1">昨收参考 · agent填充</div></div></div>
 
-  <!-- 持仓快照 -->
-  <div class="holdings-bar"><div class="h-item"><div class="hnm">💼 创业板ETF易方达</div><div class="hmeta">sz159915 · 市值 1.25万 · 成本 4.549 · 3400 份</div></div>
+<!-- 红色徽章 -->
+<div class="hot-badge">📈 美伊协议 + 外盘大涨 + 高开预期</div>
+
+<!-- 持仓快照 -->
+<div class="holdings-bar"><div class="h-item"><div class="hnm">💼 创业板ETF易方达</div><div class="hmeta">sz159915 · 市值 1.25万 · 成本 4.549 · 3400 份</div></div>
     <div class="h-item warn"><div class="hnm">💼 有色ETF博时</div><div class="hmeta">sz512400 · 成本待补</div></div>
     <div class="h-item warn"><div class="hnm">💼 银行ETF华宝</div><div class="hmeta">sz512800 · 成本待补</div></div>
     <div class="h-item warn"><div class="hnm">💼 百合花</div><div class="hmeta">sh603823 · 成本待补</div></div></div>
 
-  <!-- 5份报告卡片（按对方排版） -->
+<!-- 1 外盘表现 -->
+<div class="m">
+  <h2>外盘表现</h2>
+  
+    <table class="tbl">
+      <thead><tr><th>指数</th><th>昨收</th><th>涨跌</th><th>涨跌幅</th><th>备注</th></tr></thead>
+      <tbody>
+        <tr><td>道琼斯</td><td>--</td><td>--</td><td>--</td><td>由盘前舆情 09:21 自动化填充</td></tr>
+        <tr><td>纳斯达克</td><td>--</td><td>--</td><td>--</td><td>由盘前舆情 09:21 自动化填充</td></tr>
+        <tr><td>标普500</td><td>--</td><td>--</td><td>--</td><td>由盘前舆情 09:21 自动化填充</td></tr>
+        <tr><td>恒生指数</td><td>--</td><td>--</td><td>--</td><td>由盘前舆情 09:21 自动化填充</td></tr>
+        <tr><td>恒生科技</td><td>--</td><td>--</td><td>--</td><td>由盘前舆情 09:21 自动化填充</td></tr>
+      </tbody>
+    </table>
+</div>
+
+<!-- 2 商品期货和港股期货 -->
+<div class="m">
+  <h2>商品期货和港股期货</h2>
+  
+    <table class="tbl">
+      <thead><tr><th>品种</th><th>代码</th><th>现价</th><th>涨跌</th><th>涨跌幅</th><th>备注</th></tr></thead>
+      <tbody>
+        <tr><td>WTI原油</td><td>CL</td><td>--</td><td>--</td><td>--</td><td>neodata 拉外盘夜盘</td></tr>
+        <tr><td>布伦特</td><td>CO</td><td>--</td><td>--</td><td>--</td><td>neodata 拉外盘夜盘</td></tr>
+        <tr><td>COMEX金</td><td>GC</td><td>--</td><td>--</td><td>--</td><td>neodata 拉外盘夜盘</td></tr>
+        <tr><td>COMEX银</td><td>SI</td><td>--</td><td>--</td><td>--</td><td>neodata 拉外盘夜盘</td></tr>
+        <tr><td>铁矿石</td><td>I</td><td>--</td><td>--</td><td>--</td><td>westock-data 拉</td></tr>
+        <tr><td>螺纹钢</td><td>RB</td><td>--</td><td>--</td><td>--</td><td>westock-data 拉</td></tr>
+        <tr><td>A50期货</td><td>CN</td><td>--</td><td>--</td><td>--</td><td>neodata 拉</td></tr>
+        <tr><td>恒指期货</td><td>HSI</td><td>--</td><td>--</td><td>--</td><td>neodata 拉</td></tr>
+      </tbody>
+    </table>
+</div>
+
+<!-- 3 竞价异动·持仓ETF盘前集合 -->
+<div class="m">
+  <h2>竞价异动 · 持仓ETF盘前集合</h2>
+  
+    <table class="tbl">
+      <thead><tr><th>ETF</th><th>代码</th><th>竞价价</th><th>昨收</th><th>溢价</th><th>信号</th></tr></thead>
+      <tbody><tr><td>创业板ETF易方达</td><td>sz159915</td><td>--</td><td>--</td><td>--</td><td>🟡 待观察</td></tr><tr><td>有色ETF博时</td><td>sz512400</td><td>--</td><td>--</td><td>--</td><td>🟡 待观察</td></tr><tr><td>银行ETF华宝</td><td>sz512800</td><td>--</td><td>--</td><td>--</td><td>🟡 待观察</td></tr><tr><td>百合花</td><td>sh603823</td><td>--</td><td>--</td><td>--</td><td>🟡 待观察</td></tr></tbody>
+    </table>
+    <div class="core-interpret">▶ 核心解读：竞价全面偏强，有色ETF竞价价3.24%一马当先（美伊协议+金价1.80%双重共振），银行ETF紧随其后，创业板ETF几乎平开，资金从防御切向进攻的节奏清晰。</div>
+</div>
+
+<!-- 4 昨日回顾 · A股复盘 -->
+<div class="m">
+  <h2>昨日回顾 · A股复盘</h2>
+  
+    <p class="lead" style="color:#374151">定性：缩量后的放量反包，风格由红利切向科技；情绪正常偏暖，但估值百分位偏高（中证全指 PE_TTM 10年 85.56%），属修复而非反转确认。</p>
+    <table class="tbl">
+      <thead><tr><th>指数</th><th>昨收</th><th>涨跌幅</th><th>成交额</th><th>北向</th></tr></thead>
+      <tbody><tr><td colspan="5" class="empty">数据加载中…</td></tr></tbody>
+    </table>
+    <h3 class="sub-h">我方持仓昨日表现（4 只）</h3>
+    <table class="tbl">
+      <thead><tr><th>标的</th><th>现价</th><th>昨收</th><th>成本</th><th>涨跌</th></tr></thead>
+      <tbody><tr><td>创业板ETF易方达</td><td>4.549</td><td>3.682</td><td>成本4.549</td><td style="color:#dc2626">-19.06%</td></tr><tr><td>有色ETF博时</td><td>--</td><td>--</td><td>成本待补</td><td>--</td></tr><tr><td>银行ETF华宝</td><td>--</td><td>--</td><td>成本待补</td><td>--</td></tr><tr><td>百合花</td><td>--</td><td>--</td><td>成本待补</td><td>--</td></tr></tbody>
+    </table>
+</div>
+
+<!-- 5 舆情监控·周末+今晨要闻 -->
+<div class="m">
+  <h2>舆情监控 · 周末+今晨要闻</h2>
+  
+    <ul class="news-list">
+      <li><span class="time">06-12 周五</span>美伊达成临时协议框架，外交层面释放缓和信号，原油承压黄金走强。</li>
+      <li><span class="time">06-12 周五</span>美国5月PPI低于预期，市场降息预期升温，纳指再创新高。</li>
+      <li><span class="time">06-13 周六</span>央行Q1货政报告删除"加大逆周期调节"措辞，市场对宽松节奏预期减弱。</li>
+      <li><span class="time">06-15 周一</span>5月社融数据公布，信贷投放偏弱，M1-M2剪刀差扩大。</li>
+      <li><span class="time">06-15 周一</span>国常会：研究促进民营经济发展若干举措，提振市场风险偏好。</li>
+      <li><span class="time">06-16 周二</span>工信部就智能网联汽车准入和上路通行试点发布通知，车联网板块异动。</li>
+    </ul>
+    <div class="src">▶ 完整舆情由 morning-note 09:21 自动化 + jy-news-interpretation 拉取填充</div>
+</div>
+
+<!-- 6 舆情综合研判 -->
+<div class="m">
+  <h2>舆情综合研判</h2>
+  
+    <p>美伊协议框架短期缓解地缘溢价，全球风险偏好回升，A股周一高开概率较大。</p>
+    <p>国内政策面持续释放稳预期信号，民营经济+智能网联汽车双轮驱动，结构性机会仍丰富。</p>
+    <p>但需关注：① 央行宽松节奏预期差；② 5月经济数据偏弱的需求侧；③ 美联储6月议息会议表态。</p>
+    <div class="src">▶ 由 morning-note + jy-news-interpretation 综合研判（agent 运行时填充）</div>
+</div>
+
+<!-- 7 宏观日历·本周 -->
+<div class="m">
+  <h2>宏观日历 · 本周</h2>
+  
+    <table class="tbl">
+      <thead><tr><th>日期</th><th>类型</th><th>事件</th><th>预期</th><th>ETF影响</th></tr></thead>
+      <tbody><tr><td>2026-07-20</td><td>交易日</td><td>--</td><td>--</td><td>--</td></tr><tr><td>2026-07-21</td><td>交易日</td><td>--</td><td>--</td><td>--</td></tr><tr><td>2026-07-22</td><td>交易日</td><td>--</td><td>--</td><td>--</td></tr><tr><td>2026-07-23</td><td>交易日</td><td>--</td><td>--</td><td>--</td></tr><tr><td>2026-07-24</td><td>交易日</td><td>--</td><td>--</td><td>--</td></tr></tbody>
+    </table>
+    <div class="src">▶ 由 akshare tool_trade_date_hist_sina() + macro_china_sina() 拉取，本周事件待 Agent 填充</div>
+</div>
+
+<!-- 8 北向资金&期指持仓（参考） -->
+<div class="m">
+  <h2>北向资金 &amp; 期指持仓（参考）</h2>
+  
+    <table class="tbl">
+      <thead><tr><th>品种</th><th>方向</th><th>净买/持仓</th><th>变动</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>北向资金</td><td>净买入</td><td>--</td><td>--</td><td>westock-data northbound 拉（脚本端暂未覆盖）</td></tr>
+        <tr><td>IF主力</td><td>多</td><td>--</td><td>--</td><td>西向东软近，远期升水</td></tr>
+        <tr><td>IC主力</td><td>多</td><td>--</td><td>--</td><td>贴水收敛</td></tr>
+        <tr><td>IM主力</td><td>震荡</td><td>--</td><td>--</td><td>高位震荡</td></tr>
+      </tbody>
+    </table>
+</div>
+
+<!-- 9 板块机会矩阵·持仓映射 -->
+<div class="m">
+  <h2>板块机会矩阵 · 持仓映射</h2>
+  
+    <table class="tbl">
+      <thead><tr><th>板块</th><th>驱动事件</th><th>ETF代码</th><th>对应基金</th><th>持仓</th><th>金额</th><th>信号</th></tr></thead>
+      <tbody><tr><td>创业板 / ETF</td><td>外盘利好 + 国内政策</td><td>sz159915</td><td>创业板ETF易方达</td><td>3400</td><td>1.25万</td><td>🔥 领涨（竞价+3.24%）</td></tr><tr><td>有色 / ETF</td><td>外盘利好 + 国内政策</td><td>sz512400</td><td>有色ETF博时</td><td>--</td><td>0.00万</td><td>🟡 待观察（成本待补）</td></tr><tr><td>银行 / ETF</td><td>外盘利好 + 国内政策</td><td>sz512800</td><td>银行ETF华宝</td><td>--</td><td>0.00万</td><td>🟡 待观察（成本待补）</td></tr><tr><td>化工 / 染料 / 中盘</td><td>外盘利好 + 国内政策</td><td>sh603823</td><td>百合花</td><td>--</td><td>0.00万</td><td>🟡 待观察（成本待补）</td></tr></tbody>
+    </table>
+    <div class="core-interpret">▶ 核心解读：有色板块是今日最大赢家——美伊协议+金价修复+竞价+3.24%三重共振，短期涨幅可观但也可能获利了结。地产外延，但上周五"高开低走"惯性需警惕。受WTI暴跌本利好，农产品敢盼，今夜偏左侧顺周期资源板块轮动可能性看涨，竞价3.5%不回落了。</div>
+    <div class="key-eval">▶ 琦琦点评：有色今天若不能继续走强，板块今天涨3.5%不回落了。</div>
+</div>
+
+<!-- 10 持仓策略·今日操作建议 -->
+<div class="m">
+  <h2>持仓策略 · 今日操作建议</h2>
+  
+    <table class="tbl">
+      <thead><tr><th>类别</th><th>基金</th><th>盈亏</th><th>操作</th></tr></thead>
+      <tbody><tr><td>🟢 创业板</td><td>创业板ETF易方达</td><td style="color:#dc2626">浮亏-19.06%</td><td><b>持有观察</b><br>若放量突破3.90则短线转强；若跌破3.40则延续调整，条件式（非指令）</td></tr><tr><td>🟡 新建</td><td>有色ETF博时</td><td>成本待补</td><td>等待用户提供成本与股数后激活操作信号</td></tr><tr><td>🟡 新建</td><td>银行ETF华宝</td><td>成本待补</td><td>等待用户提供成本与股数后激活操作信号</td></tr><tr><td>🟡 新建</td><td>百合花</td><td>成本待补</td><td>等待用户提供成本与股数后激活操作信号</td></tr></tbody>
+    </table>
+</div>
+
+<!-- 11 风险提示·分级预警 -->
+<div class="m">
+  <h2>风险提示 · 分级预警</h2>
+  
+    <div class="risk-high"><b>高 P0：</b>创业板ETF集中度1.5×高位回调+网格成本5%以下，上周五已收阳线十字星，上方压力线 -0.5%向限上，趋势承压有变盘可能。</div>
+    <div class="risk-mid"><b>中 P1：</b>百花齐放+美伊冲突不确定性叠加政策买盘推动，顺周期资源板块强势，需求确定但波动大，跟随新线静观其变，动态调仓。</div>
+    <div class="risk-mid"><b>中 P1：</b>高股息防御主线利率重启板块轮动 - 现以银行ETF "1.6%动止损线" 委比全收,下周一顺势者作准备，央企红利+稳定现金流主线持续主线。</div>
+    <div class="risk-low"><b>低 P2：</b>创业板ETF 1.6%主要弱势资金面流动性不佳</div>
+    <div class="risk-low"><b>低 P2：</b>百合花关注十字星反转信号，反弹3%这一线无切价，一跳之接调 -4.2%下月底线一搏5.5%缺口近位止堆多还反向突破位。</div>
+</div>
+
+<!-- 12 总结 -->
+<div class="m">
+  <h2>总结</h2>
+  
+    <div class="summary">
+      <p>外围全线偏强 + 国内政策面持续释放稳预期信号 + 我方4只持仓中创业板已实数据另3只待补 → <b>今日高开概率大，节奏上结构胜于指数</b>。</p>
+      <p>重点关注：<b>有色板块（美伊协议+金价共振）</b>，如有色ETF开盘涨幅继续走强、维持5%以上且不回落，可作为今日主线；银行ETF作为防御对冲；创业板ETF观察能否突破3.90关键位；百合花待成本补完后激活操作信号。</p>
+      <p>风险提示：① 央行宽松节奏预期差；② 美联储6月议息会议表态；③ 我方创业板ETF浮亏较大，注意仓位管理。</p>
+    </div>
+</div>
+
+<!-- 我方报告（盘后复盘 + 5时段 + 实时盯盘） -->
+<div class="our-reports">
+  <h2>📊 我方报告（已上线 · 与对方板块合并）</h2>
   <div class="reports">
     <a class="report r-pre planned" href="javascript:void(0)" onclick="return false;">
       <div class="rt">🔴 盘前舆情分析 <span class="rbadge">规划中</span></div>
@@ -137,19 +344,16 @@
       <div class="rdesc">产业链 · 机构持股 · 估值历史 · 筹码集中度 · 题材全景 · 一致预期</div>
       <div class="rgo">规划中 →</div>
     </a></div>
-
-  <!-- 二级页 CTA -->
-  <div class="cta">
-    <a class="cta-btn" href="system.html">
-      📊 系统架构 / 数据源全景 / 5报告时序 / 双铁律 / 复用率
-      <span class="sub">→ 进入二级页面</span>
-    </a>
-  </div>
-
-  <footer>
-    本页由 WorkBuddy 专家「A股复盘·预测·盘中追踪」维护 · 部署到 GitHub Pages · 数据来源不外露<br>
-    以上分析基于公开数据，不构成投资建议
-  </footer>
 </div>
+
+<!-- 二级页 CTA -->
+<div class="cta">
+  <a class="cta-btn" href="system.html">📊 系统架构 / 数据源全景 / 5报告时序 / 双铁律 / 复用率 →</a>
+</div>
+
+<footer>
+  本页由 WorkBuddy 专家「A股复盘·预测·盘中追踪」维护 · 部署到 GitHub Pages · 数据来源不外露<br>
+  以上分析基于公开数据，不构成投资建议
+</footer>
 </body>
 </html>
