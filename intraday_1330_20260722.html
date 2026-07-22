@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盘中实时追踪 · 13:30 · A股复盘·预测·盘中追踪</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+  :root{--accent:#1e40af;--accent2:#1e3a5f;--red:#dc2626;--green:#16a34a;--bg:#f5f7fa;--card:#fff;--line:#e5e7eb;--txt:#1f2937;--mut:#6b7280;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;font-size:14px;line-height:1.65}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 16px 60px}
+  header.top{background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;padding:26px 0 22px;margin-bottom:18px}
+  header.top h1{margin:0 0 6px;font-size:24px;font-weight:700}
+  header.top .sub{opacity:.9;font-size:13px}
+  header.top .badge{display:inline-block;background:rgba(255,255,255,.16);border-radius:20px;padding:2px 12px;margin-right:8px;font-size:12px}
+  header.top .ebadge{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.5);border-radius:20px;padding:2px 12px;margin-right:8px;font-size:12px;font-weight:600}
+  nav.toc{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:8px 0;margin-bottom:18px}
+  nav.toc .wrap{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px}
+  nav.toc a{font-size:12px;color:var(--accent);text-decoration:none;background:#eef2ff;border-radius:14px;padding:3px 10px;white-space:nowrap}
+  nav.toc a:hover{background:var(--accent);color:#fff}
+  .tldr{background:linear-gradient(135deg,#fff,#f0f6ff);border:1px solid #c7d7ff;border-left:5px solid var(--accent);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(30,64,175,.06)}
+  .tldr .tag{display:inline-block;background:var(--accent);color:#fff;font-size:11px;border-radius:6px;padding:2px 8px;margin-bottom:10px;letter-spacing:1px}
+  .tldr h2{margin:0 0 8px;font-size:18px}
+  .tldr .verdict{font-size:14px;font-weight:600;color:var(--accent2);margin-bottom:10px}
+  .tldr .kpis{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 4px}
+  .tldr .kpi{background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 12px;min-width:110px}
+  .tldr .kpi .v{font-size:18px;font-weight:700}
+  .tldr .kpi .l{font-size:11px;color:var(--mut)}
+  .tldr .frame{margin-top:12px;background:#fff;border:1px dashed #b9c8ee;border-radius:9px;padding:12px 14px;font-size:13px}
+  .tldr .frame b{color:var(--accent)}
+  .module{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:18px;box-shadow:0 1px 4px rgba(15,23,42,.04)}
+  .module h3{margin:0 0 4px;font-size:17px;display:flex;align-items:center;gap:8px}
+  .module h3 .num{background:var(--accent);color:#fff;border-radius:7px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex:0 0 auto}
+  .module .lead{color:var(--mut);font-size:12.5px;margin:0 0 12px;padding-left:34px}
+  .chart{width:100%;height:320px}
+  .cards{display:flex;flex-wrap:wrap;gap:10px}
+  .card{flex:1 1 160px;background:#f8fafc;border:1px solid var(--line);border-radius:9px;padding:10px 12px}
+  .card .v{font-size:19px;font-weight:700}
+  .card .l{font-size:11px;color:var(--mut)}
+  .pill{display:inline-block;font-size:11px;border-radius:10px;padding:1px 8px;margin:2px 3px 2px 0;background:#eef2ff;color:var(--accent)}
+  .up{color:var(--red);font-weight:600}
+  .dn{color:var(--green);font-weight:600}
+  .note{background:#fffbeb;border-left:3px solid #f59e0b;padding:8px 12px;border-radius:6px;font-size:12.5px;margin:8px 0;color:#7c5a00}
+  .src{font-size:11.5px;color:var(--mut)}
+  h4.mt{margin:14px 0 6px;font-size:14px;color:var(--accent2);border-left:3px solid var(--accent);padding-left:8px}
+  .stock-row{background:#f8fafc;border:1px solid var(--line);border-radius:9px;padding:10px 14px;margin-bottom:8px;display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
+  .stock-name{font-weight:600;font-size:0.95rem}
+  .stock-code{color:var(--mut);font-size:0.8rem;margin-left:6px}
+  .strength{font-weight:700;font-size:1rem;padding:2px 10px;border-radius:6px}
+  .strength.high{background:#fef2f2;color:var(--red)}
+  .strength.mid{background:#fffbeb;color:#d97706}
+  .strength.low{background:#f0fdf4;color:var(--green)}
+  .analysis{font-size:0.85rem;color:var(--mut);grid-column:1 / -1}
+  .op-row{background:#f8fafc;border:1px solid var(--line);border-radius:9px;padding:12px 14px;margin-bottom:10px}
+  .op-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+  .op-signal{font-size:0.76rem;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap}
+  .op-signal.stop{background:#fef2f2;color:var(--red)}
+  .op-signal.add{background:#eff6ff;color:var(--accent)}
+  .op-signal.hold_t{background:#fffbeb;color:#d97706}
+  .op-signal.reduce{background:#fffbeb;color:#d97706}
+  .op-signal.reduce_strong{background:#fef2f2;color:var(--red)}
+  .op-levels{font-size:0.78rem;color:var(--mut);margin-top:6px}
+  .playbook{margin-top:8px;padding:8px 10px;background:#fffdf5;border:1px dashed #f3d9a0;border-radius:6px;font-size:0.83rem}
+  .playbook .pb-title{font-weight:700;color:var(--accent);margin-bottom:4px}
+  .playbook ol{margin:0;padding-left:18px}
+  .playbook li{margin:2px 0}
+  .pb-buy{color:var(--red);font-weight:600}
+  .pb-sell{color:var(--green);font-weight:600}
+  .pb-risk{color:#d97706;font-weight:600}
+  footer{font-size:12px;color:var(--mut);border-top:1px solid var(--line);padding-top:16px;margin-top:8px}
+  @media(max-width:760px){.chart{height:280px}.module h3{font-size:15px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>⏰ [13:30] 盘中实时追踪</h1>
+  <div class="sub">
+    <span class="badge">数据口径 · 盘中实时</span>
+    <span class="badge">午后开局段</span>
+    <span class="ebadge">专家 · A股复盘·预测·盘中追踪</span>
+  </div>
+</div></header>
+
+<nav class="toc"><div class="wrap">
+  <a href="#tldr">本段定调</a>
+  <a href="#sector">①板块实时</a>
+  <a href="#hold">②持仓</a>
+  <a href="#watch">③观察</a>
+  <a href="#op">④操作剧本</a>
+</div></nav>
+
+<div class="wrap">
+
+  <section class="tldr" id="tldr">
+    <span class="tag">TL;DR · 本段定调</span>
+    <h2>午后开局段 — 午后方向确认与二次做T</h2>
+    <div class="verdict">午后开局：午后方向选择，确认是否延续早盘策略或切换，捕捉二次做T机会。</div>
+    <div class="kpis">
+      <div class="kpi"><div class="v up">+0.20%</div><div class="l">上证指数</div></div>
+      <div class="kpi"><div class="v dn">-0.55%</div><div class="l">深证成指</div></div>
+      <div class="kpi"><div class="v">偏弱</div><div class="l">盘面状态</div></div>
+    </div>
+    <div class="frame"><b>本段操作定位（条件→操作→止损，非买卖建议）</b><br>午后开局：午后方向选择，确认是否延续早盘策略或切换，捕捉二次做T机会。</div>
+  </section>
+
+  <section class="module" id="sector">
+    <h3><span class="num">1</span>板块实时面板</h3>
+    <p class="lead">全市场领涨（行业/概念）、主力净流入 TOP 与常看板块强度，定位今日主线风向。</p>
+    <div class="cards"><div class="card"><div class="v up">+7.01%</div><div class="l">贵金属 · 龙头山金国际(10.01)</div></div><div class="card"><div class="v up">+4.93%</div><div class="l">工业金属 · 龙头盛屯矿业(10.00)</div></div><div class="card"><div class="v up">+4.20%</div><div class="l">油服工程 · 龙头中曼石油(10.00)</div></div><div class="card"><div class="v up">+2.45%</div><div class="l">农化制品 · 龙头广康生化(10.77)</div></div><div class="card"><div class="v up">+2.35%</div><div class="l">炼化及贸易 · 龙头桐昆股份(6.80)</div></div></div><h4 class="mt">概念领涨</h4><div class="cards"><div class="card"><div class="v up">+5.74%</div><div class="l">昨日连板 · 龙头美利云(10.03)</div></div><div class="card"><div class="v up">+5.14%</div><div class="l">有色(锡) · 龙头盛屯矿业(10.00)</div></div><div class="card"><div class="v up">+4.87%</div><div class="l">白银概念 · 龙头山金国际(10.01)</div></div><div class="card"><div class="v up">+3.46%</div><div class="l">铅锌概念 · 龙头山金国际(10.01)</div></div><div class="card"><div class="v up">+3.12%</div><div class="l">主营聚乙烯 · 龙头宝丰能源(5.54)</div></div></div><h4 class="mt">主力净流入 TOP</h4><div class="cards"><div class="card"><div class="v up">+0.05%</div><div class="l">半导体 · 净流入734840万 · 家数比84/177</div></div><div class="card"><div class="v up">+4.93%</div><div class="l">工业金属 · 净流入556527万 · 家数比37/59</div></div><div class="card"><div class="v up">+7.01%</div><div class="l">贵金属 · 净流入163740万 · 家数比11/11</div></div></div><h4 class="mt">常看板块强度</h4><span class="pill">🔥半导体 <b class="dn">-0.02%</b> · 量比1.35 · 居前</span><span class="pill">消费电子 <b class="up">+0.11%</b> · 量比1.10 · 跟踪中</span><span class="pill">通信设备 <b class="dn">-2.37%</b> · 量比1.36 · 跟踪中</span><span class="pill">人工智能 <b class="dn">-0.95%</b> · 量比1.12 · 跟踪中</span><span class="pill">新能源车 <b class="dn">-1.31%</b> · 量比1.14 · 跟踪中</span><span class="pill">黄金概念 <b class="up">+1.85%</b> · 量比1.70 · 跟踪中</span><span class="pill">元件 <b class="dn">-1.32%</b> · 量比1.46 · 跟踪中</span><div id="c_sector" class="chart"></div>
+  </section>
+
+  <section class="module" id="hold">
+    <h3><span class="num">2</span>持仓标的</h3>
+    <p class="lead">你的蜻蜓点金持仓强度与盘面表现（强度分 0-100，红涨绿跌）。</p>
+    <div class="cards"><div class="card"><div class="v dn">-1.81%</div><div class="l">创业板ETF易方达<span class="stock-code">sz159915</span> · 强度31/100</div><div class="analysis">现价3.64（<span class="dn">-1.81%</span>）· ⚠️ 强度偏弱，考虑减半仓位</div></div></div>
+  </section>
+
+  <section class="module" id="watch">
+    <h3><span class="num">3</span>观察标的</h3>
+    <p class="lead">观察池强度与盘面表现，供盘中参考与备选。</p>
+    <div class="cards"><div class="card"><div class="v up">+7.15%</div><div class="l">紫金矿业<span class="stock-code">sh601899</span> · 强度78/100</div><div class="analysis">现价32.37（<span class="up">+7.15%</span>）· 强度极佳，可考虑进场</div></div><div class="card"><div class="v up">+3.68%</div><div class="l">北方华创<span class="stock-code">sz002371</span> · 强度63/100</div><div class="analysis">现价772.02（<span class="up">+3.68%</span>）· 强度良好，关注回调买点</div></div><div class="card"><div class="v ">+0.00%</div><div class="l">中证500ETF南方<span class="stock-code">sh510500</span> · 强度58/100</div><div class="analysis">现价7.79（<span class="">+0.00%</span>）· 强度一般，继续观察</div></div><div class="card"><div class="v up">+0.15%</div><div class="l">沪深300ETF华泰柏瑞<span class="stock-code">sh510300</span> · 强度56/100</div><div class="analysis">现价4.79（<span class="up">+0.15%</span>）· 强度一般，继续观察</div></div><div class="card"><div class="v up">+1.36%</div><div class="l">工业富联<span class="stock-code">sh601138</span> · 强度52/100</div><div class="analysis">现价61.81（<span class="up">+1.36%</span>）· 强度一般，继续观察</div></div><div class="card"><div class="v dn">-1.79%</div><div class="l">科创50ETF华夏<span class="stock-code">sh588000</span> · 强度31/100</div><div class="analysis">现价1.98（<span class="dn">-1.79%</span>）· 强度偏弱，暂时回避</div></div><div class="card"><div class="v dn">-2.54%</div><div class="l">华虹宏力<span class="stock-code">sh688347</span> · 强度31/100</div><div class="analysis">现价387.68（<span class="dn">-2.54%</span>）· 强度偏弱，暂时回避</div></div><div class="card"><div class="v dn">-1.88%</div><div class="l">中芯国际<span class="stock-code">sh688981</span> · 强度30/100</div><div class="analysis">现价157.00（<span class="dn">-1.88%</span>）· 强度偏弱，暂时回避</div></div><div class="card"><div class="v dn">-1.71%</div><div class="l">寒武纪<span class="stock-code">sh688256</span> · 强度27/100</div><div class="analysis">现价1326.99（<span class="dn">-1.71%</span>）· 强度偏弱，暂时回避</div></div><div class="card"><div class="v dn">-2.40%</div><div class="l">宁德时代<span class="stock-code">sz300750</span> · 强度23/100</div><div class="analysis">现价373.02（<span class="dn">-2.40%</span>）· 强度偏弱，暂时回避</div></div><div class="card"><div class="v dn">-3.59%</div><div class="l">中际旭创<span class="stock-code">sz300308</span> · 强度20/100</div><div class="analysis">现价1095.74（<span class="dn">-3.59%</span>）· 强度偏弱，暂时回避</div></div></div>
+  </section>
+
+  <section class="module" id="op">
+    <h3><span class="num">4</span>持仓操作面板 · 分段买卖剧本</h3>
+    <p class="lead">按本时段角色给出条件式操作剧本：<span class="pb-buy">红=买入条件</span> · <span class="pb-sell">绿=卖出条件</span> · <span class="pb-risk">橙=风控</span>。仅作参考，不下达确定指令。</p>
+    <div class="op-row"><div class="op-head"><span><span class="stock-name">创业板ETF易方达</span><span class="stock-code">sz159915</span> · 强度31/100 · 盈亏-19.94% · 距破位-12.05%</span><span class="op-signal stop">止损</span></div><div class="op-levels">破位线 4.19 · T买回 3.53 · 加仓触发 3.71</div><div class="playbook"><div class="pb-title"> · 午后开局段 操作剧本</div><ol><li>午后若放量突破3.71 → 持有/轻加，不追高</li><li>若走弱跌破日内均线、强度&lt;45 → 减仓</li><li>回踩3.53企稳 → 二次买回做T</li><li class="pb-risk">风控：跌破4.19减仓止损</li></ol></div></div>
+  </section>
+
+  <footer>
+    本报告由 WorkBuddy 专家「A股复盘·预测·盘中追踪」自动生成（盘后复盘 + 明日预测 + 盘中实时强度追踪一体）。
+    以上分析基于公开数据，不构成投资建议；市场有风险，操作需谨慎。
+    <div class="src">生成时间：2026-07-22 13:26 · 数据口径：盘中实时（来源不外露）</div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  try {
+    var dom = document.getElementById('c_sector');
+    if (!dom || typeof echarts === 'undefined') return;
+    var chart = echarts.init(dom);
+    var labels = ["贵金属", "昨日连板", "有色(锡)", "工业金属", "白银概念", "油服工程", "铅锌概念", "主营聚乙烯"], vals = [7.01, 5.74, 5.14, 4.93, 4.87, 4.2, 3.46, 3.12];
+    var colors = vals.map(function(v){ return v >= 0 ? '#dc2626' : '#16a34a'; });
+    chart.setOption({
+      grid:{left:140,right:30,top:20,bottom:20},
+      tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+      xAxis:{type:'value',axisLabel:{formatter:'{value}%'}},
+      yAxis:{type:'category',data:labels,inverse:true},
+      series:[{type:'bar',data:vals.map(function(v,i){return {value:v,itemStyle:{color:colors[i]}};}),
+        label:{show:true,position:'right',formatter:'{c}%',color:'#1f2937',fontSize:11}}]
+    });
+    window.addEventListener('resize', function(){ chart.resize(); });
+  } catch(e) {}
+})();
+</script>
+</body></html>
