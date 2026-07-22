@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>量化分析 · HKUDS Vibe-Trading</title>
+<style>
+  :root{--accent:#1e40af;--bg:#f4f6fb;--card:#fff;--mut:#64748b;--txt:#1f2937;--line:#e5e7eb;--green:#16a34a;--red:#dc2626;--orange:#ea580c}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--txt);font-size:15px;line-height:1.7}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px 60px}
+  header.hero{background:linear-gradient(135deg,#0f172a,#1e40af);color:#fff;padding:30px 0 24px}
+  header.hero h1{margin:0 0 8px;font-size:24px;font-weight:700}
+  header.hero .sub{opacity:.92;font-size:13px}
+  .back-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);padding:10px 20px;border-bottom:1px solid var(--line);margin:0 -20px 18px;display:flex;align-items:center;gap:10px}
+  .back-bar a{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;text-decoration:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;box-shadow:0 2px 6px rgba(30,58,95,.2)}
+  .back-bar .ttl{font-size:13px;color:var(--mut)}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:12.5px}
+  .meta-row div{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:4px 12px}
+  .meta-row b{color:#fde68a;margin-right:3px}
+  .module{background:var(--card);border-radius:14px;padding:18px 20px;margin:12px 0;box-shadow:0 2px 10px rgba(30,64,175,.06)}
+  .module h2{font-size:1.1rem;margin:0 0 12px;color:var(--accent);border-left:4px solid var(--accent);padding-left:10px;font-weight:700}
+  .module h3{font-size:0.95rem;margin:14px 0 6px;color:#1e3a5f;font-weight:700}
+  .module p{font-size:14px;line-height:1.7;color:#374151;margin:0 0 10px}
+  .module code{background:#f1f5f9;padding:1px 6px;border-radius:4px;font-size:13px;color:#0f172a;font-family:Menlo,Consolas,monospace}
+  .module pre{background:#0f172a;color:#e2e8f0;padding:12px 14px;border-radius:9px;font-size:12.5px;overflow-x:auto;font-family:Menlo,Consolas,monospace;line-height:1.5}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media(max-width:760px){.grid-2,.grid-3{grid-template-columns:1fr}}
+  .feature-card{background:linear-gradient(135deg,#f8fafc,#fff);border:1px solid var(--line);border-radius:9px;padding:14px 16px}
+  .feature-card .ico{font-size:24px;margin-bottom:6px}
+  .feature-card h4{margin:0 0 6px;font-size:14px;color:#1e3a5f;font-weight:700}
+  .feature-card p{font-size:12.5px;color:var(--mut);margin:0;line-height:1.5}
+  .step{border-left:3px solid var(--accent);padding:8px 12px;margin:10px 0;background:#f8fafc;border-radius:0 6px 6px 0}
+  .step .label{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;margin-bottom:2px;letter-spacing:.5px}
+  .step pre{margin:6px 0 0;font-size:12px;background:#0f172a;color:#e2e8f0;padding:8px 10px;border-radius:6px;overflow-x:auto}
+  .btn{display:inline-block;background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;text-decoration:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:600;box-shadow:0 2px 6px rgba(30,58,95,.2);margin-right:8px;margin-bottom:8px}
+  .btn:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(30,58,95,.3)}
+  .btn.github{background:linear-gradient(135deg,#24292e,#0f172a)}
+  .badge{display:inline-block;background:#fef3c7;color:#92400e;border:1px solid #fde68a;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:600;margin-right:6px}
+  .badge.green{background:#dcfce7;color:#166534;border-color:#86efac}
+  .badge.blue{background:#dbeafe;color:#1e40af;border-color:#93c5fd}
+  .badge.red{background:#fee2e2;color:#991b1b;border-color:#fca5a5}
+  .eval{background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0;font-size:13px}
+  .eval b{color:var(--accent)}
+  .footer{margin-top:30px;color:var(--mut);font-size:12px;text-align:center;border-top:1px solid var(--line);padding-top:14px;line-height:1.7}
+</style>
+</head>
+<body>
+
+<div class="back-bar">
+  <a href="index.html">← 返回主页</a>
+  <span class="ttl">量化分析 · HKUDS Vibe-Trading</span>
+</div>
+
+<header class="hero"><div class="wrap">
+  <h1>📈 量化分析 · HKUDS Vibe-Trading</h1>
+  <div class="sub">香港大学数据科学实验室 · 26.3k stars · AI Agent 量化开源完整解决方案</div>
+  <div class="meta-row">
+    <div><b>26.3k</b> stars</div>
+    <div><b>Python</b> · <b>AI Agent</b></div>
+    <div><b>多智能体</b> · <b>MCP</b></div>
+    <div><b>回测</b> · <b>实盘</b> · <b>研究</b></div>
+    <div><b>v0</b> 本地化接入</div>
+  </div>
+</div></header>
+
+<div class="wrap">
+
+  <div class="module">
+    <h2>1. 这是什么？</h2>
+    <p>由<b>香港大学数据智能实验室 (HKUDS)</b> 开源的<b>个人交易智能体</b>（Personal Trading Agent），目标是把量化交易的整套流程（数据采集 → 策略研究 → 回测验证 → 实盘信号）通过 LLM Agent 串联起来，让"说人话就能跑量化"。</p>
+    <p>核心特点：<span class="badge green">多智能体</span><span class="badge blue">自然语言研究</span><span class="badge">α 动物园</span><span class="badge">影子账户</span><span class="badge">MCP 插件</span><span class="badge">Docker 一键启动</span></p>
+    <p><b>与我们项目的并行关系</b>：HKUDS Vibe-Trading 偏<b>量化研究 / 回测 / 实盘</b>，与我们已有的「盘前舆情 + 盘中 5 时段 + 盘后复盘 + 实时盯盘」<b>四个功能模块平行</b>，是<b>第 5 个独立模块：量化分析</b>。本项目只做单评估，暂不实盘接入。</p>
+    <p>
+      <a class="btn github" href="https://github.com/HKUDS/Vibe-Trading" target="_blank">📦 GitHub 仓库</a>
+      <a class="btn" href="https://vibetrading.wiki/" target="_blank">🌐 官方文档</a>
+    </p>
+  </div>
+
+  <div class="module">
+    <h2>2. 核心功能（4 大块）</h2>
+    <div class="grid-2">
+      <div class="feature-card">
+        <div class="ico">🤖</div>
+        <h4>多智能体协作</h4>
+        <p>Research / Strategy / Risk / Execution 多角色 Agent 协作，模拟真实投资团队的辩论 + 风控流程。</p>
+      </div>
+      <div class="feature-card">
+        <div class="ico">📝</div>
+        <h4>自然语言研究</h4>
+        <p>用自然语言描述策略思路（如"找 RSI 超卖 + 量能异动 + 行业景气"），Agent 自动拆解因子 + 拉数据 + 跑回测。</p>
+      </div>
+      <div class="feature-card">
+        <div class="ico">📊</div>
+        <h4>α 动物园（Alpha Zoo）</h4>
+        <p>预置 200+ 经典策略（动量 / 反转 / 因子 / 套利 / 统计套利），一行命令跑回测对比。</p>
+      </div>
+      <div class="feature-card">
+        <div class="ico">🛡️</div>
+        <h4>影子账户（Shadow Account）</h4>
+        <p>无风险实盘跟踪：信号不直接下单，先观察 N 天模拟表现，确认稳定后再切换实盘。</p>
+      </div>
+      <div class="feature-card">
+        <div class="ico">🔌</div>
+        <h4>MCP 集成</h4>
+        <p>作为 MCP 插件接入 WorkBuddy / Claude 等 LLM 客户端，可与我们专家的 71 个 skill 协同工作。</p>
+      </div>
+      <div class="feature-card">
+        <div class="ico">📡</div>
+        <h4>多数据源智能降级</h4>
+        <p>内置 Longbridge / QVeris 等数据源，免费源失败自动降级到付费源，确保回测无中断。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="module">
+    <h2>3. 我们项目接入评估</h2>
+    <table style="width:100%;border-collapse:collapse;font-size:13.5px">
+      <tr style="background:#f1f5f9"><th style="padding:8px;text-align:left">维度</th><th style="padding:8px;text-align:left">HKUDS Vibe-Trading</th><th style="padding:8px;text-align:left">本项目（ashare-review-tracker）</th><th style="padding:8px;text-align:left">关系</th></tr>
+      <tr><td style="padding:6px;border-bottom:1px solid #f1f5f9">量化研究/回测</td><td>✅ 核心能力</td><td>⚠ 无</td><td style="color:var(--green);font-weight:700">互补</td></tr>
+      <tr><td style="padding:6px;border-bottom:1px solid #f1f5f9">盘前舆情 / 盘中追踪 / 盘后复盘</td><td>❌ 无</td><td>✅ 核心能力</td><td style="color:var(--green);font-weight:700">互补</td></tr>
+      <tr><td style="padding:6px;border-bottom:1px solid #f1f5f9">实时盯盘（30 秒）</td><td>❌ 无（影子账户是日级）</td><td>✅ 交易时段 30 秒</td><td style="color:var(--green);font-weight:700">互补</td></tr>
+      <tr><td style="padding:6px;border-bottom:1px solid #f1f5f9">数据源</td><td>Longbridge + QVeris + akshare</td><td>westock + 腾讯财经 + neodata</td><td style="color:var(--green);font-weight:700">可互补</td></tr>
+      <tr><td style="padding:6px;border-bottom:1px solid #f1f5f9">多智能体辩论</td><td>✅ 内置</td><td>借鉴了 a-share-analysis 团队</td><td>对齐</td></tr>
+      <tr><td style="padding:6px;border-bottom:1px solid #f1f5f9">LLM 模型</td><td>Claude / GPT / GLM / Hy3</td><td>Hy3 限免 + ds v4pro</td><td style="color:var(--green);font-weight:700">共享</td></tr>
+      <tr><td style="padding:6px;border-bottom:1px solid #f1f5f9">部署</td><td>Docker / Local / MCP / ClawHub</td><td>WorkBuddy 自动化 + GitHub Pages</td><td>互不冲突</td></tr>
+      <tr><td style="padding:6px;border-bottom:1px solid #f1f5f9">MCP 集成</td><td>✅ 双向</td><td>✅ 已接 westock-mcp / tdx-connector</td><td style="color:var(--green);font-weight:700">可互连</td></tr>
+    </table>
+    <div class="eval">
+      <b>结论</b>：Vibe-Trading 是<b>完美的第 5 模块</b>，与我们 4 个模块平行且互补。建议：<br>
+      1. <b>短期</b>：作为独立页（quant.html）展示，本项目暂不实盘接入<br>
+      2. <b>中期</b>：用 MCP 把 Vibe-Trading 的回测能力接到本项目"持仓策略 · 今日操作建议"模块<br>
+      3. <b>长期</b>：把本项目的 5 持仓接入 Vibe-Trading 的影子账户，做无风险实盘跟踪
+    </div>
+  </div>
+
+  <div class="module">
+    <h2>4. 快速安装（4 条路径）</h2>
+
+    <div class="step">
+      <div class="label">路径 A · Docker（零配置 · 推荐）</div>
+      <pre>git clone https://github.com/HKUDS/Vibe-Trading.git
+cd Vibe-Trading
+# 编辑 agent/.env — 取消注释你的 LLM 提供商并设置 API key
+docker-compose up</pre>
+    </div>
+
+    <div class="step">
+      <div class="label">路径 B · 本地安装（Python 3.11+）</div>
+      <pre>python -m venv .venv
+source .venv/bin/activate        # macOS/Linux
+# .venv\Scripts\Activate.ps1   # Windows PowerShell
+pip install -e .
+# 终端 1: API server
+# 终端 2: Frontend dev server</pre>
+    </div>
+
+    <div class="step">
+      <div class="label">路径 C · MCP 插件（接入 WorkBuddy / Claude）</div>
+      <pre>claude mcp add vibetrading -- pip install vibetrading-mcp
+# 或在 .mcp.json 中添加：
+# { "mcpServers": { "vibetrading": { "command": "python", "args": ["-m", "vibetrading.mcp"] } } }</pre>
+    </div>
+
+    <div class="step">
+      <div class="label">路径 D · ClawHub（一键）</div>
+      <pre>npx clawhub install HKUDS/Vibe-Trading</pre>
+    </div>
+  </div>
+
+  <div class="module">
+    <h2>5. 推荐模型配置</h2>
+    <p>本项目（ashare-review-tracker）当前用 <code>Hy3 限免</code>，后续切换到 <code>ds v4pro</code>。Vibe-Trading 也支持同样的模型：</p>
+    <table style="width:100%;border-collapse:collapse;font-size:13.5px">
+      <tr style="background:#f1f5f9"><th style="padding:8px;text-align:left">模型</th><th style="padding:8px;text-align:left">推荐度</th><th style="padding:8px;text-align:left">适用场景</th></tr>
+      <tr><td style="padding:6px;border-bottom:1px solid #f1f5f9">Hy3 限免</td><td>⭐⭐⭐⭐</td><td>本研究阶段（默认）</td></tr>
+      <tr style="background:#fef9c3"><td style="padding:6px;border-bottom:1px solid #f1f5f9"><b>ds v4pro</b></td><td>⭐⭐⭐⭐⭐</td><td>实盘交易 / 关键决策（计划接入）</td></tr>
+      <tr><td style="padding:6px;border-bottom:1px solid #f1f5f9">Claude Sonnet 4.5</td><td>⭐⭐⭐⭐⭐</td><td>深度研究（需 API）</td></tr>
+      <tr><td style="padding:6px;border-bottom:1px solid #f1f5f9">GPT-5</td><td>⭐⭐⭐⭐</td><td>多模态分析</td></tr>
+    </table>
+  </div>
+
+  <div class="module">
+    <h2>6. 投资研究工作流示例</h2>
+    <div class="step">
+      <div class="label">Step 1 · 自然语言研究</div>
+      <pre>vibe research "找 7 月份 A 股中 PE-TTM < 行业均值 + ROE > 15% + 北向连续 5 日净流入 + 股价突破 20 日均线的标的"
+# Agent 自动拆解为：PE 因子 / ROE 因子 / 北向因子 / 动量因子 → 拉数据 → 跑回测</pre>
+    </div>
+    <div class="step">
+      <div class="label">Step 2 · α 动物园回测</div>
+      <pre>vibe bench --strategies momentum,factor,mean_reversion,stat_arb --start 2020-01-01
+# 自动对比 200+ 经典策略，输出 Sharpe / 最大回撤 / 胜率 / IC / IR</pre>
+    </div>
+    <div class="step">
+      <div class="label">Step 3 · 影子账户跟踪</div>
+      <pre>vibe shadow --strategy my_alpha_v1 --capital 100000 --start 2026-08-01
+# 无风险实盘跟踪 30 天，确认年化 Sharpe > 1.5 后再切换实盘</pre>
+    </div>
+  </div>
+
+  <div class="module">
+    <h2>7. 风险提示</h2>
+    <p>⚠️ <b>量化回测 ≠ 实盘盈利</b>：历史回测表现优秀的策略，实盘可能因滑点 / 流动性 / 政策变化失效。</p>
+    <p>⚠️ <b>门槛不低</b>：原作者明确表示"这不可能告诉怎么用"，使用前需具备：Python 编程 / 量化基础 / 金融工程思维。</p>
+    <p>⚠️ <b>实盘前必读</b>：先用影子账户跟踪 30 天以上，确认 Sharpe > 1.5 / 最大回撤 < 15% 再考虑实盘，且<b>仅用可承受损失的资金</b>。</p>
+  </div>
+
+  <div class="module">
+    <h2>8. 与本项目整合的 Roadmap</h2>
+    <div class="grid-3">
+      <div class="feature-card">
+        <div class="ico">📦</div>
+        <h4>阶段 1 · 独立展示</h4>
+        <p>当前：作为 quant.html 独立页展示，<b>已完成</b></p>
+      </div>
+      <div class="feature-card">
+        <div class="ico">🔌</div>
+        <h4>阶段 2 · MCP 互连</h4>
+        <p>用 MCP 把 Vibe-Trading 回测能力接到"持仓策略 · 今日操作建议"模块</p>
+      </div>
+      <div class="feature-card">
+        <div class="ico">🚀</div>
+        <h4>阶段 3 · 影子账户实盘</h4>
+        <p>把 5 持仓接入 Vibe-Trading 影子账户，做无风险实盘跟踪</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    数据来源：GitHub HKUDS/Vibe-Trading (v1.0) · 本页所有内容来自公开 README + 评估<br>
+    <a href="https://github.com/HKUDS/Vibe-Trading" style="color:#1e40af">→ 访问 GitHub 仓库</a>
+    · <a href="index.html" style="color:#1e40af">→ 返回主页</a><br>
+    以上分析基于公开数据，不构成投资建议
+  </div>
+
+</div>
+</body>
+</html>
