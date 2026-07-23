@@ -24,9 +24,17 @@
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;font-size:15px;line-height:1.7}
   .wrap{max-width:1240px;margin:0 auto;padding:0 20px 70px}
-  header.top{background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;padding:26px 0 20px;margin-bottom:0}
+  header.top{background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;padding:26px 0 20px;margin-bottom:0;position:relative}
   header.top h1{margin:0 0 8px;font-size:24px;font-weight:700}
   header.top .sub{opacity:.92;font-size:13px}
+
+  /* 顶部右上角 BJT + EDT 时钟 */
+  .top-clock{position:absolute;top:18px;right:24px;display:flex;flex-direction:column;gap:6px;z-index:10}
+  .clock{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:5px 10px;font-size:11.5px;line-height:1.4;min-width:175px;backdrop-filter:blur(4px)}
+  .clock .lbl{opacity:.7;font-size:9.5px;letter-spacing:.5px}
+  .clock .t{font-weight:700;font-family:Menlo,Consolas,monospace;font-size:13px;letter-spacing:1px}
+  @media(max-width:760px){.top-clock{position:static;margin:10px 16px 0;align-items:flex-end}}
+
   .top-stat{display:flex;gap:10px;margin-top:10px;font-size:12.5px;flex-wrap:wrap}
   .top-stat div{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:4px 12px}
   .top-stat b{color:#fde68a;margin-right:3px}
@@ -202,6 +210,10 @@
 </head>
 <body>
 <header class="top"><div class="wrap">
+  <div class="top-clock">
+  <div class="clock"><div class="lbl">🕐 北京 BJT</div><div class="t" id="clock-bjt">--:--:--</div></div>
+  <div class="clock"><div class="lbl">🗽 美东 EDT</div><div class="t" id="clock-edt">--:--:--</div></div>
+</div>
   <h1>📡 A股复盘 · 预测 · 盘中追踪</h1>
   <div class="sub">2026-07-23 (周四) · 盘前·盘中 5 时段·盘后复盘·实时盯盘 · WorkBuddy 专家</div>
   <div class="top-stat">
@@ -214,16 +226,16 @@
 </div></header>
 
 <!-- 顶部指数预览条（6 指数 + 备注） -->
-<div class="indices-bar"><div class="idx"><div class="idx-n">道指 🔴</div><div class="idx-p" style="color:#dc2626">-0.01%</div><div class="idx-v" style="color:#cbd5e1">52,218.58</div><div class="idx-ts">🕒 10:30</div></div>
-    <div class="idx"><div class="idx-n">纳指 🔴</div><div class="idx-p" style="color:#dc2626">-0.57%</div><div class="idx-v" style="color:#cbd5e1">25,690.90</div><div class="idx-ts">🕒 10:30</div></div>
-    <div class="idx"><div class="idx-n">恒生指数 🟢</div><div class="idx-p" style="color:#16a34a">+0.97%</div><div class="idx-v" style="color:#cbd5e1">25,133.37</div><div class="idx-ts">🕒 10:30</div></div>
-    <div class="idx"><div class="idx-n">恒生科技 🟢</div><div class="idx-p" style="color:#16a34a">+0.31%</div><div class="idx-v" style="color:#cbd5e1">4,682.70</div><div class="idx-ts">🕒 10:30</div></div>
-    <div class="idx"><div class="idx-n">标普500 </div><div class="idx-p" style="color:#dc2626">-0.14%</div><div class="idx-v" style="color:#cbd5e1">7,498.96</div><div class="idx-ts">🕒 10:30</div></div>
-    <div class="idx"><div class="idx-n">WTI原油 </div><div class="idx-p" style="color:#16a34a">+2.50%</div><div class="idx-v" style="color:#cbd5e1">84.54</div><div class="idx-ts">🕒 10:30</div></div>
-    <div class="idx"><div class="idx-n">COMEX金 </div><div class="idx-p" style="color:#16a34a">+1.65%</div><div class="idx-v" style="color:#cbd5e1">4,082.20</div><div class="idx-ts">🕒 10:30</div></div>
-    <div class="idx"><div class="idx-n">上证 🟢 交易中</div><div class="idx-p" style="color:#dc2626">-0.07%</div><div class="idx-v" style="color:#cbd5e1">3,864.31</div><div class="idx-ts">🕒 10:30</div></div>
-    <div class="idx"><div class="idx-n">深证 🟢 交易中</div><div class="idx-p" style="color:#16a34a">+0.22%</div><div class="idx-v" style="color:#cbd5e1">14,091.89</div><div class="idx-ts">🕒 10:30</div></div>
-    <div class="idx"><div class="idx-n">创业板 🟢 交易中</div><div class="idx-p" style="color:#16a34a">+0.17%</div><div class="idx-v" style="color:#cbd5e1">3,572.80</div><div class="idx-ts">🕒 10:30</div></div></div>
+<div class="indices-bar"><div class="idx"><div class="idx-n">道指 🔴</div><div class="idx-p" style="color:#dc2626">-0.01%</div><div class="idx-v" style="color:#cbd5e1">52,218.58</div><div class="idx-ts">🕒 11:03</div></div>
+    <div class="idx"><div class="idx-n">纳指 🔴</div><div class="idx-p" style="color:#dc2626">-0.57%</div><div class="idx-v" style="color:#cbd5e1">25,690.90</div><div class="idx-ts">🕒 11:03</div></div>
+    <div class="idx"><div class="idx-n">恒生指数 🟢</div><div class="idx-p" style="color:#16a34a">+1.22%</div><div class="idx-v" style="color:#cbd5e1">25,195.94</div><div class="idx-ts">🕒 11:03</div></div>
+    <div class="idx"><div class="idx-n">恒生科技 🟢</div><div class="idx-p" style="color:#16a34a">+0.52%</div><div class="idx-v" style="color:#cbd5e1">4,692.71</div><div class="idx-ts">🕒 11:03</div></div>
+    <div class="idx"><div class="idx-n">标普500 </div><div class="idx-p" style="color:#dc2626">-0.14%</div><div class="idx-v" style="color:#cbd5e1">7,498.96</div><div class="idx-ts">🕒 11:03</div></div>
+    <div class="idx"><div class="idx-n">WTI原油 </div><div class="idx-p" style="color:#16a34a">+2.50%</div><div class="idx-v" style="color:#cbd5e1">84.54</div><div class="idx-ts">🕒 11:03</div></div>
+    <div class="idx"><div class="idx-n">COMEX金 </div><div class="idx-p" style="color:#16a34a">+1.65%</div><div class="idx-v" style="color:#cbd5e1">4,082.20</div><div class="idx-ts">🕒 11:03</div></div>
+    <div class="idx"><div class="idx-n">上证 🟢 交易中</div><div class="idx-p" style="color:#dc2626">-0.17%</div><div class="idx-v" style="color:#cbd5e1">3,860.44</div><div class="idx-ts">🕒 11:03</div></div>
+    <div class="idx"><div class="idx-n">深证 🟢 交易中</div><div class="idx-p" style="color:#dc2626">-0.07%</div><div class="idx-v" style="color:#cbd5e1">14,051.39</div><div class="idx-ts">🕒 11:03</div></div>
+    <div class="idx"><div class="idx-n">创业板 🟢 交易中</div><div class="idx-p" style="color:#dc2626">-0.33%</div><div class="idx-v" style="color:#cbd5e1">3,555.10</div><div class="idx-ts">🕒 11:03</div></div></div>
 
 <!-- Agent 实时研究分析（红色填充 · 合并原 topcall + hot-badge，去除重复） -->
 <div class="hot-badge-full">
